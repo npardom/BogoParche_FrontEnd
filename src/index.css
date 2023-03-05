@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+
+/*
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*/
+
+body {
+  background-image: url("./assets/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position-x: center;
+  background-position-y: center;
+  color: white;
+}
+
+.header {
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 15px;
+}
+
+.titleBox{
+  width: fit-content;
+  margin:auto;
+  display: flex;
+  margin-top: 25px;
+}
+
+.websiteLogo {
+  width: 250px;
+  height:auto;
+  margin: 0 0 0 0 ;
+  transition: all 0.5s;
+}
+
+.websiteLogo:hover {
+  width: 270px;
+  transition: all 0.5s;
+}
+
+.websiteSlogan {
+  font-size: 18px;
+  width: 200px;
+  height: fit-content;
+  margin: 28px 0 0 10px ;
+  text-align: left;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.414);
+}
+
+.mainMenu {
+  width: fit-content;
+  display: flex;
+  margin: 10px auto 20px auto;
+}
+
+button {
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.menuButton{
+  font-size: 17px;
+  border: 2px solid white;
+  background-color: rgba(0,0,0,0);
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.165);
+  border-radius: 8px;
+  padding:2px 12px 2px 12px;
+  margin: 0 4px 0 4px;
+}
+
+.menuButton:hover{
+  color: #500A6D;
+  background-color: white;
+  transition: 0.5s;
+}
+
+.menuButton:focus {
+  color: #500A6D;
+  outline-color: transparent;
+  background-color: white;
+  transition: 0.5s;
+}
+
+.loginButtonContainer {
+  width:200px;
+  display:flex;
+  position: absolute;
+  top: 45px;
+  right: 30px;
+}
+
+.loginButtonContainer:hover .loginButton {
+  background-color: #A77DDF;
+  transition: all 0.5s;
+}
+
+.loginButtonContainer:hover span{ 
+  color: #500A6D;
+  transition: all 0.5s;
+}
+
+.loginButton{
+  line-height: 15px;
+  font-size: 17px;
+  width: 150px;
+  height: 45px;
+  background-color: transparent;
+  border-radius: 12px;
+  padding: 0px 10px 0px 30px;
+  text-align: left;
+  margin-top: 8px;
+  margin-left: -20px;
+  border: 0px;
+}
+
+.userIcon {
+  width: 60px;
+  height: 60px;
+  z-index: 2;
+}
