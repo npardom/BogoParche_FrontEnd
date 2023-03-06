@@ -21,21 +21,21 @@ function AboutUs() {
         <div className="integrantes">Integrantes</div>
         <div className="horizontalLine"></div>
         <div className="memberCirclesArray">
-          <MemberCircle name="Daniela Tocua" color="rgba(237,135,198,0.53)" />
-          <MemberCircle name="Diana Monroy" color="rgba(214,164,235,0.53)" />
+          <MemberCircle name="Daniela Tocua" color="rgba(237,135,198,0.63)" />
+          <MemberCircle name="Diana Monroy" color="rgba(214,164,235,0.63)" />
           <MemberCircle
             name="Juan Diego Cortes"
-            color="rgba(121,73,198,0.53)"
+            color="rgba(121,73,198,0.63)"
           />
           <MemberCircle
             name="Esteban Umbarila"
-            color="rgba(125,220,250,0.53)"
+            color="rgba(125,220,250,0.63)"
           />
           <MemberCircle
             name="Johann Maldonado"
-            color="rgba(125,220,250,0.53)"
+            color="rgba(125,220,250,0.63)"
           />
-          <MemberCircle name="Nicolas Pardo" color="rgba(20,171,219,0.53)" />
+          <MemberCircle name="Nicolas Pardo" color="rgba(20,171,219,0.63)" />
         </div>
       </div>
     </div>

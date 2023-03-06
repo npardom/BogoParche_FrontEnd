@@ -213,16 +213,26 @@ button {
 .aboutUsContainer{
   width: 100%;
   max-width: 750px;
+  animation: 0.5s ease-out 0s 1 slideInFromTop;
 }
 
 @keyframes slideInFromLeft {
   0% {
-    transform: translateX(-10%);
+    transform: translateX(-5%);
     opacity: 0%;
   }
   100% {
     transform: translateX(0);
     opacity: 100%;
+  }
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-10%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }
 
@@ -241,7 +251,7 @@ button {
 
 .pageTitleText {
   font-family: 'Mulish', sans-serif;
-  font-size: 20px;
+  font-size: 23px;
   margin-left: 15px;
   color: #D6A4EB
 }
@@ -256,8 +266,6 @@ button {
 
 .memberCircle {
   display: flex;
-  width: 110px;
-  height: 110px;
   align-items: center;
   justify-content: center;
   border-radius: 60px;
@@ -265,7 +273,9 @@ button {
   text-align: center;
   font-family: 'Mulish', sans-serif;
   font-size: 17px;
-  padding: 5px;
+  padding: 7px;
+  transition: 0.5s;
+  height: 110px;
 }
 
 .aboutUsBox {
@@ -274,7 +284,7 @@ button {
   align-items: center;
   justify-content: center;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size:24px;
+  font-size:22px;
   line-height: 22px;
   margin: 10px auto 0 auto;
 }
@@ -304,7 +314,7 @@ button {
 
 .integrantes {
   font-family: 'Mulish', sans-serif;
-  font-size:24px;
+  font-size:22px;
   margin-left: auto; 
   margin-right: 0;
   width: fit-content;
