@@ -123,7 +123,7 @@ button {
   padding: 5px 20px 5px 20px;
   border-radius: 20px 20px 0 0;
   width: fit-content;
-  background-color: rgba(0, 0, 0, 0.316);
+  background-color: rgba(16, 2, 27, 0.308);
   left: 50%;
   transform: translate(-50%, 0);
   transition: 1s;
@@ -131,7 +131,7 @@ button {
 
 .footer:hover {
   opacity: 100%;
-  background-color: rgba(0, 0, 0, 0.519);
+  background-color: rgb(25, 12, 34);
   bottom: 0px;
   transition: 1s;
 }
@@ -139,7 +139,7 @@ button {
 .milhojasLogo {
   opacity: 0%;
   width: 130px;
-  height:auto;
+  height: 55px;
   margin: 0 0 0 0 ;
   transition: 1s;
 }
@@ -150,6 +150,7 @@ button {
   margin: 19px 10px 0 0;
   text-align: right;
   transition: 1s;
+  width: max-content;
 }
 
 .footer:hover .milhojasLogo {
@@ -168,4 +169,32 @@ button {
 
 .hola:active{
   background-color: rgb(20, 113, 113);
+}
+
+.aboutUsContainer {
+  opacity: 40%;
+  width: 80%;
+  max-width: 900px;
+  min-width: 600px;
+  height: 60vh;
+  min-height: 400px;
+  background-image: url("./assets/aboutUsBackground.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: right;
+  background-position-y: bottom;
+  border-radius: 40px;
+  margin: 5vh auto 0 auto;
+  animation: 0.5s ease-out 0s 1 slideInFromLeft;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-10%);
+    opacity: 0%;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 40%;
+  }
 }

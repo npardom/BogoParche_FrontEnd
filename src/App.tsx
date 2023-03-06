@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import Catalogue from './pages/catalogue';
 import Parches from './pages/parches';
 import SugerirActividad from './pages/sugerirActividad';
-import About from './pages/about';
+import AboutUs from './pages/aboutUs';
 import SignUp from './pages/signUp';
 
 export function App() {
@@ -15,7 +15,7 @@ export function App() {
         <Route path="/" element={<Catalogue />} />
         <Route path="/parches" element={<Parches />} />
         <Route path="/sugerirActividad" element={<SugerirActividad />} />
-        <Route path="/acercaDe" element={<About />} />
+        <Route path="/acercaDe" element={<AboutUs />} />
         <Route path="/signUp" element={<SignUp />} />
       </Routes>
       <Footer />

@@ -1,6 +1,6 @@
 function SugerirActividad() {
   return (
-    <div>sugerirActividad</div>
+    <div className="aboutUsContainer">Sugerir Actividad</div>
   )
 }
 
