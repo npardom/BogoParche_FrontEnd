@@ -1,4 +1,4 @@
-import userIcon from "../assets/userIcon.png";
+import userIcon from "../assets/icons/userIcon.png";
 import { NavLink } from "react-router-dom";
 
 function LoginButton() {

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
 
 /*
 @tailwind base;
@@ -114,6 +114,22 @@ button {
   z-index: 2;
 }
 
+@media only screen and (max-width: 900px){  
+  .loginButtonText{
+    position: absolute;
+    opacity: 0%;
+    right:0px;
+    border-radius: 12px 0px 0px 12px;
+    padding: 0 0 0 0;
+  }
+
+  .loginButton:hover .loginButtonText {
+    opacity: 100%;
+    right: 40px;
+    padding: 10px 30px 10px 20px;
+  }  
+}
+
 .footer{
   display: flex;
   position: fixed;
@@ -171,21 +187,32 @@ button {
   background-color: rgb(20, 113, 113);
 }
 
-.aboutUsContainer {
-  opacity: 40%;
-  width: 80%;
+.aboutUsCard {
+  opacity: 100%;
+  width: 75%;
   max-width: 900px;
   min-width: 600px;
   height: 60vh;
-  min-height: 400px;
+  min-height: 370px;
+  max-height: 500px;
   background-image: url("./assets/aboutUsBackground.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: right;
   background-position-y: bottom;
   border-radius: 40px;
-  margin: 5vh auto 0 auto;
+  margin: 20px auto 30px auto;
   animation: 0.5s ease-out 0s 1 slideInFromLeft;
+  padding: 40px;
+  line-height: 15px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aboutUsContainer{
+  width: 100%;
+  max-width: 750px;
 }
 
 @keyframes slideInFromLeft {
@@ -195,6 +222,93 @@ button {
   }
   100% {
     transform: translateX(0);
-    opacity: 40%;
+    opacity: 100%;
   }
 }
+
+.pageTitle {
+  opacity:100%;
+  display:flex;
+  width:fit-content;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.pageTitleIcon {
+  width: 35px;
+}
+
+.pageTitleText {
+  font-family: 'Mulish', sans-serif;
+  font-size: 20px;
+  margin-left: 15px;
+  color: #D6A4EB
+}
+
+
+.memberCirclesArray {
+  display:flex;
+  margin: auto;
+  width:100%;
+  justify-content: center;
+}
+
+.memberCircle {
+  display: flex;
+  width: 110px;
+  height: 110px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 60px;
+  margin:0 4px 0 4px;
+  text-align: center;
+  font-family: 'Mulish', sans-serif;
+  font-size: 17px;
+  padding: 5px;
+}
+
+.aboutUsBox {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:24px;
+  line-height: 22px;
+  margin: 10px auto 0 auto;
+}
+
+.iconUNAL {
+  width: 170px;
+}
+
+.aboutUsText {
+  width:360px;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+}
+
+.verticalLine {
+  border-left: 5px solid white;
+  height: 120px;
+  margin: 0 20px 0 20px;
+}
+
+.horizontalLine {
+  border-top: 5px solid white;
+  width: 100px;
+  margin: 10px 0 10px 0;
+  margin-left: auto; 
+  margin-right: 0;
+}
+
+.integrantes {
+  font-family: 'Mulish', sans-serif;
+  font-size:24px;
+  margin-left: auto; 
+  margin-right: 0;
+  width: fit-content;
+  margin-top:-20px;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+}
+
