@@ -1,15 +1,18 @@
 import userIcon from "../assets/userIcon.png";
+import { NavLink } from "react-router-dom";
 
 function LoginButton() {
   return (
-    <div className = "loginButtonContainer">
-      <img src={userIcon} className = "userIcon" />
-      <button className = "loginButton" >
+    <NavLink to="/signUp">
+      <button className="loginButton">
+        <img src={userIcon} className="userIcon" />
+        <div className="loginButtonText">
           Ingresar/
-          <br/>
-          <span>&nbsp;&nbsp;Registrarse</span>
+          <br />
+          <span className="textSpan">&nbsp;Registrarse</span>
+        </div>
       </button>
-    </div>
+    </NavLink>
   );
 }
 

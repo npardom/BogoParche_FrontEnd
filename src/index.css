@@ -34,12 +34,12 @@ body {
   width: 250px;
   height:auto;
   margin: 0 0 0 0 ;
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 
 .websiteLogo:hover {
-  width: 270px;
-  transition: all 0.5s;
+  width: 260px;
+  transition: all 0.3s;
 }
 
 .websiteSlogan {
@@ -62,57 +62,55 @@ button {
   font-family: 'Mulish', sans-serif;
 }
 
-.menuButton{
-  font-size: 17px;
-  border: 2px solid white;
-  background-color: rgba(0,0,0,0);
-  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.165);
-  border-radius: 8px;
-  padding:2px 15px 2px 15px;
-  margin: 0 4px 0 4px;
-}
-
-.menuButton:hover{
-  color: #500A6D;
-  background-color: white;
-  transition: 0.5s;
-}
-
-.loginButtonContainer {
-  width:200px;
-  display:flex;
+.loginButton {
   position: absolute;
+  display: inline-flex;
+  justify-content: center; 
+  align-items: center;
+  opacity: 70%;
+  width:fit-content;
   top: 45px;
   right: 30px;
-}
-
-.loginButtonContainer:hover .loginButton {
-  background-color: #A77DDF;
-  transition: all 0.5s;
-}
-
-.loginButtonContainer:hover span{ 
-  color: #500A6D;
-  transition: all 0.5s;
-}
-
-.loginButton{
-  line-height: 15px;
-  font-size: 17px;
-  width: 150px;
-  height: 45px;
+  transition: 0.4s;
   background-color: transparent;
-  border-radius: 12px;
-  padding: 0px 10px 0px 30px;
+  border: transparent;
+}
+
+.loginButton:hover  {
+  opacity: 100%;
+  transition: 0.4s;
+}
+
+.loginButton:hover .loginButtonText {
+  background-color: #A77DDF;
+  transition: 0.4s;
+}
+
+.loginButton:hover .textSpan{ 
+  color: #500A6D;
+  transition: 0.4s;
+}
+
+.textSpan {
+  transition: 0.4s;
+}
+
+.loginButtonText{
+  line-height: 13px;
+  font-size: 16px;
+  width: fit-content;
+  background-color: transparent;
+  border-radius: 0 12px 12px 0;
+  padding: 10px 20px 10px 30px;
   text-align: left;
-  margin-top: 8px;
   margin-left: -20px;
   border: 0px;
+  transition: 0.4s;
 }
 
 .userIcon {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   z-index: 2;
 }
 
@@ -162,4 +160,12 @@ button {
 .footer:hover .footerText{
   opacity: 100%;
   transition: 1s;
+}
+
+.hola{
+  background-color: pink;
+}
+
+.hola:active{
+  background-color: rgb(20, 113, 113);
 }
