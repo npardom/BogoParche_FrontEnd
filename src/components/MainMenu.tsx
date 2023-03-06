@@ -14,6 +14,7 @@ const NavLink = styled(Link)
   margin: 0 4px 0 4px;
   height:fit-content;
   transition: 0.5s;
+  color: white;
 
   &:visited {
     color: white;
