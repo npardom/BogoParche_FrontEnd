@@ -29,8 +29,8 @@ const NavLink = styled(Link)
   }
 
   &.active {
-    border: 2px solid #ED87C6;
-    background-color: #ED87C6;
+    border: 2px solid #E16DB5;
+    background-color: #E16DB5;
     color: white;
     transition: 0.5s;
   }
