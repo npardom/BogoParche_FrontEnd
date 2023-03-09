@@ -1,4 +1,4 @@
-import logo from "../assets/website-logo.png";
+import logo from "../assets/websiteLogo.png";
 import { NavLink } from "react-router-dom";
 
 function TitleBox() {

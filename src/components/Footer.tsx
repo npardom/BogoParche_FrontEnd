@@ -1,4 +1,4 @@
-import milhojasLogo from "../assets/milhojas-logo.png";
+import milhojasLogo from "../assets/milhojasLogo.png";
 
 function Footer() {
   return (
