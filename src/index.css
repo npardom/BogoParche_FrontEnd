@@ -46,8 +46,8 @@ body {
   font-size: 19px;
   width: 200px;
   height: fit-content;
-  margin: 28px 0 0 10px ;
-  text-align: left;
+  margin: 28px 0 0 0 ;
+  text-align: right;
   text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.414);
 }
 
@@ -266,7 +266,7 @@ button {
   align-items: center;
   justify-content: center;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size:16px;
+  font-size:17px;
   line-height: 22px;
   margin: 10px auto 0 auto;
 }
@@ -281,14 +281,14 @@ button {
 }
 
 .verticalLine {
-  border-left: 4px solid white;
-  height: 120px;
+  border-left: 3px solid white;
+  height: 110px;
   margin: 0 20px 0 20px;
 }
 
 .horizontalLine {
-  border-top: 4px solid white;
-  width: 100px;
+  border-top: 3px solid white;
+  width: 90px;
   margin: 10px 0 10px 0;
   margin-left: auto; 
   margin-right: 0;

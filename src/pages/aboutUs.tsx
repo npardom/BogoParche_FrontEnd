@@ -14,8 +14,7 @@ function AboutUs() {
           <img src={logoUNAL} className="iconUNAL" />
           <div className="verticalLine"></div>
           <div className="aboutUsText">
-            Somos el grupo Milhojas. Un equipo de estudiantes de la Universidad
-            Nacional de Colombia.
+            Somos el <b>grupo Milhojas.</b> Un equipo de estudiantes de la <b>Universidad Nacional de Colombia.</b>
           </div>
         </div>
         <div className="integrantes">Integrantes</div>
