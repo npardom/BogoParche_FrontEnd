@@ -8,12 +8,12 @@ function Login() {
       <form>
         <input placeholder = "Correo electrónico" className = "loginField">
         </input>
-        <input placeholder = "Contraseña" className = "loginField">
+        <input placeholder = "Contraseña" type = "password" className = "loginField">
         </input>
         <button className = "loginButton2">Ingresar</button>
       </form>
       <div className = "noAccountQuestion">¿No tienes cuenta?&nbsp; 
-      <NavLink to="/" className = "goToSignUp">Registrarse</NavLink>
+      <NavLink to="/signUp" className = "goToSignUp">Registrarse</NavLink>
       </div>
       </div>
     </div>

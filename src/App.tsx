@@ -6,6 +6,7 @@ import Parches from './pages/parches';
 import SugerirActividad from './pages/sugerirActividad';
 import AboutUs from './pages/aboutUs';
 import Login from './pages/login';
+import SignUp from './pages/signUp';
 
 export function App() {
   return (
@@ -17,6 +18,7 @@ export function App() {
         <Route path="/sugerirActividad" element={<SugerirActividad />} />
         <Route path="/acercaDe" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signUp" element={<SignUp />}/>
       </Routes>
       <Footer />
     </Router>
