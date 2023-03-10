@@ -304,3 +304,78 @@ button {
   text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
 }
 
+.card {
+  width: 280px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 40px;
+  height: 300px;
+  margin: 20px auto 30px auto;
+  animation: 0.5s ease-out 0s 1 slideInFromLeft;
+  padding: 40px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardContainer{
+  width: fit-content;
+  height: fit-content;
+}
+
+.loginField {
+  width: 270px;
+  height: 35px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  margin: 5px 0 5px 0;
+  color: black;
+  border-radius: 10px;
+  border: transparent;
+}
+
+.loginButton2{
+  width: 100px;
+  height: 32px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  margin: 10px 0 10px 0;
+  color: white;
+  background-color: #9453C2;
+  border-radius: 8px;
+  border: transparent;
+  transition: 0.5s;
+}
+
+.loginButton2:hover{
+  color: rgb(35, 5, 57);
+  background-color: white;
+  transition: 0.5s;
+}
+
+.titleCard {
+  margin-bottom: 25px;
+}
+
+.noAccountQuestion{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  margin: 20px 0 0px 0;
+}
+
+.goToSignUp {
+  color: #7DDCFA;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.goToSignUp:hover {
+  text-decoration:underline;
+}

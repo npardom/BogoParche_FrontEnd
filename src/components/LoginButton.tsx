@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 function LoginButton() {
   return (
-    <NavLink to="/signUp">
+    <NavLink to="/login">
       <button className="loginButton">
         <img src={userIcon} className="userIcon" />
         <div className="loginButtonText">
