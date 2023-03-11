@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 
 function SignUp() {
+
+  const [confirmation, setConfirmation] = useState("");
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +33,12 @@ function SignUp() {
       //  mode: "cors",
       //  body: JSON.stringify(body),
       //});
+      
+      // Get token
+      console.log(fetch("/api")
+      .then((res) => res.json())
+      .then((dato) => setConfirmation(dato.data)));
+
     } else {
       setMesssageIfNotMatch("passwords don't match");
     }
