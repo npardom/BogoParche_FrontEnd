@@ -5,6 +5,7 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
+  const [messsageIfNotMatch, setMesssageIfNotMatch] = useState("");
 
   const getUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -22,7 +23,6 @@ function SignUp() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password === passwordAgain) {
-      console.log(username, email, password, passwordAgain);
       const body = {username, email, password}
       console.log(body);
       //fetch("/api/signup", {
@@ -31,7 +31,7 @@ function SignUp() {
       //  body: JSON.stringify(body),
       //});
     } else {
-      console.log("passwords don't match");
+      setMesssageIfNotMatch("passwords don't match");
     }
   };
 
@@ -66,7 +66,9 @@ function SignUp() {
             type="password"
             className="loginField"
           ></input>
+          <div className = "nonMatchingPasswords"></div>
           <button className="loginButton2">Crear cuenta</button>
+          <div className = "nonMatchingPasswords">{messsageIfNotMatch}</div>
         </form>
       </div>
     </div>
