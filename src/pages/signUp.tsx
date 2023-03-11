@@ -28,11 +28,14 @@ function SignUp() {
     if (password === passwordAgain) {
       const body = {username, email, password}
       console.log(body);
-      //fetch("/api/signup", {
-      //  method: "POST",
-      //  mode: "cors",
-      //  body: JSON.stringify(body),
-      //});
+      fetch("/api/signup", {
+       method: "POST",
+       mode: "cors",
+       body: JSON.stringify(body),
+       headers: {
+        "Content-Type": "application/json"
+      } 
+      });
       
       // Get token
       console.log(fetch("/api")

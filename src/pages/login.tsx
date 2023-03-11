@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 function Login() {
+  const [confirmation, setConfirmation] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,11 +17,15 @@ function Login() {
     e.preventDefault();
     const body = {email, password}
     console.log(body);
-      //fetch("/api/login", {
-      //  method: "POST",
-      //  mode: "cors",
-      //  body: JSON.stringify(body),
-      //});
+      fetch("/api/login", {
+       method: "POST",
+       mode: "cors",
+       body: JSON.stringify(body),
+       headers: {
+        "Content-Type": "application/json"
+      } 
+      }).then((res) => res.json())
+      .then((confirmation) => setConfirmation(confirmation.token));;
   };
 
   return (
