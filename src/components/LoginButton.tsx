@@ -6,7 +6,7 @@ function LoginButton() {
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
+    const loggedInUser = localStorage.getItem("username");
     if (loggedInUser) {
       setUser(loggedInUser);
     }

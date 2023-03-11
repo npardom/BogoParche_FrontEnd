@@ -1,12 +1,22 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [confirmation, setConfirmation] = useState("");
+  const [token, setToken] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("username")) {    
+      navigate('/');
+      window.location.reload();
+    }
+  });
+  useEffect(() => {
+    localStorage.setItem('username', username)
+  }, [username])
   
   const getEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -18,7 +28,6 @@ function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {email, password}
-    console.log(body);
     fetch("/api/login", {
       method: "POST",
       mode: "cors",
@@ -27,11 +36,13 @@ function Login() {
       "Content-Type": "application/json"
     } 
     }).then((res) => res.json())
-    .then((confirmation) => setConfirmation(confirmation.token));
-    // store the user in localStorage
-    localStorage.setItem('user', email)
-    navigate('/');
-    window.location.reload();
+    .then((confirmation) =>{
+      setToken(confirmation.token)
+      setUsername(confirmation.username)
+    } 
+    );
+    
+    
   };
 
   return (
