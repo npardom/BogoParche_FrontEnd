@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
-  const [messsageIfNotMatch, setMesssageIfNotMatch] = useState("");
 
   const s: React.CSSProperties = {
     backgroundColor: (passwordAgain != password) && (passwordAgain != "") ? "#f78b8b": "white",
@@ -25,9 +25,10 @@ function SignUp() {
     setPasswordAgain(event.target.value);
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setMesssageIfNotMatch("");
     const body = {username, email, password}
     console.log(body);
     fetch("/api/signup", {
@@ -37,7 +38,9 @@ function SignUp() {
       headers: {
       "Content-Type": "application/json"
     } 
-    });
+    })
+    .then(()=>navigate('/login'));
+    alert("Cuenta creada con éxito");
   };
 
   return (

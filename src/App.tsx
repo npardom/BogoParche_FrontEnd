@@ -7,8 +7,12 @@ import SugerirActividad from './pages/sugerirActividad';
 import AboutUs from './pages/aboutUs';
 import Login from './pages/login';
 import SignUp from './pages/signUp';
+import { Navigate } from 'react-router-dom';
 
 export function App() {
+
+  const loggedInUser = localStorage.getItem("user");
+
   return (
     <Router>
       <Header />
@@ -17,8 +21,22 @@ export function App() {
         <Route path="/parches" element={<Parches />} />
         <Route path="/sugerirActividad" element={<SugerirActividad />} />
         <Route path="/acercaDe" element={<AboutUs />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signUp" element={<SignUp />}/>
+        <Route path="/login" 
+        element={
+          !loggedInUser ? (
+            <Login />
+          ) : (
+            <Navigate replace to={"/"} />
+          )
+        }/>
+        <Route path="/signUp" 
+        element={
+          !loggedInUser ? (
+            <SignUp />
+          ) : (
+            <Navigate replace to={"/"} />
+          )
+        }/>
       </Routes>
       <Footer />
     </Router>

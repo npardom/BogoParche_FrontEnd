@@ -100,11 +100,39 @@ button {
   font-size: 16px;
   width: fit-content;
   background-color: transparent;
-  border-radius: 0 12px 12px 0;
-  padding: 10px 20px 10px 30px;
+  border-radius: 12px 0px 0px 12px;
+  padding: 10px 30px 10px 20px;
   text-align: left;
-  margin-left: -20px;
+  margin-right: -20px;
   border: 0px;
+  transition: 0.4s;
+}
+
+.userOptionButton{
+  position: absolute;
+  width:110px;
+  top: 10px;
+  color:black;
+  right: 10px;
+  line-height: 13px;
+  font-size: 16px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px 10px 10px 10px;
+  text-align: right;
+  border: 0px;
+  transition: 0.4s;
+  opacity:0%;
+}
+
+.userOptionButton:hover{
+  color:white;
+  background-color: #9453C2;
+}
+
+.loginButton:hover .userOptionButton {
+  opacity:100%;
+  top: 48px;
   transition: 0.4s;
 }
 
@@ -118,16 +146,16 @@ button {
   .loginButtonText{
     position: absolute;
     opacity: 0%;
-    right:0px;
+    right:40px;
     border-radius: 12px 0px 0px 12px;
-    padding: 0 0 0 0;
+    padding: 10px 30px 10px 20px;
   }
 
   .loginButton:hover .loginButtonText {
     opacity: 100%;
-    right: 40px;
-    padding: 10px 30px 10px 20px;
+    right: 55px;
   }  
+  
 }
 
 .footer{

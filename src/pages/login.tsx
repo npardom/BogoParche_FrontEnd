@@ -1,11 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [confirmation, setConfirmation] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
+  
   const getEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
@@ -26,6 +28,10 @@ function Login() {
     } 
     }).then((res) => res.json())
     .then((confirmation) => setConfirmation(confirmation.token));
+    // store the user in localStorage
+    localStorage.setItem('user', email)
+    navigate('/');
+    window.location.reload();
   };
 
   return (
