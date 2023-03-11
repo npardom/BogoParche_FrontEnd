@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 
 function SignUp() {
-
-  const [confirmation, setConfirmation] = useState("");
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
   const [messsageIfNotMatch, setMesssageIfNotMatch] = useState("");
+
+  const s: React.CSSProperties = {
+    backgroundColor: (passwordAgain != password) && (passwordAgain != "") ? "#f78b8b": "white",
+    color: passwordAgain != password ? "white": "black",    
+  };
 
   const getUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -25,26 +27,17 @@ function SignUp() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (password === passwordAgain) {
-      const body = {username, email, password}
-      console.log(body);
-      fetch("/api/signup", {
-       method: "POST",
-       mode: "cors",
-       body: JSON.stringify(body),
-       headers: {
-        "Content-Type": "application/json"
-      } 
-      });
-      
-      // Get token
-      console.log(fetch("/api")
-      .then((res) => res.json())
-      .then((dato) => setConfirmation(dato.data)));
-
-    } else {
-      setMesssageIfNotMatch("passwords don't match");
-    }
+    setMesssageIfNotMatch("");
+    const body = {username, email, password}
+    console.log(body);
+    fetch("/api/signup", {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+      headers: {
+      "Content-Type": "application/json"
+    } 
+    });
   };
 
   return (
@@ -57,12 +50,15 @@ function SignUp() {
             value={username}
             placeholder="Nombre de Usuario"
             className="loginField"
+            required
           ></input>
           <input
+            type="email" 
             onChange={getEmail}
             value={email}
             placeholder="Correo electrónico"
             className="loginField"
+            required
           ></input>
           <input
             onChange={getPassword}
@@ -70,17 +66,19 @@ function SignUp() {
             placeholder="Contraseña"
             type="password"
             className="loginField"
+            required
           ></input>
           <input
             onChange={getPasswordAgain}
             value={passwordAgain}
             placeholder="Confirmar contraseña"
             type="password"
+            style={s}
             className="loginField"
+            required
           ></input>
           <div className = "nonMatchingPasswords"></div>
-          <button className="loginButton2">Crear cuenta</button>
-          <div className = "nonMatchingPasswords">{messsageIfNotMatch}</div>
+          <button disabled={(passwordAgain != password) && (passwordAgain != "")}className="loginButton2">Crear cuenta</button>
         </form>
       </div>
     </div>

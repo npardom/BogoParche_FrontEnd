@@ -361,6 +361,10 @@ button {
   transition: 0.5s;
 }
 
+.loginButton2:disabled {
+  cursor: not-allowed;
+}
+
 .titleCard {
   margin-bottom: 25px;
 }

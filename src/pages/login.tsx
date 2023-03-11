@@ -17,15 +17,15 @@ function Login() {
     e.preventDefault();
     const body = {email, password}
     console.log(body);
-      fetch("/api/login", {
-       method: "POST",
-       mode: "cors",
-       body: JSON.stringify(body),
-       headers: {
-        "Content-Type": "application/json"
-      } 
-      }).then((res) => res.json())
-      .then((confirmation) => setConfirmation(confirmation.token));;
+    fetch("/api/login", {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+      headers: {
+      "Content-Type": "application/json"
+    } 
+    }).then((res) => res.json())
+    .then((confirmation) => setConfirmation(confirmation.token));
   };
 
   return (
@@ -33,11 +33,12 @@ function Login() {
       <div className = "cardContainer">
       <div className = "titleCard">Bienvenido</div>
       <form onSubmit={handleSubmit}>
-        <input onChange={getEmail}
-            value={email} placeholder = "Correo electrónico" className = "loginField">
+        <input type="email" onChange={getEmail}
+            value={email} placeholder = "Correo electrónico" className = "loginField" required>
         </input>
         <input onChange={getPassword}
-            value={password} placeholder = "Contraseña" type = "password" className = "loginField">
+            value={password} placeholder = "Contraseña" type = "password" className = "loginField"
+            required>
         </input>
         <button className = "loginButton2">Ingresar</button>
       </form>
