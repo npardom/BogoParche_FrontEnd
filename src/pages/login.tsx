@@ -8,12 +8,14 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   useEffect(() => {
     if (localStorage.getItem("username")) {    
       navigate('/');
       window.location.reload();
     }
   });
+  
   useEffect(() => {
     localStorage.setItem('username', username)
   }, [username])
@@ -21,6 +23,7 @@ function Login() {
   const getEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
+
   const getPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
@@ -40,9 +43,7 @@ function Login() {
       setToken(confirmation.token)
       setUsername(confirmation.username)
     } 
-    );
-    
-    
+    ); 
   };
 
   return (

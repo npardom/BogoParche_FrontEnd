@@ -6,7 +6,7 @@ function Catalogue() {
   const [activities, setActivities] = useState([] as Activity[]);
 
   useEffect(() => {
-    fetch("/api")
+    fetch("/api/activities")
       .then((res) => res.json())
       .then((dato) => setActivities(dato));
   }, []);
