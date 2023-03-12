@@ -11,7 +11,7 @@ import { Navigate } from 'react-router-dom';
 
 export function App() {
 
-  const loggedInUser = localStorage.getItem("user");
+  const loggedInUser = localStorage.getItem("username");
 
   return (
     <Router>
