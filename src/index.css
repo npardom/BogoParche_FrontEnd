@@ -412,3 +412,66 @@ button {
 .goToSignUp:hover {
   text-decoration:underline;
 }
+
+.activityCard {
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  border-radius: 15px;
+  color: black;
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 15px;
+  padding:10px 20px 10px 20px;
+  margin:5px;
+  font-size: 16px;
+  transition: 0.5s;
+}
+
+.activityCard:hover {
+  width: 203px;
+  height: 203px;
+  margin:2px;
+  background-color: #9453C2;
+  color: white;
+  transition: 0.5s;
+}
+
+.activityCard:hover .activityCardTitle {
+  color: white;
+}
+
+.activityCard:hover .activityCardLocation {
+  color: white;
+}
+
+.activityCardTitle {
+  font-family: 'Mulish', sans-serif;
+  color: #500A6D;
+  font-size: 18px;
+}
+
+.activityCardLocation{
+  color: #A77DDF;
+  margin-top: -15px;
+}
+
+.activityCardContact {
+  margin-top: 10px;
+}
+
+.catalogueContainer {
+  display: flex;
+  justify-content: center;
+  width:770px;
+  align-items: center;
+  background-color: rgba(0,0,0,0.4);
+  margin: 0px auto 80px auto;
+  padding:10px;
+  border-radius: 20px;
+}
+
+.catalogueCardsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width:fit-content;
+}

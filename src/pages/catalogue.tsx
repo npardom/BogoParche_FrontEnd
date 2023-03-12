@@ -1,17 +1,24 @@
 import {useState, useEffect} from "react";
+import {actividades, Activity} from "../assets/datos"
+import ActivityCard from "../components/activityCard";
 
 function Catalogue() {
-  const [dato, setDato] = useState(null);
+  const [activities, setActivities] = useState([] as Activity[]);
 
   useEffect(() => {
-    console.log(
     fetch("/api")
       .then((res) => res.json())
-      .then((dato) => setDato(dato.data)));
+      .then((dato) => setActivities(dato));
   }, []);
 
   return (
-    <div>{!dato ? "Loading..." : dato}</div>
+    <div className ="catalogueContainer">
+    <div className = "catalogueCardsContainer">
+      {activities.map((activity: Activity)=> (
+        <ActivityCard activity = {activity}/>
+      ))}
+    </div>
+    </div>
   )
 }
 
