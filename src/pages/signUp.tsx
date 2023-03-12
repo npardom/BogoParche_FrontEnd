@@ -39,8 +39,15 @@ function SignUp() {
       "Content-Type": "application/json"
     } 
     })
-    .then(()=>navigate('/login'));
-    alert("Cuenta creada con éxito");
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.error){
+        alert("Este correo ya se encuentra registrado.");
+      } else if (result.data){
+        alert("Cuenta creada con exito.");
+        navigate("/login");
+      }
+    });
   };
 
   return (

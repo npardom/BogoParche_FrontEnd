@@ -8,18 +8,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (localStorage.getItem("username")) {    
-      navigate('/');
-      window.location.reload();
-    }
-  });
-  
-  useEffect(() => {
-    localStorage.setItem('username', username)
-  }, [username])
-  
+ 
   const getEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
@@ -39,11 +28,15 @@ function Login() {
       "Content-Type": "application/json"
     } 
     }).then((res) => res.json())
-    .then((confirmation) =>{
-      setToken(confirmation.token)
-      setUsername(confirmation.username)
-    } 
-    ); 
+    .then((confirmation) => {
+      if (confirmation.error){
+        alert("Ocurrió un error. Intenta de nuevo.");
+      } else {
+        localStorage.setItem('username', confirmation.username);
+        navigate('/');
+        window.location.reload();
+      }
+    }) 
   };
 
   return (
