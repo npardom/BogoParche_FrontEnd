@@ -108,31 +108,48 @@ button {
   transition: 0.4s;
 }
 
-.userOptionButton{
+.userOptionsContainer {
+  display:flexbox;
   position: absolute;
-  width:110px;
   top: 10px;
-  color:black;
   right: 10px;
-  line-height: 13px;
-  font-size: 16px;
-  background-color: white;
-  border-radius: 10px;
-  padding: 10px 10px 10px 10px;
-  text-align: right;
-  border: 0px;
   transition: 0.4s;
   opacity:0%;
+  width:0px;
+  height:0px;
+}
+
+.userOptionButton{
+  width:max-content;
+  color:rgb(21, 4, 47);
+  line-height: 13px;
+  font-size: 2px;
+  background-color: rgba(255, 255, 255, 0.942);
+  border-radius: 10px;
+  padding: 9px 12px 9px 12px;
+  border: 0px;
+  float: right;
+  margin-bottom: 3px;
+  transition: 0.4s;
 }
 
 .userOptionButton:hover{
   color:white;
-  background-color: #9453C2;
+  background-color: rgba(37, 7, 59, 0.547);
+  padding: 11px 12px 11px 12px;
+  transition: 0.4s;
+}
+
+.loginButton:hover .userOptionsContainer {
+  opacity:100%;
+  top: 50px;
+  transition: 0.4s;
+  width:fit-content;
+  height:fit-content;
 }
 
 .loginButton:hover .userOptionButton {
-  opacity:100%;
-  top: 48px;
+  font-size: 15px;
   transition: 0.4s;
 }
 
@@ -233,6 +250,10 @@ button {
 .aboutUsContainer{
   width: 100%;
   max-width: 600px;
+}
+
+.adminActivitiesContainer{
+  width: fit-content;
 }
 
 @keyframes slideInFromLeft {
@@ -367,6 +388,29 @@ button {
   border: transparent;
 }
 
+.activityInputField {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  color: white;
+  text-align: left;
+  margin: 0px 0 15px 0px;
+  color: black;
+  border-radius: 4px;
+  border: transparent;
+  padding: 2px 0px 2px 5px;
+  width:215px;
+}
+
+.activityInputText{
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  margin: 0 0 5px 0;
+}
+
+.descriptionInputField {
+  height: 83px;
+}
+
 .loginButton2{
   width: fit-content;
   padding: 0 15px 0 15px;
@@ -468,10 +512,132 @@ button {
   margin: 0px auto 80px auto;
   padding:10px;
   border-radius: 20px;
+  animation: 0.5s ease-out 0s 1 slideInFromLeft;
 }
 
 .catalogueCardsContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width:fit-content;
+}
+
+.adminActivitiesCard {
+  opacity: 100%;
+  width: 70%;
+  max-width: 800px;
+  min-width: 650px;
+  height: 45vh;
+  min-height: 300px;
+  max-height: 400px;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 40px;
+  margin: 20px auto 30px auto;
+  animation: 0.5s ease-out 0s 1 slideInFromLeft;
+  padding: 40px;
+  line-height: 15px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+textarea {
+  resize: none;
+}
+
+.formContainer {
+  display:inline-flex;
+  margin: 25px 0px 0px 0px;
+  width:fit-content;
+}
+
+.activityCheckbox{
+  width: 18px;
+  height:18px;
+  margin: 0px 0px 0px 10px;
+  opacity:50%;
+  transition:0.5s;
+  cursor: pointer; 
+}
+
+.ageLimitContainer {
+  display: flex;
+  width: max-content;
+  align-items: center;
+}
+
+.endingField{
+  margin: 0 0 0 0;
+}
+
+.activityCheckbox:checked {
+  opacity:100%;
+  transition:0.5s;
+}
+
+.column {
+  width: 220px;
+  margin: 0 7px 0 7px;
+}
+
+.textStyle1{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 80px 0 11px 0;
+  text-align: center;
+}
+
+.createButton{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 111px;
+  height:45px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 13px;
+  line-height: 12px;
+  color: rgb(255, 255, 255);
+  text-align: left;
+  background-color: rgb(134, 82, 186);
+  border-radius: 7px;
+  border: transparent;
+  transition: 0.5s;
+  float:left;
+}
+
+.createButton:hover{
+  background-color: rgb(87, 50, 124);
+  transition: 0.5s;
+}
+
+.deleteButton{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height:45px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 13px;
+  line-height: 12px;
+  color: rgb(255, 255, 255);
+  float:right;
+  background-color: rgb(230, 80, 80);
+  border-radius: 7px;
+  border: transparent;
+  transition: 0.5s;
+}
+
+.deleteButton:hover{
+  background-color: rgb(148, 17, 17);
+  transition: 0.5s;
+}
+
+.activityFormButtonIcon {
+  width: 22px;
+  margin-right:5px;
+}
+
+.twoButtonsContainer{
+  display:inline-flexbox;
+  width:100%;
 }

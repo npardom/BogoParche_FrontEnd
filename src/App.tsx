@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Catalogue from './pages/catalogue';
 import Parches from './pages/parches';
 import SugerirActividad from './pages/sugerirActividad';
+import AdministrarActividades from './pages/administrarActividades';
 import AboutUs from './pages/aboutUs';
 import Login from './pages/login';
 import SignUp from './pages/signUp';
@@ -20,6 +21,14 @@ export function App() {
         <Route path="/" element={<Catalogue />} />
         <Route path="/parches" element={<Parches />} />
         <Route path="/sugerirActividad" element={<SugerirActividad />} />
+        <Route path="/administrarActividades" 
+        element={
+          loggedInUser ? (
+            <AdministrarActividades />
+          ) : (
+            <Navigate replace to={"/"} />
+          )
+        } />
         <Route path="/acercaDe" element={<AboutUs />} />
         <Route path="/login" 
         element={
