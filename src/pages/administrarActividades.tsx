@@ -92,24 +92,24 @@ function AdministrarActividades() {
         <>
           <p className="activityInputText">Fecha Inicio - Fecha Fin*</p>
           <div className ="dateInputContainer">
-          <input onChange={getStartDate} className="activityInputField dateField" required
-            type ="date"></input>
-          <input onChange={getEndDate} className="activityInputField dateField" required
-            type ="date"></input>
+          <input className="activityInputField dateField" required
+            type ="date" id = "fechaInicio"></input>
+          <input className="activityInputField dateField" required
+            type ="date" id = "fechaFin"></input>
             </div>
             <p className="activityInputText">Hora Inicio - Hora Fin*</p>
             <div className ="dateInputContainer">
             <input
-              onChange={getStartHour}
               type ="time"
               className="activityInputField dateField"
               required
+              id = "horaInicio"
             ></input>
             <input
-              onChange={getEndHour}
               type ="time"
               className="activityInputField dateField"
               required
+              id = "horaFin"
             ></input>
             </div>
         </>
@@ -119,6 +119,12 @@ function AdministrarActividades() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setStartHour((document.getElementById("horaInicio") as HTMLInputElement).value);
+    setEndHour((document.getElementById("horaFin") as HTMLInputElement).value);
+    setStartDate((document.getElementById("fechaInicio") as HTMLInputElement).value);
+    setEndDate((document.getElementById("fechaFin") as HTMLInputElement).value);
+
     const body = {
       titulo_actividad: title,
       ubicacion: location,
