@@ -11,16 +11,16 @@ function Catalogue() {
       .then((dato) => setActivities(dato));
   }, []);
 
+  function haceralgo() {
+    console.log("Hello there :D")
+  }
   return (
     <div className ="catalogueContainer">
-      <div className ="catalogueSearchBar">
-        <form>
-          <input type="search"
+        <form onSubmit = {haceralgo}>
+          <input
               placeholder = "Ingresa términos de búsqueda" className = "searchField" required>
           </input>
-          <button className = "searchButton">&#x1F50D;</button>
         </form>
-      </div>
       {/*<div className="favsContainer">
         <label>
           <input type ="checkbox">
@@ -39,23 +39,63 @@ function Catalogue() {
             Categorías
           </p>
           <label className="filterItem">
-            <input type ="checkbox">
+            <input type ="checkbox" className="categoryCheckbox">
+            </input> Actividad Física
+          </label>
+          <label className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox">
+            </input> Ambiental
+          </label>
+          <label className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox">
+            </input> Bares y Discotecas
+          </label>
+          <label className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox">
+            </input> Cultural
+          </label>
+          <label className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox">
             </input> Entretenimiento
           </label>
           <label className="filterItem">
-            <input type ="checkbox">
+            <input type ="checkbox" className="categoryCheckbox">
             </input> Gastronomía
+          </label>
+          <label className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox">
+            </input> Turismo
+          </label>
+          <label className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox">
+            </input> Otros
           </label>
           <p className="filterTitle">
             Precios
           </p>
           <label className="filterItem">
-            <input type ="checkbox">
+            <input type ="checkbox" className="categoryCheckbox">
             </input> Gratis
           </label>
           <label className="filterItem">
-            <input type ="checkbox">
+            <input type ="checkbox" className="categoryCheckbox">
             </input> 1k - 10k
+          </label>
+          <label className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox">
+            </input> 10k - 50k
+          </label>
+          <label className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox">
+            </input> 50k - 100k
+          </label>
+          <label className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox">
+            </input> 100k - 150k
+          </label>
+          <label className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox">
+            </input> +150k
           </label>
         </div>
         <div className = "catalogueCardsContainer">

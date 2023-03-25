@@ -458,8 +458,7 @@ button {
 }
 
 .activityCard {
-  width: 200px;
-  height: 200px;
+  width: 540px;
   background-color: white;
   border-radius: 15px;
   color: black;
@@ -472,9 +471,6 @@ button {
 }
 
 .activityCard:hover {
-  width: 203px;
-  height: 203px;
-  margin:2px;
   background-color: #9453C2;
   color: white;
   transition: 0.5s;
@@ -510,15 +506,17 @@ button {
   align-items: center;
   background-color: rgba(0,0,0,0.4);
   margin: 0px auto 80px auto;
-  padding:10px;
+  padding:30px;
   border-radius: 20px;
   animation: 0.5s ease-out 0s 1 slideInFromLeft;
 }
 
 .catalogueCardsContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width:fit-content;
+  display: flexbox;
+  margin-top: 10px;
+  width: 610px;
+  height: 360px;
+  overflow-y:scroll;
 }
 
 .adminActivitiesCard {
@@ -668,28 +666,23 @@ textarea {
   width:100%;
 }
 
-.catalogueSearchBar {
-  width: fit-content;
-  margin: 0px auto 10px auto;
-}
-
 .searchField {
-  width: 720px;
+  width: 750px;
   height: 35px;
-  padding:10px;
+  padding: 5px 10px 5px 10px;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 20px;
   border-radius: 20px;
   color: white;
   text-align: left;
   background-color: rgba(255,255,255,0.3);
-  margin: 5px 0 5px 0;
+  margin: 0px 0 0px 0;
   border-radius: 7px;
   border: transparent;
 }
 
 .searchField::placeholder { 
-  color: white;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .favsContainer {
@@ -713,10 +706,9 @@ textarea {
 }
 
 .filterContainer {
-  background-color: #500A6D;
-  width: 140px;
+  width: 150px;
   font-family: "Source Sans Pro", sans-serif;
-  padding: 15px 10px 15px 10px;
+  padding: 0px 10px 15px 0px;
 }
 
 .filterItem {
@@ -728,10 +720,6 @@ textarea {
   margin-bottom: 5px;
 }
 
-.searchButton {
-  height: 35px;
-  width: 35px;
-}
 .notShow{
   display:none;
 }
@@ -743,4 +731,21 @@ textarea {
 .dateField{
   width:102px;
   margin-right:5px;
+}
+
+.catalogueContainer2 {
+  display: flex;
+}
+
+.categoryCheckbox{
+  width: 13px;
+  height: 13px;
+  opacity:50%;
+  transition:0.5s;
+  cursor: pointer; 
+}
+
+.categoryCheckbox:checked{
+  opacity: 100%;
+  transition:0.5s;
 }
