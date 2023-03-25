@@ -151,7 +151,7 @@ function AdministrarActividades() {
             </div>
       <>
           <p className={isPlan?"activityInputText":"notShow"}>Horario*</p>
-            <input className={isPlan?"activityInputText":"notShow"} id = "horario" required = {isPlan?true:false}
+            <input className = {isPlan ? "activityInputField":"notShow"} id = "horario" required = {isPlan?true:false}
             onChange={getSchedule}></input>
           <p className={isPlan?"notShow":"activityInputText"}>Fecha Inicio - Fecha Fin*</p>
           <div className={isPlan?"notShow":"dateInputContainer"}>

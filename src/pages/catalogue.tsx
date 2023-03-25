@@ -1,9 +1,27 @@
 import {useState, useEffect} from "react";
-import {actividades, Activity} from "../assets/datos"
+import {Activity} from "../assets/datos"
 import ActivityCard from "../components/activityCard";
 
 function Catalogue() {
   const [activities, setActivities] = useState([] as Activity[]);
+
+  const pricesList = ["Gratis",
+    "1k - 10k",
+    "10k - 50k",
+    "50k - 100k",
+    "100k - 150k",
+    "+150k"
+  ]
+
+  const categoriesList = [ "Actividad Física",
+    "Ambiental",
+    "Bares y Discotecas",
+    "Cultural",
+    "Entretenimiento",
+    "Gastronomía",
+    "Turismo",
+    "Otros"
+  ]
 
   useEffect(() => {
     fetch("/api/activities")
@@ -11,12 +29,9 @@ function Catalogue() {
       .then((dato) => setActivities(dato));
   }, []);
 
-  function haceralgo() {
-    console.log("Hello there :D")
-  }
   return (
     <div className ="catalogueContainer">
-        <form onSubmit = {haceralgo}>
+        <form >
           <input
               placeholder = "Ingresa términos de búsqueda" className = "searchField" required>
           </input>
@@ -38,65 +53,21 @@ function Catalogue() {
           <p className="filterTitle">
             Categorías
           </p>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> Actividad Física
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> Ambiental
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> Bares y Discotecas
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> Cultural
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> Entretenimiento
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> Gastronomía
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> Turismo
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> Otros
-          </label>
+          {categoriesList.map((category: string)=> (
+            <div className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox" id={category}/>
+            <label>{category}</label>
+            </div>
+          ))}
           <p className="filterTitle">
             Precios
           </p>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> Gratis
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> 1k - 10k
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> 10k - 50k
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> 50k - 100k
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> 100k - 150k
-          </label>
-          <label className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox">
-            </input> +150k
-          </label>
+          {pricesList.map((price: string)=> (
+            <div className="filterItem">
+            <input type ="checkbox" className="categoryCheckbox" id={price}/>
+            <label>{price}</label>
+            </div>
+          ))}
         </div>
         <div className = "catalogueCardsContainer">
           {activities.map((activity: Activity)=> (
