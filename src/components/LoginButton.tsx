@@ -1,9 +1,11 @@
 import userIcon from "../assets/icons/userIcon.png";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 
 function LoginButton() {
   const [user, setUser] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("username");
@@ -18,6 +20,10 @@ function LoginButton() {
     window.location.reload();
   };
 
+  const goToActivities = () => {
+    navigate("/administrarActividades");
+  };
+
   // If logged in
   if (user) {
     var userNameShort = user;
@@ -29,7 +35,10 @@ function LoginButton() {
           {userNameShort}
         </div>
         <img src={userIcon} className="userIcon" />
+        <div className ="userOptionsContainer">
+        <div className = "userOptionButton" onClick={goToActivities}>Administrar Actividades</div>
         <div className = "userOptionButton" onClick={handleLogout}>Cerrar Sesión</div>
+        </div>
       </button>
   }
   // If not logged in

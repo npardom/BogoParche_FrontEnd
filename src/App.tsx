@@ -22,6 +22,14 @@ export function App() {
         <Route path="/parches" element={<Parches />} />
         <Route path="/infoActividad" element={<InfoActividad />} />
         <Route path="/sugerirActividad" element={<SugerirActividad />} />
+        <Route path="/administrarActividades" 
+        element={
+          loggedInUser ? (
+            <AdministrarActividades />
+          ) : (
+            <Navigate replace to={"/"} />
+          )
+        } />
         <Route path="/acercaDe" element={<AboutUs />} />
         <Route path="/login" 
         element={

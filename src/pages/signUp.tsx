@@ -30,7 +30,6 @@ function SignUp() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {username, email, password}
-    console.log(body);
     fetch("/api/signup", {
       method: "POST",
       mode: "cors",
@@ -87,7 +86,6 @@ function SignUp() {
             className="loginField"
             required
           ></input>
-          <div className = "nonMatchingPasswords"></div>
           <button disabled={(passwordAgain != password) && (passwordAgain != "")}className="loginButton2">Crear cuenta</button>
         </form>
       </div>
