@@ -408,7 +408,7 @@ button {
 }
 
 .descriptionInputField {
-  height: 83px;
+  height: 144px;
 }
 
 .loginButton2{
@@ -527,7 +527,7 @@ button {
   max-width: 800px;
   min-width: 650px;
   height: 45vh;
-  min-height: 300px;
+  min-height: 360px;
   max-height: 400px;
   background-color: rgba(0,0,0,0.4);
   border-radius: 40px;
@@ -559,9 +559,35 @@ textarea {
   cursor: pointer; 
 }
 
+.activityCheckbox2{
+  width: 20px;
+  height:20px;
+  margin: 0px 8px 0px 0px;
+  transition:0.5s;
+  cursor: pointer; 
+}
+
+.activityCheckbox3{
+  width: 20px;
+  height:20px;
+  margin: 0px 8px 0px 15px;
+  transition:0.5s;
+  cursor: pointer; 
+}
+
 .ageLimitContainer {
   display: flex;
   width: max-content;
+  align-items: center;
+}
+
+.activityTypeContainer {
+  display: flex;
+  width: max-content;
+  height: 24px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  margin: 0px 0 15px 0px;
   align-items: center;
 }
 
@@ -640,4 +666,17 @@ textarea {
 .twoButtonsContainer{
   display:inline-flexbox;
   width:100%;
+}
+
+.notShow{
+  display:none;
+}
+
+.dateInputContainer{
+  display: inline-flex;
+}
+
+.dateField{
+  width:102px;
+  margin-right:5px;
 }

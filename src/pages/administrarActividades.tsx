@@ -1,14 +1,143 @@
 import icon from "../assets/icons/editIcon.png";
 import addIcon from "../assets/icons/addIcon.png";
 import removeIcon from "../assets/icons/removeIcon.png";
+import {useState, useEffect} from "react";
 
 function AdministrarActividades() {
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [location, setLocation] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [ageRestriction, setAgeRestriction] = useState(false);
+  const [contact, setContact] = useState("");
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [startHour, setStartHour] = useState("");
+  const [endHour, setEndHour] = useState("");
+  const [isPlan, setIsPlan] = useState(false);
+      
+  const getTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
+  const getLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLocation(event.target.value);
+  };
+
+  const getPrice = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setPrice(event.target.value);
+  };
+
+  const getDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(event.target.value);
+  };
+
+  const getCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(event.target.value);
+  };
+
+  const getTypeFromPlan = (event: any) => {
+    if (event.target.checked){
+      setIsPlan(true);
+    }
+  };
+
+  const getTypeFromEvent = (event: any) => {
+    if (event.target.checked){
+      setIsPlan(false);
+    }
+  };
+
+  const getStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStartDate(event.target.value);
+  };
+
+  const getEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEndDate(event.target.value);
+  };
+
+  const getStartHour = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setStartHour(event.target.value);
+  };
+
+  const getEndHour = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEndHour(event.target.value);
+  };
+
+  const getContact = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setContact(event.target.value);
+  };
+
+  const getAgeRestriction = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if(event.target.checked === true) {
+      setAgeRestriction(true);
+    }else{
+      setAgeRestriction(false);
+    }
+  };
+
+  function Date(){
+    if(isPlan){
+      return (
+        <>
+          <p className="activityInputText">Horario*</p>
+            <input className="activityInputField" required></input>
+            <p className="notShow">Fecha*</p>
+        </>
+      )
+    }else{
+      return (
+        <>
+          <p className="activityInputText">Fecha Inicio - Fecha Fin*</p>
+          <div className ="dateInputContainer">
+          <input onChange={getStartDate} className="activityInputField dateField" required
+            type ="date"></input>
+          <input onChange={getEndDate} className="activityInputField dateField" required
+            type ="date"></input>
+            </div>
+            <p className="activityInputText">Hora Inicio - Hora Fin*</p>
+            <div className ="dateInputContainer">
+            <input
+              onChange={getStartHour}
+              type ="time"
+              className="activityInputField dateField"
+              required
+            ></input>
+            <input
+              onChange={getEndHour}
+              type ="time"
+              className="activityInputField dateField"
+              required
+            ></input>
+            </div>
+        </>
+      )
+    }
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch("/api/signup", {
+    const body = {
+      titulo_actividad: title,
+      ubicacion: location,
+      categoria: category,
+      rango_precio: price,
+      description: description,
+      restriccion_edad: ageRestriction,
+      medio_contacto: contact,
+      es_privada: isPrivate,
+      fecha_inicio: startDate,
+      fecha_fin: endDate,
+      hora_inicio: startHour,
+      hora_fin: endHour,
+      es_plan :isPlan
+    }
+    fetch("/api/create-activity", {
       method: "POST",
       mode: "cors",
-      body: JSON.stringify("holaEnvio"),
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
       },
@@ -29,43 +158,56 @@ function AdministrarActividades() {
         <form className = "formContainer" onSubmit={handleSubmit}>
           <div className="column">
             <p className="activityInputText">Nombre Actividad*</p>
-            <input className="activityInputField" required></input>
+            <input onChange={getTitle}
+            value={title} className="activityInputField" required></input>
             <p className="activityInputText">Ubicación*</p>
-            <input
+            <input onChange={getLocation}
               className="activityInputField"
               required
             ></input>
             <p className="activityInputText">Descripción Actividad*</p>
-            <textarea
+            <textarea onChange={getDescription}
               maxLength={160}
               className="activityInputField descriptionInputField"
               required
             ></textarea>
           </div>
           <div className="column">
-            <p className="activityInputText">Fecha*</p>
-            <input className="activityInputField" required
-            type ="date"></input>
-            <p className="activityInputText">Hora*</p>
-            <input
-              type ="time"
-              className="activityInputField"
-              required
-            ></input>
+          <p className="activityInputText">Tipo</p>
+            <div className ="activityTypeContainer">
+              <input onClick={getTypeFromEvent} type="radio" className="activityCheckbox2" name="type" defaultChecked />
+              <label htmlFor="html">Evento</label><br/>
+              <input onClick={getTypeFromPlan} type="radio" className="activityCheckbox3"name="type"/>
+              <label htmlFor="html">Plan</label><br/>
+            </div>
+            <Date/>
             <p className="activityInputText">Categoria*</p>
-            <select  className="activityInputField" required >
-              <option value="volvo">Hola</option>
-              <option value="volvo">Hola</option>
+            <select onChange={getCategory} className="activityInputField" required >
+            <option value="Cultural">Cultural</option>
+              <option value="Ambiental">Ambiental</option>
+              <option value="Turismo">Turismo</option>
+              <option value="Actividad Física">Actividad Física</option>
+              <option value="Bares y Discotecas">Bares y Discotecas</option>
+              <option value="Gastronomía">Gastronomía</option>
+              <option value="Entretenimiento">Entretenimiento</option>
+              <option value="Otros">Otros</option>
             </select >
-            <p className="activityInputText">Contacto para información*</p>
-            <input className="activityInputField" required></input>
           </div>
           <div className="column">
+            <p className="activityInputText">Contacto para información*</p>
+            <input onChange={getContact} className="activityInputField" required></input>
             <p className="activityInputText">Precios*</p>
-            <input className="activityInputField" required></input>
+            <select onChange={getPrice} className="activityInputField" required >
+              <option value="Gratis">Gratis</option>
+              <option value="1k - 10k">1k - 10k</option>
+              <option value="10k - 50k">10k - 50k</option>
+              <option value="50k - 100k">50k - 100k</option>
+              <option value="100k - 150k">100k - 150k</option>
+              <option value="+ 150k">+ 150k</option>
+            </select >
             <div className ="ageLimitContainer">
-              <p className="activityInputText endingField">Mayoria de edad*</p>
-              <input className="activityCheckbox" type="checkbox"></input>
+              <p className="activityInputText endingField">Mayoria de edad</p>
+              <input onChange={getAgeRestriction} className="activityCheckbox" type="checkbox"></input>
             </div>
             <p className="textStyle1">(*) Campo Obligatorio</p>
            <div className = "twoButtonsContainer">
