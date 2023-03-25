@@ -31,7 +31,7 @@ function AboutUs() {
             color="rgba(125,220,250,0.63)"
           />
           <MemberCircle
-            name="Johann Maldonado"
+            name="Johhan Maldonado"
             color="rgba(125,220,250,0.63)"
           />
           <MemberCircle name="Nicolas Pardo" color="rgba(20,171,219,0.63)" />
