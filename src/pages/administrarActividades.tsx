@@ -5,10 +5,10 @@ import {useState, useEffect} from "react";
 
 function AdministrarActividades() {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Cultural");
   const [location, setLocation] = useState("");
   const [schedule, setSchedule] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState("Gratis");
   const [description, setDescription] = useState("");
   const [ageRestriction, setAgeRestriction] = useState(false);
   const [contact, setContact] = useState("");
@@ -51,8 +51,8 @@ function AdministrarActividades() {
     }
   };
 
-  const getSchedule = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSchedule(event.target.value);
+  const getContact = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setContact(event.target.value);
   };
 
   const getStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,8 +71,8 @@ function AdministrarActividades() {
     setEndHour(event.target.value);
   };
 
-  const getContact = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setContact(event.target.value);
+  const getSchedule = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSchedule(event.target.value);
   };
 
   const getAgeRestriction = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,55 +83,8 @@ function AdministrarActividades() {
     }
   };
 
-  function Date(){
-    if(isPlan){
-      return (
-        <>
-          <p className="activityInputText">Horario*</p>
-            <input className="activityInputField" id = "horario" required></input>
-            <p className="notShow">Fecha*</p>
-        </>
-      )
-    }else{
-      return (
-        <>
-          <p className="activityInputText">Fecha Inicio - Fecha Fin*</p>
-          <div className ="dateInputContainer">
-          <input className="activityInputField dateField" required
-            type ="date" id = "fechaInicio"></input>
-          <input className="activityInputField dateField" required
-            type ="date" id = "fechaFin"></input>
-            </div>
-            <p className="activityInputText">Hora Inicio - Hora Fin*</p>
-            <div className ="dateInputContainer">
-            <input
-              type ="time"
-              className="activityInputField dateField"
-              required
-              id = "horaInicio"
-            ></input>
-            <input
-              type ="time"
-              className="activityInputField dateField"
-              required
-              id = "horaFin"
-            ></input>
-            </div>
-        </>
-      )
-    }
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isPlan){
-      setSchedule((document.getElementById("horario") as HTMLInputElement).value);
-    } else {
-      setStartHour((document.getElementById("horaInicio") as HTMLInputElement).value);
-      setEndHour((document.getElementById("horaFin") as HTMLInputElement).value);
-      setStartDate((document.getElementById("fechaInicio") as HTMLInputElement).value);
-      setEndDate((document.getElementById("fechaFin") as HTMLInputElement).value);
-    }
     const body = {
       titulo_actividad: title,
       ubicacion: location,
@@ -149,6 +102,7 @@ function AdministrarActividades() {
       horario_plan: schedule
     }
     console.log("Enviado")
+    console.log(body)
     fetch("/api/create-activity", {
       method: "POST",
       mode: "cors",
@@ -195,7 +149,39 @@ function AdministrarActividades() {
               <input onClick={getTypeFromPlan} type="radio" className="activityCheckbox3"name="type"/>
               <label htmlFor="html">Plan</label><br/>
             </div>
-            <Date/>
+      <>
+          <p className={isPlan?"activityInputText":"notShow"}>Horario*</p>
+            <input className={isPlan?"activityInputText":"notShow"} id = "horario" required = {isPlan?true:false}
+            onChange={getSchedule}></input>
+          <p className={isPlan?"notShow":"activityInputText"}>Fecha Inicio - Fecha Fin*</p>
+          <div className={isPlan?"notShow":"dateInputContainer"}>
+          <input className="activityInputField dateField" 
+            type ="date" id = "fechaInicio"
+            onChange={getStartDate}
+            required = {!isPlan?true:false}></input>
+          <input className="activityInputField dateField" 
+            type ="date" id = "fechaFin"
+            onChange={getEndDate}
+            required = {!isPlan?true:false}></input>
+            </div>
+            <p className={isPlan?"notShow":"activityInputText"}>Hora Inicio - Hora Fin*</p>
+            <div className={isPlan?"notShow":"dateInputContainer"}>
+            <input
+              type ="time"
+              className="activityInputField dateField"
+              required = {!isPlan?true:false}
+              id = "horaInicio"
+              onChange={getStartHour}
+            ></input>
+            <input
+              type ="time"
+              className="activityInputField dateField"
+              required = {!isPlan?true:false}
+              id = "horaFin"
+              onChange={getEndHour}
+            ></input>
+            </div>
+        </>
             <p className="activityInputText">Categoria*</p>
             <select onChange={getCategory} className="activityInputField" required >
             <option value="Cultural">Cultural</option>
