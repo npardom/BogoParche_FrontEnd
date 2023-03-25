@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Catalogue from './pages/catalogue';
@@ -8,6 +8,7 @@ import AdministrarActividades from './pages/administrarActividades';
 import AboutUs from './pages/aboutUs';
 import Login from './pages/login';
 import SignUp from './pages/signUp';
+import PageAct from './pages/PageAct';
 import { Navigate } from 'react-router-dom';
 
 export function App() {
@@ -46,6 +47,7 @@ export function App() {
             <Navigate replace to={"/"} />
           )
         }/>
+          <Route path="/activities/:slug" element={<PageAct />} />
       </Routes>
       <Footer />
     </Router>

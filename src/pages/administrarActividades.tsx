@@ -4,11 +4,28 @@ import removeIcon from "../assets/icons/removeIcon.png";
 import {useState, useEffect} from "react";
 
 function AdministrarActividades() {
+  const pricesList = ["Gratis",
+    "1k - 10k",
+    "10k - 50k",
+    "50k - 100k",
+    "100k - 150k",
+    "+150k"
+  ]
+
+  const categoriesList = [ "Actividad Física",
+    "Ambiental",
+    "Bares y Discotecas",
+    "Cultural",
+    "Entretenimiento",
+    "Gastronomía",
+    "Turismo",
+    "Otros"
+  ]
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Cultural");
+  const [category, setCategory] = useState(categoriesList[0]);
   const [location, setLocation] = useState("");
   const [schedule, setSchedule] = useState("");
-  const [price, setPrice] = useState("Gratis");
+  const [price, setPrice] = useState(pricesList[0]);
   const [description, setDescription] = useState("");
   const [ageRestriction, setAgeRestriction] = useState(false);
   const [contact, setContact] = useState("");
@@ -101,8 +118,6 @@ function AdministrarActividades() {
       es_plan :isPlan,
       horario_plan: schedule
     }
-    console.log("Enviado")
-    console.log(body)
     fetch("/api/create-activity", {
       method: "POST",
       mode: "cors",
@@ -113,7 +128,12 @@ function AdministrarActividades() {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        if (result.id){
+          alert("La actividad fue creada exitosamente.");
+          window.location.reload();
+        } else {
+          alert("Ocurrió un error. Intenta de nuevo.");
+        }
       });
   };
 
@@ -151,17 +171,15 @@ function AdministrarActividades() {
             </div>
       <>
           <p className={isPlan?"activityInputText":"notShow"}>Horario*</p>
-            <input className = {isPlan ? "activityInputField":"notShow"} id = "horario" required = {isPlan?true:false}
+            <input className = {isPlan ? "activityInputField":"notShow"} required = {isPlan?true:false}
             onChange={getSchedule}></input>
           <p className={isPlan?"notShow":"activityInputText"}>Fecha Inicio - Fecha Fin*</p>
           <div className={isPlan?"notShow":"dateInputContainer"}>
           <input className="activityInputField dateField" 
-            type ="date" id = "fechaInicio"
-            onChange={getStartDate}
+            type ="date" onChange={getStartDate}
             required = {!isPlan?true:false}></input>
           <input className="activityInputField dateField" 
-            type ="date" id = "fechaFin"
-            onChange={getEndDate}
+            type ="date" onChange={getEndDate}
             required = {!isPlan?true:false}></input>
             </div>
             <p className={isPlan?"notShow":"activityInputText"}>Hora Inicio - Hora Fin*</p>
@@ -170,28 +188,21 @@ function AdministrarActividades() {
               type ="time"
               className="activityInputField dateField"
               required = {!isPlan?true:false}
-              id = "horaInicio"
               onChange={getStartHour}
             ></input>
             <input
               type ="time"
               className="activityInputField dateField"
               required = {!isPlan?true:false}
-              id = "horaFin"
               onChange={getEndHour}
             ></input>
             </div>
         </>
             <p className="activityInputText">Categoria*</p>
             <select onChange={getCategory} className="activityInputField" required >
-            <option value="Cultural">Cultural</option>
-              <option value="Ambiental">Ambiental</option>
-              <option value="Turismo">Turismo</option>
-              <option value="Actividad Física">Actividad Física</option>
-              <option value="Bares y Discotecas">Bares y Discotecas</option>
-              <option value="Gastronomía">Gastronomía</option>
-              <option value="Entretenimiento">Entretenimiento</option>
-              <option value="Otros">Otros</option>
+              {categoriesList.map((category: string)=> (
+                <option value={category}>{category}</option>
+              ))}
             </select >
           </div>
           <div className="column">
@@ -199,12 +210,9 @@ function AdministrarActividades() {
             <input onChange={getContact} className="activityInputField" required></input>
             <p className="activityInputText">Precios*</p>
             <select onChange={getPrice} className="activityInputField" required >
-              <option value="Gratis">Gratis</option>
-              <option value="1k - 10k">1k - 10k</option>
-              <option value="10k - 50k">10k - 50k</option>
-              <option value="50k - 100k">50k - 100k</option>
-              <option value="100k - 150k">100k - 150k</option>
-              <option value="+ 150k">+ 150k</option>
+              {pricesList.map((price: string)=> (
+                <option value={price}>{price}</option>
+              ))}
             </select >
             <div className ="ageLimitContainer">
               <p className="activityInputText endingField">Mayoria de edad</p>
