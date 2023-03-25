@@ -7,6 +7,7 @@ function AdministrarActividades() {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
+  const [schedule, setSchedule] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [ageRestriction, setAgeRestriction] = useState(false);
@@ -50,6 +51,10 @@ function AdministrarActividades() {
     }
   };
 
+  const getSchedule = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSchedule(event.target.value);
+  };
+
   const getStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStartDate(event.target.value);
   };
@@ -83,7 +88,7 @@ function AdministrarActividades() {
       return (
         <>
           <p className="activityInputText">Horario*</p>
-            <input className="activityInputField" required></input>
+            <input className="activityInputField" id = "horario" required></input>
             <p className="notShow">Fecha*</p>
         </>
       )
@@ -119,12 +124,14 @@ function AdministrarActividades() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    setStartHour((document.getElementById("horaInicio") as HTMLInputElement).value);
-    setEndHour((document.getElementById("horaFin") as HTMLInputElement).value);
-    setStartDate((document.getElementById("fechaInicio") as HTMLInputElement).value);
-    setEndDate((document.getElementById("fechaFin") as HTMLInputElement).value);
-
+    if (isPlan){
+      setSchedule((document.getElementById("horario") as HTMLInputElement).value);
+    } else {
+      setStartHour((document.getElementById("horaInicio") as HTMLInputElement).value);
+      setEndHour((document.getElementById("horaFin") as HTMLInputElement).value);
+      setStartDate((document.getElementById("fechaInicio") as HTMLInputElement).value);
+      setEndDate((document.getElementById("fechaFin") as HTMLInputElement).value);
+    }
     const body = {
       titulo_actividad: title,
       ubicacion: location,
@@ -138,8 +145,10 @@ function AdministrarActividades() {
       fecha_fin: endDate,
       hora_inicio: startHour,
       hora_fin: endHour,
-      es_plan :isPlan
+      es_plan :isPlan,
+      horario_plan: schedule
     }
+    console.log("Enviado")
     fetch("/api/create-activity", {
       method: "POST",
       mode: "cors",
