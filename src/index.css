@@ -504,7 +504,7 @@ button {
 }
 
 .catalogueContainer {
-  display: flex;
+  display: flexbox;
   justify-content: center;
   width:770px;
   align-items: center;
@@ -640,4 +640,69 @@ textarea {
 .twoButtonsContainer{
   display:inline-flexbox;
   width:100%;
+}
+
+.catalogueSearchBar {
+  width: fit-content;
+  margin: 0px auto 10px auto;
+}
+
+.searchField {
+  width: 720px;
+  height: 35px;
+  padding:10px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 20px;
+  border-radius: 20px;
+  color: white;
+  text-align: left;
+  background-color: rgba(255,255,255,0.3);
+  margin: 5px 0 5px 0;
+  border-radius: 7px;
+  border: transparent;
+}
+
+.searchField::placeholder { 
+  color: white;
+}
+
+.favsContainer {
+  width: 70px;
+  font-family: 'Mulish', sans-serif;
+  background-color: rgba(125, 220, 250, 0.4);
+  margin: 0px auto 80px auto;
+  padding:10px;
+  border-radius: 15px;
+  animation: 0.5s ease-out 0s 1 slideInFromLeft;
+}
+
+.assistContainer {
+  width: 100px;
+  font-family: 'Mulish', sans-serif;
+  background-color: rgba(125, 220, 250, 0.4);
+  margin: 0px auto 80px auto;
+  padding:10px;
+  border-radius: 15px;
+  animation: 0.5s ease-out 0s 1 slideInFromLeft;
+}
+
+.filterContainer {
+  background-color: #500A6D;
+  width: 140px;
+  font-family: "Source Sans Pro", sans-serif;
+  padding: 15px 10px 15px 10px;
+}
+
+.filterItem {
+  display: block;
+}
+
+.filterTitle {
+  font-family: 'Mulish', sans-serif;
+  margin-bottom: 5px;
+}
+
+.searchButton {
+  height: 35px;
+  width: 35px;
 }
