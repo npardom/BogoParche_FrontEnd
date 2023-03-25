@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Catalogue from './pages/catalogue';
 import Parches from './pages/parches';
 import SugerirActividad from './pages/sugerirActividad';
+import InfoActividad from './pages/infoActividad';
 import AboutUs from './pages/aboutUs';
 import Login from './pages/login';
 import SignUp from './pages/signUp';
@@ -19,6 +20,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<Catalogue />} />
         <Route path="/parches" element={<Parches />} />
+        <Route path="/infoActividad" element={<InfoActividad />} />
         <Route path="/sugerirActividad" element={<SugerirActividad />} />
         <Route path="/acercaDe" element={<AboutUs />} />
         <Route path="/login" 
