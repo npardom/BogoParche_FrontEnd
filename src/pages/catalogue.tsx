@@ -5,12 +5,7 @@ import ActivityCard from "../components/activityCard";
 
 function Catalogue() {
   const [activities, setActivities] = useState([] as Activity[]);
-  const [searchTerms,setSearchTerms] = useState("");
   const [categories, setCategories] = useState([] as any);
-
-  const getSearchTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerms(event.target.value);
-  };
 
   useEffect(()=>{
     fetch("/api/get-categories", {
@@ -36,23 +31,29 @@ function Catalogue() {
 
   function sendFilter(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    var search = document.getElementById("searchBarId") as HTMLInputElement;
     var prices = [];
     var categoriesChecked = [];
-    for (var element in Object.keys(categories)) {
-      const checkbox = document.getElementById(element) as HTMLInputElement;
+
+    var cats = Object.keys(categories);
+
+    for (var i = 0; i < cats.length; i++) {
+      const checkbox = document.getElementById(cats[i]) as HTMLInputElement;
       if (checkbox.checked){
-        categoriesChecked.push(categories[element])
+        categoriesChecked.push(categories[cats[i]])
       }
     }
+
     for (var i = 0; i < pricesList.length; i++) {
       const checkbox = document.getElementById(pricesList[i]) as HTMLInputElement;
       if (checkbox.checked){
         prices.push(pricesList[i])
       }
     }
+
     var address = "categories=" + categoriesChecked.join(',') +"&";
     address += "range_prices=" + prices.join(',') + "&";
-    address += "search=" + searchTerms;
+    address += "search=" + search.value;
     fetch("/api/filter?" + address, {
       method: "GET",
       mode: "cors",
@@ -63,7 +64,6 @@ function Catalogue() {
     .then((res) => res.json())
     .then((dato) => {
       setActivities(dato)
-      console.log(dato)
     });
   }
 
@@ -81,11 +81,23 @@ function Catalogue() {
     }
   }
 
+  function toggleButton(id: string) {
+    var line = document.getElementById(id + "checkbox") as HTMLDivElement;
+    var bttn = document.getElementById(id) as HTMLInputElement;
+    if (line.classList.toString() === "filterItem"){
+      line.classList.add('opacityWhole');
+      bttn.checked = true;
+    }else{
+      line.classList.remove('opacityWhole');
+      bttn.checked = false;
+    }
+  }
+
   return (
     <div className ="catalogueContainer">
         <form className="searchContainer" onSubmit={sendFilter} >
           <img src = {searchIcon} className ="searchImage"></img>
-          <input onChange={getSearchTerms}
+          <input id ="searchBarId"
               placeholder = "Ingresa términos de búsqueda" className = "searchField">
           </input>
         </form>
@@ -107,7 +119,7 @@ function Catalogue() {
             Categorías
           </p>
           {Object.keys(categories).map((categoryId: string)=> (
-            <div className="filterItem">
+            <div className="filterItem" onClick = {()=>toggleButton(categoryId)} id ={categoryId+"checkbox"}>
             <div className = "filterCheckboxContainer">
             <input type ="checkbox" className="categoryCheckbox" id={categoryId}/>
             </div>
@@ -118,7 +130,7 @@ function Catalogue() {
             Precios
           </p>
           {pricesList.map((price: string)=> (
-            <div className="filterItem">
+            <div className="filterItem" onClick = {()=>toggleButton(price)} id ={price+"checkbox"}>
             <div className = "filterCheckboxContainer">
             <input type ="checkbox" className="categoryCheckbox" id={price}/>
             </div>

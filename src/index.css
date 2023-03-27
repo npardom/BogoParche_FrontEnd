@@ -844,6 +844,13 @@ textarea {
   margin-bottom: 3px;
   font-size:16px;
   transition: 0.5s;
+  opacity: 60%;
+  transition: 0.5s;
+}
+
+.opacityWhole {
+  opacity:100%;
+  transition: 0.5s;
 }
 
 .filterTitle {
@@ -884,19 +891,12 @@ textarea {
   height: 16px;
   transition:0.5s;
   cursor: pointer; 
-  opacity:65%;
-  margin: 0;
+  margin: 0 0 0 0;
   accent-color: rgb(172, 84, 204);
 }
 
-.categoryCheckbox:checked {
-  opacity:100%;
-  transition:0.5s;
-}
-
-.categoryCheckbox:checked +label{
-  opacity:100%;
-  transition:0.5s;
+.categoryCheckbox:focus{
+  outline: none;
 }
 
 .filterItem label{
