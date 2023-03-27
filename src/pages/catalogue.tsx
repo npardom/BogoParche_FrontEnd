@@ -1,33 +1,32 @@
 import {useState, useEffect} from "react";
-import {Activity} from "../assets/datos"
+import { Activity, pricesList } from "../assets/datos";
 import searchIcon from "../assets/icons/searchIcon.png";
 import ActivityCard from "../components/activityCard";
 
 function Catalogue() {
-  const pricesList = ["Gratis",
-    "1k - 10k",
-    "10k - 50k",
-    "50k - 100k",
-    "100k - 150k",
-    "+150k"
-  ]
-
-  const categoriesList = [ "Actividad Física",
-    "Ambiental",
-    "Bares y Discotecas",
-    "Cultural",
-    "Entretenimiento",
-    "Gastronomía",
-    "Turismo",
-    "Otros"
-  ]
-
   const [activities, setActivities] = useState([] as Activity[]);
   const [searchTerms,setSearchTerms] = useState("");
+  const [categories, setCategories] = useState([] as any);
 
   const getSearchTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerms(event.target.value);
   };
+
+  useEffect(()=>{
+    fetch("/api/get-categories", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+      "Content-Type": "application/json"
+    } 
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.data){
+        setCategories(result.data);
+      }
+    });
+  }, [])
 
   useEffect(() => {
     fetch("/api/activities")
@@ -37,12 +36,12 @@ function Catalogue() {
 
   function sendFilter(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    var categories = [];
     var prices = [];
-    for (var i = 0; i < categoriesList.length; i++) {
-      const checkbox = document.getElementById(categoriesList[i]) as HTMLInputElement;
+    var categoriesChecked = [];
+    for (var element in Object.keys(categories)) {
+      const checkbox = document.getElementById(element) as HTMLInputElement;
       if (checkbox.checked){
-        categories.push(categoriesList[i])
+        categoriesChecked.push(categories[element])
       }
     }
     for (var i = 0; i < pricesList.length; i++) {
@@ -51,12 +50,9 @@ function Catalogue() {
         prices.push(pricesList[i])
       }
     }
-    console.log(categories.join(','))
-    console.log(prices.join(','))
-    var address = "categories=" + categories.join(',') +"&";
+    var address = "categories=" + categoriesChecked.join(',') +"&";
     address += "range_prices=" + prices.join(',') + "&";
     address += "search=" + searchTerms;
-    console.log(address)
     fetch("/api/filter?" + address, {
       method: "GET",
       mode: "cors",
@@ -107,13 +103,15 @@ function Catalogue() {
       </div>*/}
       <div className="catalogueContainer2">
         <div className="filterContainer">
-          <p className="filterTitle">
+          <p className="filterTitle filterTitle2">
             Categorías
           </p>
-          {categoriesList.map((category: string)=> (
+          {Object.keys(categories).map((categoryId: string)=> (
             <div className="filterItem">
-            <input type ="checkbox" className="categoryCheckbox" id={category}/>
-            <label>{category}</label>
+            <div className = "filterCheckboxContainer">
+            <input type ="checkbox" className="categoryCheckbox" id={categoryId}/>
+            </div>
+            <label>{categories[categoryId]}</label>
             </div>
           ))}
           <p className="filterTitle">
@@ -121,7 +119,9 @@ function Catalogue() {
           </p>
           {pricesList.map((price: string)=> (
             <div className="filterItem">
+            <div className = "filterCheckboxContainer">
             <input type ="checkbox" className="categoryCheckbox" id={price}/>
+            </div>
             <label>{price}</label>
             </div>
           ))}

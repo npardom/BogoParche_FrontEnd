@@ -1,28 +1,29 @@
-import icon from "../assets/icons/editIcon.png";
+import icon from "../assets/icons/createIcon.png";
 import addIcon from "../assets/icons/addIcon.png";
-import removeIcon from "../assets/icons/removeIcon.png";
 import {useState, useEffect} from "react";
+import { pricesList } from "../assets/datos";
 
-function AdministrarActividades() {
-  const pricesList = ["Gratis",
-    "1k - 10k",
-    "10k - 50k",
-    "50k - 100k",
-    "100k - 150k",
-    "+150k"
-  ]
+function AñadirActividad () {
+  const [categories, setCategories] = useState([] as any);
 
-  const categoriesList = [ "Actividad Física",
-    "Ambiental",
-    "Bares y Discotecas",
-    "Cultural",
-    "Entretenimiento",
-    "Gastronomía",
-    "Turismo",
-    "Otros"
-  ]
+  useEffect(()=>{
+    fetch("/api/get-categories", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+      "Content-Type": "application/json"
+    } 
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.data){
+        setCategories(result.data);
+      }
+    });
+  }, [])
+
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState(categoriesList[0]);
+  const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [schedule, setSchedule] = useState("");
   const [price, setPrice] = useState(pricesList[0]);
@@ -88,7 +89,7 @@ function AdministrarActividades() {
     setEndHour(event.target.value);
   };
 
-  const getSchedule = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const getSchedule = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setSchedule(event.target.value);
   };
 
@@ -116,7 +117,8 @@ function AdministrarActividades() {
       hora_inicio: startHour,
       hora_fin: endHour,
       es_plan :isPlan,
-      horario_plan: schedule
+      horario_plan: schedule,
+      es_aprobado: true
     }
     fetch("/api/create-activity", {
       method: "POST",
@@ -142,13 +144,12 @@ function AdministrarActividades() {
       <div className="adminActivitiesContainer">
         <div className="pageTitle">
           <img src={icon} className="pageTitleIcon" />
-          <div className="pageTitleText">Administrador de Actividades</div>
+          <div className="pageTitleText">Añadir Actividad</div>
         </div>
         <form className = "formContainer" onSubmit={handleSubmit}>
           <div className="column">
             <p className="activityInputText">Nombre Actividad*</p>
-            <input onChange={getTitle}
-            value={title} className="activityInputField" required></input>
+            <input onChange={getTitle} className="activityInputField" required></input>
             <p className="activityInputText">Ubicación*</p>
             <input onChange={getLocation}
               className="activityInputField"
@@ -162,46 +163,62 @@ function AdministrarActividades() {
             ></textarea>
           </div>
           <div className="column">
-          <p className="activityInputText">Tipo</p>
+          <p className="activityInputText">Tipo Actividad</p>
             <div className ="activityTypeContainer">
               <input onClick={getTypeFromEvent} type="radio" className="activityCheckbox2" name="type" defaultChecked />
               <label htmlFor="html">Evento</label><br/>
               <input onClick={getTypeFromPlan} type="radio" className="activityCheckbox3"name="type"/>
               <label htmlFor="html">Plan</label><br/>
             </div>
-      <>
-          <p className={isPlan?"activityInputText":"notShow"}>Horario*</p>
-            <input className = {isPlan ? "activityInputField":"notShow"} required = {isPlan?true:false}
-            onChange={getSchedule}></input>
-          <p className={isPlan?"notShow":"activityInputText"}>Fecha Inicio - Fecha Fin*</p>
-          <div className={isPlan?"notShow":"dateInputContainer"}>
-          <input className="activityInputField dateField" 
-            type ="date" onChange={getStartDate}
-            required = {!isPlan?true:false}></input>
-          <input className="activityInputField dateField" 
-            type ="date" onChange={getEndDate}
-            required = {!isPlan?true:false}></input>
-            </div>
-            <p className={isPlan?"notShow":"activityInputText"}>Hora Inicio - Hora Fin*</p>
-            <div className={isPlan?"notShow":"dateInputContainer"}>
-            <input
-              type ="time"
-              className="activityInputField dateField"
-              required = {!isPlan?true:false}
-              onChange={getStartHour}
-            ></input>
-            <input
-              type ="time"
-              className="activityInputField dateField"
-              required = {!isPlan?true:false}
-              onChange={getEndHour}
-            ></input>
-            </div>
-        </>
+            {isPlan ? (
+              <>
+                <p className="activityInputText">Horario*</p>
+                <textarea
+                  className="activityInputField horarioInputField"
+                  required
+                  maxLength={100}
+                  onChange={getSchedule}
+                ></textarea>
+              </>
+            ) : (
+              <>
+                <p className="activityInputText">Fecha Inicio - Fecha Fin*</p>
+                <div className="dateInputContainer">
+                  <input
+                    className="activityInputField dateField"
+                    type="date"
+                    onChange={getStartDate}
+                    required
+                  ></input>
+                  <input
+                    className="activityInputField dateField"
+                    type="date"
+                    onChange={getEndDate}
+                    required
+                  ></input>
+                </div>
+                <p className="activityInputText">Hora Inicio - Hora Fin*</p>
+                <div className="dateInputContainer">
+                  <input
+                    type="time"
+                    className="activityInputField dateField"
+                    required
+                    onChange={getStartHour}
+                  ></input>
+                  <input
+                    type="time"
+                    className="activityInputField dateField"
+                    required
+                    onChange={getEndHour}
+                  ></input>
+                </div>
+              </>
+            )}
             <p className="activityInputText">Categoria*</p>
             <select onChange={getCategory} className="activityInputField" required >
-              {categoriesList.map((category: string)=> (
-                <option value={category}>{category}</option>
+            <option selected disabled hidden></option>
+              {Object.keys(categories).map((categoryId: string) => (
+                <option value={categories[categoryId]}>{categories[categoryId]}</option>
               ))}
             </select >
           </div>
@@ -219,16 +236,10 @@ function AdministrarActividades() {
               <input onChange={getAgeRestriction} className="activityCheckbox" type="checkbox"></input>
             </div>
             <p className="textStyle1">(*) Campo Obligatorio</p>
-           <div className = "twoButtonsContainer">
             <button className="createButton">
               <img src={addIcon} className="activityFormButtonIcon" />
-              Crear/ Actualizar
+              Crear Actividad
             </button>
-            <button className="deleteButton">
-              <img src={removeIcon} className="activityFormButtonIcon" />
-              Eliminar
-            </button>
-            </div> 
           </div>
         </form>
       </div>
@@ -236,4 +247,4 @@ function AdministrarActividades() {
   );
 }
 
-export default AdministrarActividades;
+export default AñadirActividad;

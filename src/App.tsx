@@ -5,28 +5,50 @@ import Catalogue from './pages/catalogue';
 import Parches from './pages/parches';
 import SugerirActividad from './pages/sugerirActividad';
 import InfoActividad from './pages/infoActividad';
+import EditarActividad from './pages/editarActividad';
+import AñadirActividad from './pages/añadirActividad';
 import AboutUs from './pages/aboutUs';
 import Login from './pages/login';
 import SignUp from './pages/signUp';
-import PageAct from './pages/PageAct';
-import { Navigate } from 'react-router-dom';
+import YouNeedToRegister from './components/YouNeedToRegister';
+import {Navigate} from 'react-router-dom';
 
 export function App() {
 
   const loggedInUser = localStorage.getItem("username");
 
+  function RegisterPopUp (){
+    if (!loggedInUser){
+      return <YouNeedToRegister/>
+    }else{
+      return <></>
+    }
+  }
+
   return (
     <Router>
       <Header />
+      <RegisterPopUp/>
       <Routes>
         <Route path="/" element={<Catalogue />} />
-        <Route path="/parches" element={<Parches />} />
-        <Route path="/infoActividad" element={<InfoActividad />} />
-        <Route path="/sugerirActividad" element={<SugerirActividad />} />
-        <Route path="/administrarActividades" 
+        <Route path="/parches" element={
+          loggedInUser ? (
+            <Parches />
+          ) : (
+            <Navigate replace to={"/"} />
+          )
+        } />
+        <Route path="/sugerirActividad" element={
+          loggedInUser ? (
+            <SugerirActividad />
+          ) : (
+            <Navigate replace to={"/"} />
+          )
+        } />
+        <Route path="/añadirActividad" 
         element={
           loggedInUser ? (
-            <AdministrarActividades />
+            <AñadirActividad />
           ) : (
             <Navigate replace to={"/"} />
           )
@@ -48,7 +70,14 @@ export function App() {
             <Navigate replace to={"/"} />
           )
         }/>
-          <Route path="/activities/:slug" element={<PageAct />} />
+        <Route path="/actividades/:slug" element = {<InfoActividad />}/>
+        <Route path="/editarActividad/:slug" element={
+          loggedInUser ? (
+            <EditarActividad />
+          ) : (
+            <Navigate replace to={"/"} />
+          )
+        } />
       </Routes>
       <Footer />
     </Router>

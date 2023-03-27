@@ -1,11 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
 
-/*
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-*/
 
 body {
   background-image: url("./assets/background.png");
@@ -268,25 +263,30 @@ button {
 }
 
 .pageTitle {
-  opacity:100%;
   display:flex;
   width:fit-content;
-  margin: auto;
   align-items: center;
   justify-content: center;
+  margin: 8px auto 2px auto;
+  padding: 0 10px 0 10px;
+  overflow-wrap: anywhere;
 }
 
 .pageTitleIcon {
   width: 35px;
 }
 
+.pageTitleIcon2 {
+  width: 18px;
+}
+
 .pageTitleText {
   font-family: 'Mulish', sans-serif;
   font-size: 20px;
   margin-left: 15px;
-  color: #D6A4EB
+  line-height: 17px;
+  color: #D6A4EB;
 }
-
 
 .memberCirclesArray {
   display:flex;
@@ -391,7 +391,6 @@ button {
 .activityInputField {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
-  color: white;
   text-align: left;
   margin: 0px 0 15px 0px;
   color: black;
@@ -401,14 +400,29 @@ button {
   width:220px;
 }
 
+.activityIsPlanPlainText{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 10px 0 19px 0px;
+}
+
 .activityInputText{
   font-family: 'Mulish', sans-serif;
   font-size: 16px;
   margin: 0 0 5px 0;
 }
 
+.disabledText{
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .descriptionInputField {
   height: 144px;
+}
+
+.horarioInputField {
+  height: 140px;
 }
 
 .loginButton2{
@@ -465,9 +479,10 @@ button {
   font-family: 'Source Sans Pro', sans-serif;
   line-height: 15px;
   padding:20px 20px 20px 20px;
-  margin:5px;
+  margin:0 5px 5px 5px;
   font-size: 16px;
   transition: 0.5s;
+  overflow-wrap: anywhere;
 }
 
 .activityCardTitle {
@@ -530,10 +545,11 @@ button {
 }
 
 .catalogueCardsContainer {
-  display: flexbox;
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0px;
   width: 610px;
-  height: 360px;
+  height: 100%;
   overflow-y:auto;
 }
 
@@ -652,7 +668,7 @@ textarea {
   text-align: center;
 }
 
-.createButton{
+.updateButton{
   display:flex;
   align-items: center;
   justify-content: center;
@@ -663,15 +679,15 @@ textarea {
   line-height: 12px;
   color: rgb(255, 255, 255);
   text-align: left;
-  background-color: rgb(134, 82, 186);
+  background-color:#14ABDB;
   border-radius: 7px;
   border: transparent;
   transition: 0.5s;
   float:left;
 }
 
-.createButton:hover{
-  background-color: rgb(87, 50, 124);
+.updateButton:hover{
+  background-color: #0c718d;
   transition: 0.5s;
 }
 
@@ -697,6 +713,28 @@ textarea {
   transition: 0.5s;
 }
 
+.createButton{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height:35px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 13px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(134, 82, 186);
+  border-radius: 7px;
+  border: transparent;
+  transition: 0.5s;
+  margin: 15px auto 0 auto;
+  padding: 0 10px 0 10px;
+}
+
+.createButton:hover{
+  background-color: rgb(87, 50, 124);
+  transition: 0.5s;
+}
+
 .activityFormButtonIcon {
   width: 22px;
   margin-right:5px;
@@ -705,7 +743,9 @@ textarea {
 .twoButtonsContainer{
   display:inline-flexbox;
   width:100%;
+  height: 30px;
 }
+
 
 .searchField {
   width: 700px;
@@ -743,7 +783,7 @@ textarea {
   color: white;
   text-align: left;
   background-color: rgba(255,255,255,0.3);
-  margin: 0px 0 0px 0;
+  margin: 0px 0 10px 0;
   border: transparent;
   text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.567);
   align-items: center;
@@ -771,24 +811,48 @@ textarea {
 }
 
 .filterContainer {
-  width: 160px;
+  width: 150px;
+  height: 100%;
+  overflow-y: auto;
   font-family: "Source Sans Pro", sans-serif;
-  padding: 0px 0px 0px 0px;
-  margin-top:5px;
+  padding: 0px 10px 0px 0px;
+  margin: 0px 3px 0px 0px;
+  overflow-wrap: anywhere;
+}
+
+.filterContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.filterContainer::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 10px;
+}
+
+.filterContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
 }
 
 .filterItem {
   display: flex;
   width: 100%;
-  height: 21px;
-  align-items: center;
+  height: fit-content;
+  align-items: self-start;
+  line-height: 15px;
+  padding: 0px;
+  margin-bottom: 3px;
   font-size:16px;
   transition: 0.5s;
 }
 
 .filterTitle {
   font-family: 'Mulish', sans-serif;
-  margin: 10px 0 4px 0;
+  margin: 10px 0 6px 0;
+}
+
+.filterTitle2{
+  margin: 0px 0 6px 0;
 }
 
 .notShow{
@@ -802,10 +866,17 @@ textarea {
 .dateField{
   width:105px;
   margin-right:5px;
+  font-size:15px;
 }
 
 .catalogueContainer2 {
   display: flex;
+  height:320px;
+}
+
+.filterCheckboxContainer{
+  width: 16px;
+  margin-right:7px;
 }
 
 .categoryCheckbox{
@@ -814,7 +885,7 @@ textarea {
   transition:0.5s;
   cursor: pointer; 
   opacity:65%;
-  margin: 0 7px 0 0;
+  margin: 0;
   accent-color: rgb(172, 84, 204);
 }
 
@@ -852,4 +923,374 @@ textarea {
 .sendButton:hover{
   background-color: #D6A4EB;
   transition: 0.5s;
+}
+
+.registerPopUpWhole{
+  position:absolute;
+  top: 0;
+  bottom:0;
+  right: 0;
+  left:0;
+  z-index:-1100;
+  transition: 0.5s;
+}
+
+.appeared{
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index:999;
+  transition: 0.5s;
+}
+
+.registerPopUpCard{
+  width: 250px;
+  height:300px;
+  background-image: url("./assets/popUpBackground.png");
+  background-size: cover;
+  border-radius: 25px;
+  position:absolute;
+  top: -400px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-family: "Source Sans Pro", sans-serif;
+  font-size:19px;
+  padding:10px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  z-index:1000;
+  transition: 0.5s;
+}
+
+.movedDown{
+  top: 200px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.37);
+  transition: 0.5s;
+}
+
+.registerPopUpContainer{
+  width: 230px;
+  text-align: center;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.438);
+}
+
+.goToSignUp2 {
+  color: #7DDCFA;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.goToSignUp2:hover {
+  text-decoration:underline;
+}
+
+.goToLogin {
+  color: #cd88fd;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.goToLogin:hover {
+  text-decoration:underline;
+}
+
+.fakeMenuButton {
+  font-size: 16px;
+  border: 2px solid white;
+  background-color: rgba(0,0,0,0);
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.165);
+  border-radius: 8px;
+  padding:4px 15px 4px 15px;
+  margin: 0 4px 0 4px;
+  height:fit-content;
+  transition: 0.5s;
+  color: white;
+}
+
+.fakeMenuButton:visited {
+  color: white;
+}
+
+.fakeMenuButton:hover{
+  color: #2b085a;
+  padding:4px 20px 4px 20px;
+  background-color: white;
+  transition: 0.5s;
+}
+
+.bottomTwoButtonsContainer{
+  display:flex;
+  width:100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.activityButton{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  font-family: 'Mulish', sans-serif;
+  font-size: 13px;
+  color: rgb(255, 255, 255);
+  border-radius: 7px;
+  border: transparent;
+  transition: 0.5s;
+  padding: 4px 10px 4px 10px;
+  text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.343);
+}
+
+.volver{
+  background-color: #E16DB5;
+  margin-right:77px;
+  float:left;
+}
+
+.volver:hover{
+  background-color: #ad3e82;
+  transition: 0.5s;
+}
+
+.favorito{
+  background-color: #5048EF;
+  width:170px;
+}
+
+.favorito:hover{
+  background-color: #312c95;
+  transition: 0.5s;
+}
+
+.willAssistButton{
+  background-color: #14ABDB;
+  width: 170px;
+  height:28px;
+  margin-top: 4px;
+}
+
+.willAssistButton:hover{
+  background-color: #116c88;
+  transition: 0.5s;
+}
+
+.parche{
+  background-color: #F25165;
+  float:left;
+}
+
+.parche:hover{
+  background-color: #b03d4b;
+  transition: 0.5s;
+}
+
+.reseña {
+  background-color: white;
+  color: #500A6D;
+  float:right;
+  text-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.reseña:hover{
+  background-color: #D6A4EB;
+  transition: 0.5s;
+}
+
+.infoBox {
+  opacity: 100%;
+  width: 70%;
+  max-width: 800px;
+  min-width: 680px;
+  height: 45vh;
+  min-height: 360px;
+  max-height: 400px;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 40px;
+  margin: 20px auto 30px auto;
+  animation: 0.5s ease-out 0s 1 slideInFromLeft;
+  padding: 40px;
+  line-height: 15px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.infoActivityContainer{
+  width: 100%;
+  text-align:center ;
+}
+
+.editActivityButton{
+  background-color: #D6A4EB;
+  width: 24px;
+  height: 24px;
+  border:none;
+  border-radius: 5px;
+  transition:0.5s;
+  padding: 2px;
+  margin-left:10px;
+}
+
+.editActivityButton:hover{
+  background-color: #ffffff;
+  transition:0.5s;
+}
+
+.featureTitleText{
+  text-align: left;
+  font-family: "Mulish",sans-serif;
+}
+
+.featureText{
+  text-align: left;
+  font-family: "Source Sans Pro",sans-serif;
+}
+
+.featureIcon{
+  width: 25px;
+  margin-right:10px;
+}
+
+.userCommentIcon{
+  width: 35px;
+  margin-right:10px;
+}
+
+.featureBox {
+  display:flex;
+  width:fit-content;
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 9px;
+}
+
+.specialFeatureTitle {
+  margin-top: 7px;
+  margin-bottom: 10px;
+}
+
+.verticalButtonContainer{
+  display:flexbox;
+  float:right;
+}
+
+.assistCheckboxBackground{
+  width: 35px;
+  height:15px;
+  background-color: white;
+  border-radius: 25px;
+  margin-left:15px;
+  display:flex;
+  align-items: center;
+  transition:0.5s;
+}
+
+.on{
+  justify-content: right;
+  transition:0.5s;
+}
+
+.assistCheckbox{
+  width: 13px;
+  height:13px;
+  background-color: #0F0A72;
+  border-radius: 25px;
+  margin: 0 2px 0 2px;
+}
+
+.columnFeaturesContainer {
+  flex-basis: 198px;
+	flex-grow: 0;
+	flex-shrink: 0;
+  height:250px;
+  overflow-y: auto;
+  margin-right:20px;
+  padding-right:10px;
+  overflow-wrap: anywhere;
+}
+
+.columnDescriptionReviewsContainer {
+  display: flex;
+  flex-flow:column;
+  align-content: start;
+  height:250px;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.columnFeaturesContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.columnFeaturesContainer::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 10px;
+}
+
+.columnFeaturesContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+}
+
+.twoColumnsFeatureContainer{
+  display:flex;
+  width:100%;
+  height:fit-content;
+  justify-content: space-between;
+  margin-bottom:15px;
+}
+
+.containerComments{
+  width:100%;
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.containerComments::-webkit-scrollbar {
+  width: 8px;
+}
+
+.containerComments::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 10px;
+}
+
+.containerComments::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+}
+
+.commentCard{
+  width:99%;
+  min-height:50px;
+  display: flex;
+  align-items:flex-start;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.commentTextContainer{
+  width:100%;
+  background-color: #ffffff23;
+  padding:12px 12px 12px 12px;
+  border-radius: 0px 15px 15px 15px;
+  transition: 0.5s;
+}
+
+.commentTextContainer:hover{
+  background-color: #ffffff67;
+  transition: 0.5s;
+}
+
+.commentText{
+  font-family: "Source Sans Pro", sans-serif;
+  font-style: italic;
+  margin-bottom:7px;
+  text-align: left;
+}
+
+.commentInfo{
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight:bold;
+  text-align: right;
 }

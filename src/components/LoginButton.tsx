@@ -21,7 +21,7 @@ function LoginButton() {
   };
 
   const goToActivities = () => {
-    navigate("/administrarActividades");
+    navigate("/añadirActividad");
   };
 
   // If logged in
@@ -36,7 +36,7 @@ function LoginButton() {
         </div>
         <img src={userIcon} className="userIcon" />
         <div className ="userOptionsContainer">
-        <div className = "userOptionButton" onClick={goToActivities}>Administrar Actividades</div>
+        <div className = "userOptionButton" onClick={goToActivities}>Añadir Actividad</div>
         <div className = "userOptionButton" onClick={handleLogout}>Cerrar Sesión</div>
         </div>
       </button>

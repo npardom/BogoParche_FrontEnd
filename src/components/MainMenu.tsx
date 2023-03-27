@@ -22,7 +22,6 @@ const NavLink = styled(Link)
 
   &:hover{
     color: #2b085a;
-    font-size: 17px;
     padding:6px 20px 6px 20px;
     background-color: white;
     transition: 0.5s;
@@ -37,11 +36,36 @@ const NavLink = styled(Link)
 `;
 
 function MainMenu() {
+  const loggedInUser = localStorage.getItem("username");
+
+  function showPopUp (){
+    var element = document.getElementById("registerPopUpBackground") as HTMLDivElement;
+    element.classList.add('appeared');
+    element = document.getElementById("registerPopUp") as HTMLDivElement;
+    element.classList.add('movedDown');
+  }
+
+  function HandleParches(){
+    if (!loggedInUser){
+      return <button className ="fakeMenuButton" onClick ={showPopUp}>Tus Parches</button>
+    }else{
+      return <NavLink to="/parches">Tus Parches</NavLink>
+    }
+  }
+
+  function HandleSugerir(){
+    if (!loggedInUser){
+      return <button className ="fakeMenuButton" onClick ={showPopUp}>Sugerir Actividad</button>
+    }else{
+      return <NavLink to="/sugerirActividad">Sugerir Actividad</NavLink>
+    }
+  }
+
   return (
     <div className="mainMenu">
       <NavLink to="/">Catálogo</NavLink>
-      <NavLink to="/parches">Tus Parches</NavLink>
-      <NavLink to="/sugerirActividad">Sugerir Actividad</NavLink>
+      <HandleParches/>
+      <HandleSugerir/>
       <NavLink to="/acercaDe">Sobre Nosotros</NavLink>
     </div>
   );

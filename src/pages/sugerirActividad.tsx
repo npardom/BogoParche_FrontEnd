@@ -1,27 +1,29 @@
 import icon from "../assets/icons/suggestIcon.png";
 import sendIcon from "../assets/icons/sendIcon.png";
 import {useState, useEffect} from "react";
+import { pricesList } from "../assets/datos";
 
 function SugerirActividad() {
-  const pricesList = ["Gratis",
-    "1k - 10k",
-    "10k - 50k",
-    "50k - 100k",
-    "100k - 150k",
-    "+150k"
-  ]
+  const [categories, setCategories] = useState([] as any);
 
-  const categoriesList = [ "Actividad Física",
-    "Ambiental",
-    "Bares y Discotecas",
-    "Cultural",
-    "Entretenimiento",
-    "Gastronomía",
-    "Turismo",
-    "Otros"
-  ]
+  useEffect(()=>{
+    fetch("/api/get-categories", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+      "Content-Type": "application/json"
+    } 
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.data){
+        setCategories(result.data);
+      }
+    });
+  }, [])
+
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState(categoriesList[0]);
+  const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [schedule, setSchedule] = useState("");
   const [price, setPrice] = useState(pricesList[0]);
@@ -87,7 +89,7 @@ function SugerirActividad() {
     setEndHour(event.target.value);
   };
 
-  const getSchedule = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const getSchedule = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setSchedule(event.target.value);
   };
 
@@ -115,10 +117,10 @@ function SugerirActividad() {
       hora_inicio: startHour,
       hora_fin: endHour,
       es_plan :isPlan,
-      horario_plan: schedule
+      horario_plan: schedule,
+      es_aprobado: false
     }
-    alert(JSON.stringify(body))
-    {/*fetch("/api/create-activity", {
+    fetch("/api/create-activity-suggestion", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(body),
@@ -129,13 +131,13 @@ function SugerirActividad() {
       .then((response) => response.json())
       .then((result) => {
         if (result.id){
-          alert("La actividad fue enviada exitosamente.");
+          alert("La sugerencia fue enviada exitosamente.");
           window.location.reload();
         } else {
           alert("Ocurrió un error. Intenta de nuevo.");
         }
       });
-    */}
+    
   };
 
   return (
@@ -163,46 +165,62 @@ function SugerirActividad() {
             ></textarea>
           </div>
           <div className="column">
-          <p className="activityInputText">Tipo</p>
+          <p className="activityInputText">Tipo Actividad</p>
             <div className ="activityTypeContainer">
               <input onClick={getTypeFromEvent} type="radio" className="activityCheckbox2" name="type" defaultChecked />
               <label htmlFor="html">Evento</label><br/>
               <input onClick={getTypeFromPlan} type="radio" className="activityCheckbox3"name="type"/>
               <label htmlFor="html">Plan</label><br/>
             </div>
-      <>
-          <p className={isPlan?"activityInputText":"notShow"}>Horario*</p>
-            <input className = {isPlan ? "activityInputField":"notShow"} required = {isPlan?true:false}
-            onChange={getSchedule}></input>
-          <p className={isPlan?"notShow":"activityInputText"}>Fecha Inicio - Fecha Fin*</p>
-          <div className={isPlan?"notShow":"dateInputContainer"}>
-          <input className="activityInputField dateField" 
-            type ="date" onChange={getStartDate}
-            required = {!isPlan?true:false}></input>
-          <input className="activityInputField dateField" 
-            type ="date" onChange={getEndDate}
-            required = {!isPlan?true:false}></input>
-            </div>
-            <p className={isPlan?"notShow":"activityInputText"}>Hora Inicio - Hora Fin*</p>
-            <div className={isPlan?"notShow":"dateInputContainer"}>
-            <input
-              type ="time"
-              className="activityInputField dateField"
-              required = {!isPlan?true:false}
-              onChange={getStartHour}
-            ></input>
-            <input
-              type ="time"
-              className="activityInputField dateField"
-              required = {!isPlan?true:false}
-              onChange={getEndHour}
-            ></input>
-            </div>
-        </>
+            {isPlan ? (
+              <>
+                <p className="activityInputText">Horario*</p>
+                <textarea
+                  className="activityInputField horarioInputField"
+                  required
+                  maxLength={100}
+                  onChange={getSchedule}
+                ></textarea>
+              </>
+            ) : (
+              <>
+                <p className="activityInputText">Fecha Inicio - Fecha Fin*</p>
+                <div className="dateInputContainer">
+                  <input
+                    className="activityInputField dateField"
+                    type="date"
+                    onChange={getStartDate}
+                    required
+                  ></input>
+                  <input
+                    className="activityInputField dateField"
+                    type="date"
+                    onChange={getEndDate}
+                    required
+                  ></input>
+                </div>
+                <p className="activityInputText">Hora Inicio - Hora Fin*</p>
+                <div className="dateInputContainer">
+                  <input
+                    type="time"
+                    className="activityInputField dateField"
+                    required
+                    onChange={getStartHour}
+                  ></input>
+                  <input
+                    type="time"
+                    className="activityInputField dateField"
+                    required
+                    onChange={getEndHour}
+                  ></input>
+                </div>
+              </>
+            )}
             <p className="activityInputText">Categoria*</p>
-            <select onChange={getCategory} className="activityInputField" required >
-              {categoriesList.map((category: string)=> (
-                <option value={category}>{category}</option>
+            <select onChange={getCategory} onLoadStart ={getCategory}className="activityInputField" required id = "selectCategory" >
+            <option selected disabled hidden></option>
+              {Object.keys(categories).map((categoryId: string) => (
+                <option value={categories[categoryId]}>{categories[categoryId]}</option>
               ))}
             </select >
           </div>
