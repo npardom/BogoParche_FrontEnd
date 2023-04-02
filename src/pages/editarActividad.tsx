@@ -160,10 +160,10 @@ function EditarActividad() {
       horario_plan: schedule,
       es_aprobado: true,
     };
-    alert(JSON.stringify(body));
-    {
-      /*fetch("/api/create-activity", {
-      method: "POST",
+    var id = activity.id_actividad.toString();
+    var isPlan2 = activity.es_plan.toString();
+    fetch("/api/edit-activity/"+id+"/"+isPlan2, {
+      method: "PUT",
       mode: "cors",
       body: JSON.stringify(body),
       headers: {
@@ -173,14 +173,12 @@ function EditarActividad() {
       .then((response) => response.json())
       .then((result) => {
         if (result.id){
-          alert("La actividad fue creada exitosamente.");
+          alert("La actividad fue editada exitosamente.");
           window.location.reload();
         } else {
           alert("Ocurrió un error. Intenta de nuevo.");
         }
       });
-    */
-    }
   };
 
   function deleteActivity() {
