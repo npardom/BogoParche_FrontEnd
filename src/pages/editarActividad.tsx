@@ -68,10 +68,6 @@ function EditarActividad() {
   const [endHour, setEndHour] = useState("");
   const [isPlan, setIsPlan] = useState(false);
 
-  const getTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-
   const getLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLocation(event.target.value);
   };
@@ -220,13 +216,10 @@ function EditarActividad() {
         </div>
         <form className="formContainer" onSubmit={handleSubmit}>
           <div className="column">
-            <p className="activityInputText">Nombre Actividad*</p>
-            <input
-              onChange={getTitle}
-              value={title}
-              className="activityInputField"
-              required
-            ></input>
+            <p className="activityInputText disabledText">Nombre Actividad</p>
+            <p className="activityIsPlanPlainText">
+              {title}
+            </p>
             <p className="activityInputText">Ubicación*</p>
             <input
               onChange={getLocation}
