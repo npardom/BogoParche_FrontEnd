@@ -172,12 +172,8 @@ function EditarActividad() {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result.id){
-          alert("La actividad fue editada exitosamente.");
-          window.location.reload();
-        } else {
-          alert("Ocurrió un error. Intenta de nuevo.");
-        }
+        alert("La actividad fue editada exitosamente.");
+        window.location.reload();
       });
   };
 
