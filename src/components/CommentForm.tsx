@@ -83,11 +83,11 @@ function CommentForm({id}: {id:string}) {
             maxLength={150}
             ></textarea>
             <div className="twoButtonsContainer">
-              <button className="sendButton">
+              <button className="sendButton2">
                 <img src={sendIcon} className="activityFormButtonIcon" />
                 Enviar
               </button>
-              <button type="button" className="sendButton cancel" onClick= {hideComentForm}>
+              <button type="button" className="sendButton2 cancel" onClick= {hideComentForm}>
                   <img src={cancelIcon} className="activityFormButtonIcon" />
                   Cancelar
               </button>
