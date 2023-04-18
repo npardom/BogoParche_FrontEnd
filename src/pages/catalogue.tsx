@@ -1,11 +1,12 @@
 import {useState, useEffect} from "react";
 import { Activity, pricesList } from "../assets/datos";
 import searchIcon from "../assets/icons/searchIcon.png";
-import ActivityCard from "../components/activityCard";
+import ActivitySmallCard from "../components/ActivitySmallCard";
 
 function Catalogue() {
   const [activities, setActivities] = useState([] as Activity[]);
   const [categories, setCategories] = useState([] as any);
+  const [user, setUser] = useState("");
 
   useEffect(()=>{
     fetch("/api/get-categories", {
@@ -74,7 +75,7 @@ function Catalogue() {
       return (
         <>
         {activities.map((activity: Activity)=> (
-        <ActivityCard activity = {activity} />
+        <ActivitySmallCard activity = {activity} />
         ))}
       </>
       )
@@ -84,7 +85,7 @@ function Catalogue() {
   function toggleButton(id: string) {
     var line = document.getElementById(id + "checkbox") as HTMLDivElement;
     var bttn = document.getElementById(id) as HTMLInputElement;
-    if (line.classList.toString() === "filterItem"){
+    if (!bttn.checked){
       line.classList.add('opacityWhole');
       bttn.checked = true;
     }else{
@@ -92,6 +93,13 @@ function Catalogue() {
       bttn.checked = false;
     }
   }
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("username");
+    if (loggedInUser) {
+      setUser(loggedInUser);
+    }
+  }, []);
 
   return (
     <div className ="catalogueContainer">
@@ -101,18 +109,24 @@ function Catalogue() {
               placeholder = "Ingresa términos de búsqueda" className = "searchField">
           </input>
         </form>
-      {/*<div className="favsContainer">
-        <label>
-          <input type ="checkbox">
-          </input> Favoritos
-        </label>
-      </div>
-      <div className="assistContainer">
-        <label>
-          <input type ="checkbox">
-          </input> Eventos a asistir
-        </label>
-      </div>*/}
+      {user? <div className = "favsWillAssistBarContainer">
+        <div className="favsCatalogueButton"
+        onClick = {()=>toggleButton("Favourites")} id ="Favouritescheckbox" >
+          <input type ="checkbox" className="categoryCheckbox2" id ="Favourites">
+          </input>
+          <label>
+            Favoritos
+          </label>
+        </div>
+        <div className="favsCatalogueButton"
+        onClick = {()=>toggleButton("EventsToAssist")} id ="EventsToAssistcheckbox">
+          <input type ="checkbox" className="categoryCheckbox2" id ="EventsToAssist">
+          </input>
+          <label>
+            Eventos a asistir
+          </label>
+        </div>
+      </div>: <></>}
       <div className="catalogueContainer2">
         <div className="filterContainer">
           <p className="filterTitle filterTitle2">

@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Activity } from "../assets/datos";
 import goBackIcon from "../assets/icons/goBackIcon.png";
@@ -15,6 +14,7 @@ import createParcheIcon from "../assets/icons/createParcheIcon.png";
 import reviewIcon from "../assets/icons/reviewIcon.png";
 import favoriteIcon from "../assets/icons/favoriteIcon.png";
 import CommentCard from '../components/CommentCard';
+import CommentForm from '../components/CommentForm';
 
 function InfoActividad() {
   const { slug } = useParams();
@@ -198,7 +198,12 @@ function InfoActividad() {
 
   function addComment(){
     if(user){
-      return
+      var element = document.getElementById("commentForm") as HTMLDivElement;
+      if(element.classList.toString() === "commentFormCard opacityWhole2"){
+        element.classList.remove("opacityWhole2")
+      }else{
+        element.classList.add("opacityWhole2")
+      }
     }else{
       showPopUp();
     }
@@ -216,24 +221,24 @@ function InfoActividad() {
     <div className="infoBox"> 
       <div className="infoActivityContainer">
         <div className = "bottomTwoButtonsContainer">
-        <Button onClick = {goToCatalogue} className="activityButton volver">
+        <button onClick = {goToCatalogue} className="activityButton volver">
             <img src={goBackIcon} className="activityFormButtonIcon" />
             Volver
-        </Button>
+        </button>
         <div className="pageTitle">
           <div className="pageTitleText">{activity.titulo_actividad}</div>
           <EditButton/>
         </div>
         <div className = "verticalButtonContainer">
-        <Button className="activityButton favorito" onClick = {addToFavorites}>
+        <button className="activityButton favorito" onClick = {addToFavorites}>
             <img src={favoriteIcon} className="activityFormButtonIcon" />Añadir a favoritos
-        </Button>
-        <Button className="activityButton willAssistButton" onClick ={toggleCheckbox}>
+        </button>
+        <button className="activityButton willAssistButton" onClick ={toggleCheckbox}>
           Planeo asistir
           <div id = "assistCheck" className="assistCheckboxBackground" >
             <div className="assistCheckbox" ></div>
           </div>
-        </Button>
+        </button>
         </div>
         </div>
        <div className = "twoColumnsFeatureContainer">
@@ -296,14 +301,15 @@ function InfoActividad() {
         </div>
 
         <div className = "bottomTwoButtonsContainer">
-          <Button className="activityButton parche" onClick = {createParche}>
+          <button className="activityButton parche" onClick = {createParche}>
             <img src={createParcheIcon} className="activityFormButtonIcon" />Crear Parche
-          </Button>
-          <Button className="activityButton reseña" onClick = {addComment}>
+          </button>
+          <button className="activityButton reseña" onClick = {addComment}>
             <img src={reviewIcon} className="activityFormButtonIcon" /> Añadir una reseña
-          </Button>
+          </button>
         </div>
       </div>
+      <CommentForm id ="commentForm" />
     </div>
   );
 }

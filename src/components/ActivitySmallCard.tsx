@@ -2,7 +2,7 @@ import { Activity} from "../assets/datos"
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function ActivityCard({activity}: {activity:Activity}) {
+function ActivitySmallCard({activity}: {activity:Activity}) {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([] as any);
 
@@ -37,4 +37,4 @@ function ActivityCard({activity}: {activity:Activity}) {
   )
 }
 
-export default ActivityCard
+export default ActivitySmallCard
