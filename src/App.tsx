@@ -7,6 +7,7 @@ import SugerirActividad from './pages/sugerirActividad';
 import InfoActividad from './pages/infoActividad';
 import EditarActividad from './pages/editarActividad';
 import AñadirActividad from './pages/añadirActividad';
+import AdministrarSugerencias from './pages/administrarSugerencias';
 import AboutUs from './pages/aboutUs';
 import Login from './pages/login';
 import SignUp from './pages/signUp';
@@ -74,6 +75,13 @@ export function App() {
         <Route path="/editarActividad/:slug" element={
           loggedInUser ? (
             <EditarActividad />
+          ) : (
+            <Navigate replace to={"/"} />
+          )
+        } />
+        <Route path="/administrarSugerencias" element={
+          loggedInUser ? (
+            <AdministrarSugerencias/>
           ) : (
             <Navigate replace to={"/"} />
           )

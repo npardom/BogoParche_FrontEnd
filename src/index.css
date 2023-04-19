@@ -112,6 +112,7 @@ button {
   opacity:0%;
   width:0px;
   height:0px;
+  z-index: 7000;
 }
 
 .userOptionButton{
@@ -119,7 +120,7 @@ button {
   color:rgb(21, 4, 47);
   line-height: 13px;
   font-size: 2px;
-  background-color: rgba(255, 255, 255, 0.942);
+  background-color: rgba(255, 255, 255);
   border-radius: 10px;
   padding: 9px 12px 9px 12px;
   border: 0px;
@@ -130,7 +131,7 @@ button {
 
 .userOptionButton:hover{
   color:white;
-  background-color: rgba(37, 7, 59, 0.547);
+  background-color: rgba(37, 7, 59);
   padding: 11px 12px 11px 12px;
   transition: 0.4s;
 }
@@ -1409,7 +1410,7 @@ textarea {
   margin: 0 0 0 0;
 }
 
-.sendButton:hover{
+.sendButton2:hover{
   background-color: #042e39;
   transition: 0.5s;
 }

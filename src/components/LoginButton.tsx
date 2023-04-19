@@ -24,6 +24,10 @@ function LoginButton() {
     navigate("/añadirActividad");
   };
 
+  const goToSuggestions = () => {
+    navigate("/administrarSugerencias");
+  };
+
   // If logged in
   if (user) {
     var userNameShort = user;
@@ -36,8 +40,9 @@ function LoginButton() {
         </div>
         <img src={userIcon} className="userIcon" />
         <div className ="userOptionsContainer">
-        <div className = "userOptionButton" onClick={goToActivities}>Añadir Actividad</div>
-        <div className = "userOptionButton" onClick={handleLogout}>Cerrar Sesión</div>
+          <div className = "userOptionButton" onClick={goToActivities}>Añadir Actividad</div>
+          <div className = "userOptionButton" onClick={goToSuggestions}>Administrar Sugerencias</div>
+          <div className = "userOptionButton" onClick={handleLogout}>Cerrar Sesión</div>
         </div>
       </button>
   }
