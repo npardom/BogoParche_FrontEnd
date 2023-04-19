@@ -27,6 +27,7 @@ function LoginButton() {
   const goToSuggestions = () => {
     navigate("/administrarSugerencias");
   };
+  
 
   // If logged in
   if (user) {

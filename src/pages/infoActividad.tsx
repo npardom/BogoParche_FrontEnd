@@ -216,7 +216,7 @@ function InfoActividad() {
       showPopUp();
     }
   }
-
+  
   return (
     <div className="infoBox"> 
       <div className="infoActivityContainer">
