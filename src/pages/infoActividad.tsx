@@ -198,12 +198,10 @@ function InfoActividad() {
 
   function addComment(){
     if(user){
+      var element = document.getElementById("commentFormBackground") as HTMLDivElement;
+      element.classList.add('appeared')
       var element = document.getElementById("commentForm") as HTMLDivElement;
-      if(element.classList.toString() === "commentFormCard opacityWhole2"){
-        element.classList.remove("opacityWhole2")
-      }else{
-        element.classList.add("opacityWhole2")
-      }
+      element.classList.add("opacityWhole2")
     }else{
       showPopUp();
     }
@@ -309,7 +307,7 @@ function InfoActividad() {
           </button>
         </div>
       </div>
-      <CommentForm id ="commentForm" />
+      {user?<CommentForm id ="commentForm" />: <></>}
     </div>
   );
 }

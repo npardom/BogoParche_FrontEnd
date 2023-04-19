@@ -19,11 +19,6 @@ function CommentForm({id}: {id:string}) {
     setScore(parseInt(e.target.value));
   }
 
-  function hideComentForm() {
-    var element = document.getElementById("commentForm") as HTMLDivElement;
-    element.classList.remove("opacityWhole2")
-  }
-
   const getComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.target.value);
   };
@@ -34,7 +29,7 @@ function CommentForm({id}: {id:string}) {
       calificacion: score,
       comentario: comment,
       usuario: user,
-      fecha: new Date().toLocaleDateString()
+      fecha: new Date()
     }
     alert(JSON.stringify(body));
     /*
@@ -58,7 +53,17 @@ function CommentForm({id}: {id:string}) {
     */
   };
 
+  function hideComentForm () {
+    var element = document.getElementById("commentFormBackground") as HTMLDivElement;
+    element.classList.remove('appeared')
+    var element = document.getElementById("commentForm") as HTMLDivElement;
+    element.classList.remove("opacityWhole2")
+  }
+
   return (
+    <>
+    <div className ="registerPopUpWhole" id = "commentFormBackground" onClick ={hideComentForm}>
+    </div>
     <div id = {id} className = "commentFormCard">
         <p className="commentFormTitle">Cuentanos tu opinión</p>
         <form onSubmit={handleSubmit}>
@@ -94,6 +99,7 @@ function CommentForm({id}: {id:string}) {
             </div>
         </form>
     </div>
+    </>
   );
 }
 

@@ -420,6 +420,7 @@ button {
 
 .descriptionInputField {
   height: 144px;
+  margin-bottom:0px;
 }
 
 .horarioInputField {
@@ -945,7 +946,7 @@ textarea {
 }
 
 .registerPopUpWhole{
-  position:absolute;
+  position:fixed;
   top: 0;
   bottom:0;
   right: 0;
@@ -1061,8 +1062,12 @@ textarea {
 
 .volver{
   background-color: #E16DB5;
-  margin-right:77px;
+  margin-right:0px;
   float:left;
+}
+
+.editActivityTitle {
+  margin-left:160px;
 }
 
 .volver:hover{
@@ -1363,12 +1368,11 @@ textarea {
   opacity: 0%;
   z-index: -4000;
   transition: 0.5s;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
 }
 
 .opacityWhole2 {
   opacity:100%;
-  bottom:95px;
+  bottom:25px;
   z-index: 4000;
   transition: 0.5s;
 }

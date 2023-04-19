@@ -204,15 +204,15 @@ function EditarActividad() {
         <div className="twoButtonsContainer">
           <button
             onClick={goBack}
-            className="activityButton volver goBackFromEdit"
+            className="activityButton volver"
           >
             <img src={goBackIcon} className="activityFormButtonIcon" />
             Volver
           </button>
-        </div>
-        <div className="pageTitle">
+          <div className="pageTitle editActivityTitle">
           <img src={icon} className="pageTitleIcon" />
           <div className="pageTitleText">Editar Actividad</div>
+          </div>
         </div>
         <form className="formContainer" onSubmit={handleSubmit}>
           <div className="column">
