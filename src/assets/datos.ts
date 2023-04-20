@@ -23,3 +23,10 @@ export const pricesList = [
   "100k - 150k",
   "+150k",
 ];
+
+export function showPopUp (){
+  var element = document.getElementById("registerPopUpBackground") as HTMLDivElement;
+  element.classList.add('appeared');
+  element = document.getElementById("registerPopUp") as HTMLDivElement;
+  element.classList.add('movedDown');
+}

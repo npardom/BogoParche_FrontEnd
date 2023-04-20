@@ -110,7 +110,8 @@ function Catalogue() {
           </input>
         </form>
       {user? <div className = "favsWillAssistBarContainer">
-        <div className="favsCatalogueButton"
+        <div className="catalogueSpecialFilterOption {
+"
         onClick = {()=>toggleButton("Favourites")} id ="Favouritescheckbox" >
           <input type ="checkbox" className="categoryCheckbox2" id ="Favourites">
           </input>
@@ -118,7 +119,8 @@ function Catalogue() {
             Favoritos
           </label>
         </div>
-        <div className="favsCatalogueButton"
+        <div className="catalogueSpecialFilterOption {
+"
         onClick = {()=>toggleButton("EventsToAssist")} id ="EventsToAssistcheckbox">
           <input type ="checkbox" className="categoryCheckbox2" id ="EventsToAssist">
           </input>

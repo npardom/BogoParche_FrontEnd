@@ -236,7 +236,7 @@ function AñadirActividad () {
               <input onChange={getAgeRestriction} className="activityCheckbox" type="checkbox"></input>
             </div>
             <p className="textStyle1">(*) Campo Obligatorio</p>
-            <button className="createButton">
+            <button className="genericButton createButton">
               <img src={addIcon} className="activityFormButtonIcon" />
               Crear Actividad
             </button>

@@ -28,7 +28,6 @@ function LoginButton() {
     navigate("/administrarSugerencias");
   };
   
-
   // If logged in
   if (user) {
     var userNameShort = user;

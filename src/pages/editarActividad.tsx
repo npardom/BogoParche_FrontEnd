@@ -11,6 +11,20 @@ function EditarActividad() {
   const [activity, setActivity] = useState({} as Activity);
   const navigate = useNavigate();
   const [categories, setCategories] = useState({} as any);
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [location, setLocation] = useState("");
+  const [schedule, setSchedule] = useState("");
+  const [price, setPrice] = useState(pricesList[0]);
+  const [description, setDescription] = useState("");
+  const [ageRestriction, setAgeRestriction] = useState(false);
+  const [contact, setContact] = useState("");
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [startHour, setStartHour] = useState("");
+  const [endHour, setEndHour] = useState("");
+  const [isPlan, setIsPlan] = useState(false);
 
   useEffect(() => {
     fetch("/api/get-categories", {
@@ -52,21 +66,6 @@ function EditarActividad() {
         navigate("/");
       });
   }, []);
-
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [location, setLocation] = useState("");
-  const [schedule, setSchedule] = useState("");
-  const [price, setPrice] = useState(pricesList[0]);
-  const [description, setDescription] = useState("");
-  const [ageRestriction, setAgeRestriction] = useState(false);
-  const [contact, setContact] = useState("");
-  const [isPrivate, setIsPrivate] = useState(false);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [startHour, setStartHour] = useState("");
-  const [endHour, setEndHour] = useState("");
-  const [isPlan, setIsPlan] = useState(false);
 
   const getLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLocation(event.target.value);
@@ -204,7 +203,7 @@ function EditarActividad() {
         <div className="twoButtonsContainer">
           <button
             onClick={goBack}
-            className="activityButton volver"
+            className="genericButton volver"
           >
             <img src={goBackIcon} className="activityFormButtonIcon" />
             Volver
@@ -343,11 +342,11 @@ function EditarActividad() {
             </div>
             <p className="textStyle1">(*) Campo Obligatorio</p>
             <div className="twoButtonsContainer">
-              <button className="updateButton">
+              <button className="genericButton updateButton">
                 <img src={updateIcon} className="activityFormButtonIcon" />
                 Actualizar
               </button>
-              <button type="button" className="deleteButton" onClick= {deleteActivity}>
+              <button type="button" className="genericButton deleteButton" onClick= {deleteActivity}>
                 <img src={removeIcon} className="activityFormButtonIcon" />
                 Eliminar
               </button>

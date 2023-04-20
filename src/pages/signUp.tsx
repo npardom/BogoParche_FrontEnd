@@ -57,7 +57,7 @@ function SignUp() {
           <input
             onChange={getUsername}
             value={username}
-            placeholder="Nombre de Usuario"
+            placeholder="Nombre de usuario"
             className="loginField"
             required
           ></input>
@@ -86,7 +86,7 @@ function SignUp() {
             className="loginField"
             required
           ></input>
-          <button disabled={(passwordAgain != password) && (passwordAgain != "")}className="loginButton2">Crear cuenta</button>
+          <button disabled={(passwordAgain != password) && (passwordAgain != "")}className="genericButton loginButton2">Crear cuenta</button>
         </form>
       </div>
     </div>

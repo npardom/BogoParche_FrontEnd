@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
 
-
 body {
   background-image: url("./assets/background.png");
   background-size: cover;
@@ -12,49 +11,53 @@ body {
   color: white;
 }
 
+button {
+  color: white;
+  font-family: 'Mulish', sans-serif;
+}
+
+textarea {
+  resize: none;
+}
+
 .header {
   width: 100%;
   font-family: 'Mulish', sans-serif;
-  line-height: 15px;
+  line-height: 0.938em;
 }
 
 .titleBox{
   width: fit-content;
   margin:auto;
   display: flex;
-  margin-top: 25px;
+  margin-top: 1.563em;
 }
 
 .websiteLogo {
-  width: 230px;
+  width: 14.375em;
   height:auto;
   margin: 0 0 0 0 ;
   transition: all 0.3s;
 }
 
 .websiteLogo:hover {
-  width: 240px;
+  width: 14.7em;
   transition: all 0.3s;
 }
 
 .websiteSlogan {
-  font-size: 19px;
-  width: 200px;
+  font-size: 1.1em;
+  width: 12.5em;
   height: fit-content;
-  margin: 28px 0 0 0 ;
+  margin: 1.75em 0 0 0 ;
   text-align: right;
-  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.414);
+  text-shadow: 0em 0em 0.25em rgba(0, 0, 0, 0.414);
 }
 
 .mainMenu {
   width: fit-content;
   display: flex;
-  margin: 10px auto 20px auto;
-}
-
-button {
-  color: white;
-  font-family: 'Mulish', sans-serif;
+  margin: 0.625em auto 1.25em auto;
 }
 
 .loginButton {
@@ -64,11 +67,24 @@ button {
   align-items: center;
   opacity: 70%;
   width:fit-content;
-  top: 45px;
-  right: 30px;
+  top: 3.5em;
+  right: 3em;
   transition: 0.4s;
   background-color: transparent;
   border: transparent;
+}
+
+.loginButtonText{
+  line-height: 0.813em;
+  font-size: 1.2em;
+  width: fit-content;
+  background-color: transparent;
+  border-radius: 0.6em 0em 0em 0.6em;
+  padding: 0.43em 1.875em 0.43em 1.25em;
+  text-align: left;
+  margin-right: -1.45em;
+  border: 0em;
+  transition: 0.4s;
 }
 
 .loginButton:hover  {
@@ -77,12 +93,13 @@ button {
 }
 
 .loginButton:hover .loginButtonText {
-  background-color: #A77DDF;
+  background-color: #8453c5;
   transition: 0.4s;
+  box-shadow: 0 0 0.7em rgba(0,0,0,0.4);
 }
 
 .loginButton:hover .textSpan{ 
-  color: #500A6D;
+  color: #1d0427;
   transition: 0.4s;
 }
 
@@ -90,83 +107,69 @@ button {
   transition: 0.4s;
 }
 
-.loginButtonText{
-  line-height: 13px;
-  font-size: 16px;
-  width: fit-content;
-  background-color: transparent;
-  border-radius: 12px 0px 0px 12px;
-  padding: 10px 30px 10px 20px;
-  text-align: left;
-  margin-right: -20px;
-  border: 0px;
-  transition: 0.4s;
-}
-
 .userOptionsContainer {
   display:flexbox;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0.625em;
+  right: 0.625em;
   transition: 0.4s;
   opacity:0%;
-  width:0px;
-  height:0px;
+  width:0em;
+  height:0em;
   z-index: 9;
 }
 
 .userOptionButton{
   width:max-content;
   color:rgb(21, 4, 47);
-  line-height: 13px;
-  font-size: 2px;
+  line-height: 0.813em;
+  font-size: 0.1em;
   background-color: rgba(255, 255, 255);
-  border-radius: 10px;
-  padding: 9px 12px 9px 12px;
-  border: 0px;
+  border-radius: 0.625em;
+  padding: 0.563em 0.75em 0.563em 0.75em;
+  border: 0em;
   float: right;
-  margin-bottom: 3px;
+  margin-bottom: 0.188em;
   transition: 0.4s;
+  box-shadow: 0 0 0.7em rgba(0,0,0,0.4);
 }
 
 .userOptionButton:hover{
   color:white;
   background-color: rgba(37, 7, 59);
-  padding: 11px 12px 11px 12px;
+  padding: 0.688em 0.75em 0.688em 0.75em;
   transition: 0.4s;
 }
 
 .loginButton:hover .userOptionsContainer {
   opacity:100%;
-  top: 50px;
+  top: 3.125em;
   transition: 0.4s;
   width:fit-content;
   height:fit-content;
 }
 
 .loginButton:hover .userOptionButton {
-  font-size: 15px;
+  font-size: 1.1em;
   transition: 0.4s;
 }
 
 .userIcon {
-  width: 50px;
-  height: 50px;
+  width: 3.3em;
+  height: 3.3em;
   z-index: 10;
 }
 
-@media only screen and (max-width: 900px){  
+@media only screen and (max-width: 56.25em){  
   .loginButtonText{
     position: absolute;
     opacity: 0%;
-    right:40px;
-    border-radius: 12px 0px 0px 12px;
-    padding: 10px 30px 10px 20px;
-  }
+    right:2.5em;
+}
 
   .loginButton:hover .loginButtonText {
     opacity: 100%;
-    right: 55px;
+    right: 3.438em;
   }  
   
 }
@@ -174,11 +177,11 @@ button {
 .footer{
   display: flex;
   position: fixed;
-  bottom: -40px;
+  bottom: -2.5em;
   font-family: 'Mulish', sans-serif;
-  line-height: 15px;
-  padding: 5px 20px 5px 20px;
-  border-radius: 20px 20px 0 0;
+  line-height: 0.938em;
+  padding: 0.313em 1.25em 0.313em 1.25em;
+  border-radius: 1.25em 1.25em 0 0;
   width: fit-content;
   background-color: rgba(16, 2, 27, 0.308);
   left: 50%;
@@ -189,22 +192,22 @@ button {
 .footer:hover {
   opacity: 100%;
   background-color: rgb(25, 12, 34);
-  bottom: 0px;
+  bottom: 0em;
   transition: 1s;
 }
 
 .milhojasLogo {
   opacity: 0%;
-  width: 130px;
-  height: 55px;
+  width: 8.125em;
+  height: 3.438em;
   margin: 0 0 0 0 ;
   transition: 1s;
 }
 
 .footerText {
   opacity: 0%;
-  font-size: 17px;
-  margin: 19px 10px 0 0;
+  font-size: 1.063em;
+  margin: 1.188em 0.625em 0 0;
   text-align: right;
   transition: 1s;
   width: max-content;
@@ -223,21 +226,21 @@ button {
 .aboutUsCard {
   opacity: 100%;
   width: 60%;
-  max-width: 700px;
-  min-width: 550px;
+  max-width: 43.75em;
+  min-width: 34.375em;
   height: 50vh;
-  min-height: 350px;
-  max-height: 400px;
+  min-height: 21.875em;
+  max-height: 25em;
   background-image: url("./assets/aboutUsBackground.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: right;
   background-position-y: bottom;
-  border-radius: 40px;
-  margin: 20px auto 30px auto;
+  border-radius: 2.5em;
+  margin: 1.25em auto 1.875em auto;
   animation: 0.5s ease-out 0s 1 slideInFromLeft;
-  padding: 40px;
-  line-height: 15px;
+  padding: 2.5em;
+  line-height: 0.938em;
   display:flex;
   align-items: center;
   justify-content: center;
@@ -245,7 +248,7 @@ button {
 
 .aboutUsContainer{
   width: 100%;
-  max-width: 600px;
+  max-width: 37.5em;
 }
 
 .adminActivitiesContainer{
@@ -268,24 +271,24 @@ button {
   width:fit-content;
   align-items: center;
   justify-content: center;
-  margin: 8px auto 2px auto;
-  padding: 0 10px 0 10px;
+  margin: 0.5em auto 0.125em auto;
+  padding: 0 0.625em 0 0.625em;
   overflow-wrap: anywhere;
 }
 
 .pageTitleIcon {
-  width: 35px;
+  width: 2.188em;
 }
 
 .pageTitleIcon2 {
-  width: 18px;
+  width: 1.125em;
 }
 
 .pageTitleText {
   font-family: 'Mulish', sans-serif;
-  font-size: 20px;
-  margin-left: 15px;
-  line-height: 17px;
+  font-size: 1.25em;
+  margin-left: 0.938em;
+  line-height: 1.063em;
   color: #D6A4EB;
 }
 
@@ -300,70 +303,70 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 60px;
-  margin:0 4px 0 4px;
+  border-radius: 3.75em;
+  margin:0 0.25em 0 0.25em;
   text-align: center;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 16px;
-  padding: 5px;
+  font-size: 1em;
+  padding: 0.313em;
   transition: 0.5s;
-  height: 85px;
+  height: 5.313em;
 }
 
 .aboutUsBox {
   display: flex;
-  width: 480px;
+  width: 30em;
   align-items: center;
   justify-content: center;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size:17px;
-  line-height: 22px;
-  margin: 10px auto 0 auto;
+  font-size:1.063em;
+  line-height: 1.375em;
+  margin: 0.625em auto 0 auto;
 }
 
 .iconUNAL {
-  width: 170px;
+  width: 9.8em;
 }
 
 .aboutUsText {
-  width:360px;
-  text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+  width:22.5em;
+  text-shadow: 0em 0em 0.313em rgba(0, 0, 0, 0.5);
 }
 
 .verticalLine {
-  border-left: 3px solid white;
-  height: 110px;
-  margin: 0 20px 0 20px;
+  border-left: 0.188em solid white;
+  height: 6.875em;
+  margin: 0 1.25em 0 1.25em;
 }
 
 .horizontalLine {
-  border-top: 3px solid white;
-  width: 90px;
-  margin: 10px 0 10px 0;
+  border-top: 0.188em solid white;
+  width: 5.625em;
+  margin: 0.625em 0 0.625em 0;
   margin-left: auto; 
   margin-right: 0;
 }
 
 .integrantes {
   font-family: 'Mulish', sans-serif;
-  font-size:18px;
+  font-size:1.125em;
   margin-left: auto; 
   margin-right: 0;
   width: fit-content;
-  margin-top:-20px;
-  text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+  margin-top:-1.25em;
+  text-shadow: 0em 0em 0.313em rgba(0, 0, 0, 1);
 }
 
 .card {
-  width: 280px;
+  width: 16.5em;
   background-color: rgba(0,0,0,0.4);
-  border-radius: 25px;
-  height: 300px;
-  margin: 20px auto 30px auto;
+  border-radius: 1.563em;
+  height: 17.5em;
+  margin: 1.25em auto 1.875em auto;
   animation: 0.5s ease-out 0s 1 slideInFromLeft;
-  padding: 40px;
+  padding: 1.7em;
   font-family: 'Mulish', sans-serif;
-  font-size: 20px;
+  font-size: 1.06em;
   color: white;
   text-align: center;
   display:flex;
@@ -377,41 +380,41 @@ button {
 }
 
 .loginField {
-  width: 270px;
-  height: 35px;
+  width: 100%;
+  height: 2em;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 18px;
+  font-size: 1em;
   color: white;
   text-align: center;
-  margin: 5px 0 5px 0;
+  margin: 0.2em 0 0.2em 0;
   color: black;
-  border-radius: 10px;
+  border-radius: 0.625em;
   border: transparent;
 }
 
 .activityInputField {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 16px;
+  font-size: 1em;
   text-align: left;
-  margin: 0px 0 15px 0px;
+  margin: 0em 0 0.938em 0em;
   color: black;
-  border-radius: 4px;
+  border-radius: 0.25em;
   border: transparent;
-  padding: 2px 0px 2px 5px;
-  width:220px;
+  padding: 0.125em 0em 0.125em 0.313em;
+  width:13.75em;
 }
 
 .activityIsPlanPlainText{
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 16px;
+  font-size: 1em;
   color: rgba(255, 255, 255, 0.7);
-  margin: 10px 0 19px 0px;
+  margin: 0.625em 0 1.188em 0em;
 }
 
 .activityInputText{
   font-family: 'Mulish', sans-serif;
-  font-size: 16px;
-  margin: 0 0 5px 0;
+  font-size: 1em;
+  margin: 0 0 0.313em 0;
 }
 
 .disabledText{
@@ -419,28 +422,19 @@ button {
 }
 
 .descriptionInputField {
-  height: 144px;
-  margin-bottom:0px;
+  height: 9em;
+  margin-bottom:0em;
 }
 
 .horarioInputField {
-  height: 140px;
+  height: 8.75em;
 }
 
 .loginButton2{
-  width: fit-content;
-  padding: 0 15px 0 15px;
-  height: 32px;
-  font-family: 'Mulish', sans-serif;
-  font-size: 18px;
-  color: white;
   text-align: center;
-  margin: 15px 0 10px 0;
+  margin: 0.938em auto 0.625em auto;
   color: white;
   background-color: #9453C2;
-  border-radius: 8px;
-  border: transparent;
-  transition: 0.5s;
 }
 
 .loginButton2:hover{
@@ -454,13 +448,12 @@ button {
 }
 
 .titleCard {
-  margin-bottom: 25px;
+  margin-bottom: 1.563em;
 }
 
 .noAccountQuestion{
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 18px;
-  margin: 20px 0 0px 0;
+  margin: 1.25em 0 0em 0;
 }
 
 .goToSignUp {
@@ -474,15 +467,15 @@ button {
 }
 
 .activityCard {
-  width: 545px;
+  width: 34.063em;
   background-color: white;
-  border-radius: 15px;
+  border-radius: 0.938em;
   color: black;
   font-family: 'Source Sans Pro', sans-serif;
-  line-height: 15px;
-  padding:20px 20px 20px 20px;
-  margin:0 5px 5px 5px;
-  font-size: 16px;
+  line-height: 0.938em;
+  padding:1.25em 1.25em 1.25em 1.25em;
+  margin:0 0.313em 0.313em 0.313em;
+  font-size: 1em;
   transition: 0.5s;
   overflow-wrap: anywhere;
 }
@@ -490,8 +483,8 @@ button {
 .activityCardTitle {
   font-family: 'Mulish', sans-serif;
   color: #500A6D;
-  font-size: 18px;
-  margin:0 0 6px 0;
+  font-size: 1.125em;
+  margin:0 0 0.375em 0;
 }
 
 .activityCardLocation{
@@ -501,15 +494,15 @@ button {
 
 .activityCardCategory{
   color: #958a9b;
-  font-size: 15px;
-  margin:0 0 1px 0;
+  font-size: 0.938em;
+  margin:0 0 0.063em 0;
   font-family: "Source Sans Pro", sans-serif;
 }
 
 .activityCardDescription {
   display: block;
-  margin:8px 0 8px 0;
-  width:545px;
+  margin:0.5em 0 0.5em 0;
+  width:34.063em;
 }
 
 .activityCardContact {
@@ -537,36 +530,36 @@ button {
 .catalogueContainer {
   display: flexbox;
   justify-content: center;
-  width:770px;
+  width:48.125em;
   align-items: center;
   background-color: rgba(0,0,0,0.4);
-  margin: 0px auto 80px auto;
-  padding:30px;
-  border-radius: 20px;
+  margin: 0em auto 3em auto;
+  padding:1.875em;
+  border-radius: 1.25em;
   animation: 0.5s ease-out 0s 1 slideInFromLeft;
 }
 
 .catalogueCardsContainer {
   display: flex;
   flex-direction: column;
-  margin-top: 0px;
-  width: 610px;
+  margin-top: 0em;
+  width: 38.125em;
   height: 100%;
   overflow-y:auto;
 }
 
 .catalogueCardsContainer::-webkit-scrollbar {
-  width: 10px;
+  width: 0.625em;
 }
 
 .catalogueCardsContainer::-webkit-scrollbar-track {
   background-color: rgba(255, 255, 255, 0.307);
-  border-radius: 10px;
+  border-radius: 0.625em;
 }
 
 .catalogueCardsContainer::-webkit-scrollbar-thumb {
   background-color: #E16DB5;
-  border-radius: 20px;
+  border-radius: 1.25em;
 }
 
 .noActivitiesText{
@@ -574,60 +567,56 @@ button {
   font-family: "Mulish", "sans-serif";
   align-items: center;
   justify-content: center;
-  height: 320px;
-  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.415);
+  height: 20em;
+  text-shadow: 0em 0em 0.313em rgba(0, 0, 0, 0.415);
 }
 
 .adminActivitiesCard {
   opacity: 100%;
   width: 70%;
-  max-width: 800px;
-  min-width: 680px;
+  max-width: 50em;
+  min-width: 42.5em;
   height: 45vh;
-  min-height: 360px;
-  max-height: 400px;
+  min-height: 22.5em;
+  max-height: 25em;
   background-color: rgba(0,0,0,0.4);
-  border-radius: 40px;
-  margin: 20px auto 30px auto;
+  border-radius: 2.5em;
+  margin: 1.25em auto 1.875em auto;
   animation: 0.5s ease-out 0s 1 slideInFromLeft;
-  padding: 40px;
-  line-height: 15px;
+  padding: 2.5em;
+  line-height: 0.938em;
   display:flex;
   align-items: center;
   justify-content: center;
 }
 
-textarea {
-  resize: none;
-}
-
 .formContainer {
   display:inline-flex;
-  margin: 25px 0px 0px 0px;
+  margin: 1.563em 0em 0em 0em;
   width:fit-content;
 }
 
 .activityCheckbox{
-  width: 18px;
-  height:18px;
-  margin: 0px 0px 0px 10px;
+  width: 1.125em;
+  height:1.125em;
+  margin: 0em 0em 0em 0.625em;
   opacity:50%;
   transition:0.5s;
   cursor: pointer; 
 }
 
 .activityCheckbox2{
-  width: 20px;
-  height:20px;
-  margin: 0px 8px 0px 0px;
+  width: 1.25em;
+  height:1.25em;
+  margin: 0em 0.5em 0em 0em;
   transition:0.5s;
   cursor: pointer; 
 }
 
 .activityCheckbox3{
-  width: 20px;
-  height:20px;
-  margin: 0px 8px 0px 15px;
+  width: 1.25em;
+  height:1.25em;
+  margin: 0em 0.5em 0em 0.938em;
   transition:0.5s;
   cursor: pointer; 
 }
@@ -641,10 +630,10 @@ textarea {
 .activityTypeContainer {
   display: flex;
   width: max-content;
-  height: 24px;
+  height: 1.5em;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 16px;
-  margin: 0px 0 15px 0px;
+  font-size: 1em;
+  margin: 0em 0 0.938em 0em;
   align-items: center;
 }
 
@@ -658,33 +647,35 @@ textarea {
 }
 
 .column {
-  width: 225px;
-  margin: 0 7px 0 7px;
+  width: 14.063em;
+  margin: 0 0.438em 0 0.438em;
 }
 
 .textStyle1{
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: bold;
-  font-size: 16px;
-  margin: 80px 0 11px 0;
+  font-size: 1em;
+  margin: 5em 0 1.5em 0;
   text-align: center;
 }
 
-.updateButton{
+.genericButton {
   display:flex;
   align-items: center;
   justify-content: center;
-  width: 111px;
-  height:45px;
-  font-family: 'Mulish', sans-serif;
-  font-size: 13px;
-  line-height: 12px;
-  color: rgb(255, 255, 255);
+  height:fit-content;
+  padding:0.5em 1em 0.5em 1em;
+  font-size: 0.88em;
   text-align: left;
-  background-color:#14ABDB;
-  border-radius: 7px;
+  border-radius: 0.45em;
   border: transparent;
   transition: 0.5s;
+}
+
+.updateButton{
+  width: 8em;
+  color: rgb(255, 255, 255);
+  background-color:#14ABDB;
   float:left;
 }
 
@@ -694,20 +685,10 @@ textarea {
 }
 
 .deleteButton{
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height:45px;
-  font-family: 'Mulish', sans-serif;
-  font-size: 13px;
-  line-height: 12px;
+  width: 7.5em;
   color: rgb(255, 255, 255);
   float:right;
   background-color: rgb(230, 80, 80);
-  border-radius: 7px;
-  border: transparent;
-  transition: 0.5s;
 }
 
 .deleteButton:hover{
@@ -716,20 +697,9 @@ textarea {
 }
 
 .createButton{
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  height:35px;
-  font-family: 'Mulish', sans-serif;
-  font-size: 13px;
   color: rgb(255, 255, 255);
   background-color: rgb(134, 82, 186);
-  border-radius: 7px;
-  border: transparent;
-  transition: 0.5s;
-  margin: 15px auto 0 auto;
-  padding: 0 10px 0 10px;
+  margin: 0.938em auto 0 auto;
 }
 
 .createButton:hover{
@@ -738,8 +708,8 @@ textarea {
 }
 
 .activityFormButtonIcon {
-  width: 22px;
-  margin-right:5px;
+  width: 1.375em;
+  margin-right:0.313em;
 }
 
 .twoButtonsContainer{
@@ -747,68 +717,68 @@ textarea {
   flex-direction: row;
   justify-content: space-between;
   width:100%;
-  height: 30px;
 }
 
 
 .searchField {
-  width: 700px;
+  width: 43.75em;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 20px;
+  font-size: 1em;
   color: white;
   text-align: left;
   background-color: rgba(255, 255, 255, 0);
-  margin: 0px 0 0px 0;
+  margin: 0em 0 0em 0;
   border: transparent;
-  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.567);
+  text-shadow: 0em 0em 0.125em rgba(0, 0, 0, 0.567);
   outline: none;
 }
 
 .searchField::placeholder { 
   color: rgba(255, 255, 255, 0.6);
-  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.27);
+  text-shadow: 0em 0em 0.125em rgba(0, 0, 0, 0.27);
 }
 
 .searchImage{
-  width:20px;
-  height: 20px;
-  margin-right:15px;
+  width:1.15em;
+  height: 1.15em;
+  margin-left:0.4em;
+  margin-right:0.938em;
   opacity: 80%;
 }
 
 .searchContainer{
   display: flex;
-  width: 750px;
-  height: 35px;
-  padding: 5px 10px 5px 10px;
+  width: 97%;
+  height: 1.5em;
+  padding: 0.313em 0.625em 0.313em 0.625em;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 20px;
-  border-radius: 7px;
+  font-size: 1.25em;
+  border-radius: 0.438em;
   color: white;
   text-align: left;
   background-color: rgba(255,255,255,0.3);
-  margin: 0px 0 10px 0;
+  margin: 0em 0 0.5em 0;
   border: transparent;
-  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.567);
+  text-shadow: 0em 0em 0.125em rgba(0, 0, 0, 0.567);
   align-items: center;
   justify-content: center;
 }
 
 .favsWillAssistBarContainer{
   width: 100%;
-  height: 40px;
-  margin: 0px auto 10px auto;
+  height: 2.5em;
+  margin: 0em auto 0.625em auto;
   display: flex;
   justify-content: space-between;
 }
 
-.favsCatalogueButton {
-  width: 380px;
-  height:40px;
+.catalogueSpecialFilterOption {
+  width: 23.75em;
+  height:2.5em;
   font-family: 'Mulish', sans-serif;
-  font-size: 16px;
+  font-size: 1em;
   background-color: rgb(53, 145, 181);
-  border-radius: 10px;
+  border-radius: 0.625em;
   display:flex;
   align-items: center;
   justify-content: center;
@@ -817,27 +787,27 @@ textarea {
 }
 
 .filterContainer {
-  width: 150px;
+  width: 9.375em;
   height: 100%;
   overflow-y: auto;
   font-family: "Source Sans Pro", sans-serif;
-  padding: 0px 10px 0px 0px;
-  margin: 0px 3px 0px 0px;
+  padding: 0em 0.625em 0em 0em;
+  margin: 0em 0.188em 0em 0em;
   overflow-wrap: anywhere;
 }
 
 .filterContainer::-webkit-scrollbar {
-  width: 8px;
+  width: 0.5em;
 }
 
 .filterContainer::-webkit-scrollbar-track {
   background-color: rgba(255, 255, 255, 0);
-  border-radius: 10px;
+  border-radius: 0.625em;
 }
 
 .filterContainer::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.25);
-  border-radius: 20px;
+  border-radius: 1.25em;
 }
 
 .filterItem {
@@ -845,10 +815,10 @@ textarea {
   width: 100%;
   height: fit-content;
   align-items: self-start;
-  line-height: 15px;
-  padding: 0px;
-  margin-bottom: 3px;
-  font-size:16px;
+  line-height: 0.938em;
+  padding: 0em;
+  margin-bottom: 0.188em;
+  font-size:1em;
   transition: 0.5s;
   opacity: 60%;
   transition: 0.5s;
@@ -861,11 +831,11 @@ textarea {
 
 .filterTitle {
   font-family: 'Mulish', sans-serif;
-  margin: 10px 0 6px 0;
+  margin: 0.625em 0 0.375em 0;
 }
 
 .filterTitle2{
-  margin: 0px 0 6px 0;
+  margin: 0em 0 0.375em 0;
 }
 
 .notShow{
@@ -877,24 +847,24 @@ textarea {
 }
 
 .dateField{
-  width:105px;
-  margin-right:5px;
-  font-size:15px;
+  width:6.563em;
+  margin-right:0.313em;
+  font-size:0.938em;
 }
 
 .catalogueContainer2 {
   display: flex;
-  height:320px;
+  height:20em;
 }
 
 .filterCheckboxContainer{
-  width: 16px;
-  margin-right:7px;
+  width: 1em;
+  margin-right:0.438em;
 }
 
 .categoryCheckbox{
-  width: 16px;
-  height: 16px;
+  width: 1.15em;
+  height: 1.15em;
   transition:0.5s;
   cursor: pointer; 
   margin: 0 0 0 0;
@@ -906,13 +876,13 @@ textarea {
 }
 
 .categoryCheckbox2{
-  width: 18px;
-  height: 18px;
+  width: 1.4em;
+  height: 1.4em;
   transition:0.5s;
   cursor: pointer; 
   margin: 0 0 0 0;
   accent-color: rgb(7, 93, 133);
-  margin-right:10px;
+  margin-right:0.625em;
 }
 
 .categoryCheckbox2:focus{
@@ -925,18 +895,10 @@ textarea {
 }
 
 .sendButton{
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  width: 111px;
-  height:32px;
-  font-family: 'Mulish', sans-serif;
-  font-size: 14px;
+  width: 6.938em;
   color: #500A6D;
   background-color: rgb(255, 255, 255);
-  border-radius: 7px;
-  border: transparent;
-  margin:20px auto 0px auto;
+  margin:1.9em auto 0em auto;
   transition: 0.5s;
 }
 
@@ -962,18 +924,18 @@ textarea {
 }
 
 .registerPopUpCard{
-  width: 250px;
-  height:300px;
+  width: 13em;
+  height:16em;
   background-image: url("./assets/popUpBackground.png");
   background-size: cover;
-  border-radius: 25px;
+  border-radius: 1.563em;
   position:absolute;
-  top: -400px;
+  top: -25em;
   left: 50%;
   transform: translate(-50%, 0);
   font-family: "Source Sans Pro", sans-serif;
-  font-size:19px;
-  padding:10px;
+  font-size:1.1em;
+  padding:0.625em;
   display:flex;
   align-items: center;
   justify-content: center;
@@ -982,15 +944,15 @@ textarea {
 }
 
 .movedDown{
-  top: 200px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.37);
+  top: 12.5em;
+  box-shadow: 0em 0em 1.25em rgba(0, 0, 0, 0.37);
   transition: 0.5s;
 }
 
 .registerPopUpContainer{
-  width: 230px;
+  width: 14.375em;
   text-align: center;
-  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.438);
+  text-shadow: 0em 0em 0.313em rgba(0, 0, 0, 0.438);
 }
 
 .goToSignUp2 {
@@ -1014,13 +976,13 @@ textarea {
 }
 
 .fakeMenuButton {
-  font-size: 16px;
-  border: 2px solid white;
+  font-size: 1em;
+  border: 0.125em solid white;
   background-color: rgba(0,0,0,0);
-  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.165);
-  border-radius: 8px;
-  padding:4px 15px 4px 15px;
-  margin: 0 4px 0 4px;
+  box-shadow: 0em 0em 0.625em 0.125em rgba(0, 0, 0, 0.165);
+  border-radius: 0.5em;
+  padding:0.25em 0.938em 0.25em 0.938em;
+  margin: 0 0.25em 0 0.25em;
   height:fit-content;
   transition: 0.5s;
   color: white;
@@ -1032,7 +994,7 @@ textarea {
 
 .fakeMenuButton:hover{
   color: #2b085a;
-  padding:4px 20px 4px 20px;
+  padding:0.25em 1.25em 0.25em 1.25em;
   background-color: white;
   transition: 0.5s;
 }
@@ -1042,32 +1004,17 @@ textarea {
   width:100%;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 5px;
-}
-
-.activityButton{
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  font-family: 'Mulish', sans-serif;
-  font-size: 13px;
-  color: rgb(255, 255, 255);
-  border-radius: 7px;
-  border: transparent;
-  transition: 0.5s;
-  padding: 4px 10px 4px 10px;
-  text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.343);
+  margin-bottom: 0.313em;
 }
 
 .volver{
   background-color: #E16DB5;
-  margin-right:0px;
+  margin-right:0em;
   float:left;
 }
 
 .editActivityTitle {
-  margin-left:160px;
+  margin-left:10em;
 }
 
 .volver:hover{
@@ -1076,25 +1023,35 @@ textarea {
 }
 
 .favorito{
-  background-color: #5048EF;
-  width:170px;
+  background-color: #0e83a7;
+  width:13em;
+  height:1.9em;
 }
 
 .favorito:hover{
-  background-color: #312c95;
+  background-color: #0f5b72;
   transition: 0.5s;
+}
+
+.yesFavorito {
+  background-color: #5048EF;
+}
+
+.yesFavorito:hover {
+  background-color: #312c95;
 }
 
 .willAssistButton{
-  background-color: #14ABDB;
-  width: 170px;
-  height:28px;
-  margin-top: 4px;
+  background-color: #c03030;
+  width: 13em;
+  height:1.9em;
+  margin-top: 0.25em;
+  justify-content: space-between;
 }
 
-.willAssistButton:hover{
-  background-color: #116c88;
-  transition: 0.5s;
+.onButton{
+  background-color: rgb(48, 107, 36);
+  transition:0.5s;
 }
 
 .parche{
@@ -1111,7 +1068,7 @@ textarea {
   background-color: white;
   color: #500A6D;
   float:right;
-  text-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  text-shadow: 0em 0em 0em rgba(0, 0, 0, 0);
 }
 
 .reseña:hover{
@@ -1122,17 +1079,17 @@ textarea {
 .infoBox {
   opacity: 100%;
   width: 70%;
-  max-width: 800px;
-  min-width: 680px;
+  max-width: 50em;
+  min-width: 42.5em;
   height: 45vh;
-  min-height: 360px;
-  max-height: 400px;
+  min-height: 22.5em;
+  max-height: 25em;
   background-color: rgba(0,0,0,0.4);
-  border-radius: 40px;
-  margin: 20px auto 30px auto;
+  border-radius: 2.5em;
+  margin: 1.25em auto 1.875em auto;
   animation: 0.5s ease-out 0s 1 slideInFromLeft;
-  padding: 40px;
-  line-height: 15px;
+  padding: 2.5em;
+  line-height: 0.938em;
   display:flex;
   align-items: center;
   justify-content: center;
@@ -1146,13 +1103,13 @@ textarea {
 
 .editActivityButton{
   background-color: #D6A4EB;
-  width: 24px;
-  height: 24px;
+  width: 1.5em;
+  height: 1.5em;
   border:none;
-  border-radius: 5px;
+  border-radius: 0.313em;
   transition:0.5s;
-  padding: 2px;
-  margin-left:10px;
+  padding: 0.125em;
+  margin-left:0.625em;
 }
 
 .editActivityButton:hover{
@@ -1171,13 +1128,13 @@ textarea {
 }
 
 .featureIcon{
-  width: 25px;
-  margin-right:10px;
+  width: 1.563em;
+  margin-right:0.625em;
 }
 
 .userCommentIcon{
-  width: 35px;
-  margin-right:10px;
+  width: 2.188em;
+  margin-right:0.625em;
 }
 
 .featureBox {
@@ -1186,12 +1143,12 @@ textarea {
   height: fit-content;
   align-items: center;
   justify-content: center;
-  margin-bottom: 9px;
+  margin-bottom: 0.563em;
 }
 
 .specialFeatureTitle {
-  margin-top: 7px;
-  margin-bottom: 10px;
+  margin-top: 0.438em;
+  margin-bottom: 0.625em;
 }
 
 .verticalButtonContainer{
@@ -1200,37 +1157,38 @@ textarea {
 }
 
 .assistCheckboxBackground{
-  width: 35px;
-  height:15px;
-  background-color: white;
-  border-radius: 25px;
-  margin-left:15px;
+  width: 1.8em;
+  height:1.1em;
+  background-color: rgb(77, 26, 26);
+  border-radius: 1.563em;
+  margin-left:0.7em;
   display:flex;
   align-items: center;
   transition:0.5s;
 }
 
-.on{
+.assistCheckbox{
+  width: 0.85em;
+  height:0.9em;
+  background-color: #ffffff;
+  border-radius: 1.563em;
+  margin: 0 0.125em 0 0.125em;
+}
+
+.onCheckbox{
   justify-content: right;
+  background-color: rgb(19, 49, 17);
   transition:0.5s;
 }
 
-.assistCheckbox{
-  width: 13px;
-  height:13px;
-  background-color: #0F0A72;
-  border-radius: 25px;
-  margin: 0 2px 0 2px;
-}
-
 .columnFeaturesContainer {
-  flex-basis: 198px;
+  flex-basis: 12.375em;
 	flex-grow: 0;
 	flex-shrink: 0;
-  height:250px;
+  height:15.625em;
   overflow-y: auto;
-  margin-right:20px;
-  padding-right:10px;
+  margin-right:1.25em;
+  padding-right:0.625em;
   overflow-wrap: anywhere;
 }
 
@@ -1238,23 +1196,23 @@ textarea {
   display: flex;
   flex-flow:column;
   align-content: start;
-  height:250px;
+  height:15.625em;
   width: 100%;
   overflow-wrap: anywhere;
 }
 
 .columnFeaturesContainer::-webkit-scrollbar {
-  width: 8px;
+  width: 0.5em;
 }
 
 .columnFeaturesContainer::-webkit-scrollbar-track {
   background-color: rgba(255, 255, 255, 0);
-  border-radius: 10px;
+  border-radius: 0.625em;
 }
 
 .columnFeaturesContainer::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.25);
-  border-radius: 20px;
+  border-radius: 1.25em;
 }
 
 .twoColumnsFeatureContainer{
@@ -1262,7 +1220,7 @@ textarea {
   width:100%;
   height:fit-content;
   justify-content: space-between;
-  margin-bottom:15px;
+  margin-bottom:0.938em;
 }
 
 .containerComments{
@@ -1272,33 +1230,33 @@ textarea {
 }
 
 .containerComments::-webkit-scrollbar {
-  width: 8px;
+  width: 0.5em;
 }
 
 .containerComments::-webkit-scrollbar-track {
   background-color: rgba(255, 255, 255, 0);
-  border-radius: 10px;
+  border-radius: 0.625em;
 }
 
 .containerComments::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.25);
-  border-radius: 20px;
+  border-radius: 1.25em;
 }
 
 .commentCard{
   width:99%;
-  min-height:50px;
+  min-height:3.125em;
   display: flex;
   align-items:flex-start;
   justify-content: center;
-  margin-bottom: 5px;
+  margin-bottom: 0.313em;
 }
 
 .commentTextContainer{
   width:100%;
   background-color: #ffffff23;
-  padding:12px 12px 12px 12px;
-  border-radius: 0px 15px 15px 15px;
+  padding:0.75em 0.75em 0.75em 0.75em;
+  border-radius: 0em 0.938em 0.938em 0.938em;
   transition: 0.5s;
 }
 
@@ -1310,7 +1268,7 @@ textarea {
 .commentText{
   font-family: "Source Sans Pro", sans-serif;
   font-style: italic;
-  margin-bottom:7px;
+  margin-bottom:0.438em;
   text-align: left;
 }
 
@@ -1325,7 +1283,7 @@ textarea {
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
-  margin: 8px 0 3px 0;
+  margin: 0.5em 0 0.188em 0;
 }
 
 .radio-input {
@@ -1345,26 +1303,26 @@ textarea {
 .radio-label:before {
   content: "★";
   display: inline-block;
-  font-size: 26px;
+  font-size: 1.7rem;
   transition: color 0.1s;
 }
 
 .radio-input:checked ~ .radio-label {
   color: white;
   transition: color 0.1s;
-  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 0em 0em 0.625em rgba(0, 0, 0, 0.2);
 }
 
 .commentFormCard {
-  width: 270px;
-  height: 260px;
-  padding: 20px;
-  border-radius: 15px;
+  width: 16.875em;
+  height: 16.25em;
+  padding: 1.25em;
+  border-radius: 0.938em;
   background-color: #1999C2;
   margin: 0 0 0 0;
   position:absolute;
-  bottom:60px;
-  right:40px;
+  bottom:3.75em;
+  right:2.5em;
   opacity: 0%;
   z-index: -4000;
   transition: 0.5s;
@@ -1372,16 +1330,16 @@ textarea {
 
 .opacityWhole2 {
   opacity:100%;
-  bottom:25px;
+  bottom:1.563em;
   z-index: 4000;
   transition: 0.5s;
 }
 
 .commentInputField {
   width:99%;
-  height: 100px;
-  font-size: 16px;
-  margin:8px 0 8px 0;
+  height: 6.25em;
+  font-size: 1em;
+  margin:0.5em 0 0.5em 0;
   background-color: #0d485c;
   color:white;
 }
@@ -1390,28 +1348,16 @@ textarea {
   text-align: center;
   font-family: "Mulish",sans-serif;
   color: #ffffff;
-  font-size:18px;
-  margin: 8px 0 15px 0;
-  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  font-size:1.125em;
+  margin: 0.5em 0 0.938em 0;
+  text-shadow: 0em 0em 0.625em rgba(0, 0, 0, 0.3);
 }
 
 .sendButton2{
-  display:flex;
-  align-items: center;
-  justify-content: center;
   width: 48%;
-  height:35px;
-  font-family: 'Mulish', sans-serif;
-  font-size: 13px;
-  line-height: 12px;
   color: rgb(255, 255, 255);
-  text-align: left;
   background-color:#0f5264;
-  border-radius: 7px;
-  border: transparent;
-  transition: 0.5s;
   float:left;
-  margin: 0 0 0 0;
 }
 
 .sendButton2:hover{
@@ -1420,7 +1366,10 @@ textarea {
 }
 
 .cancel{
+  width: 48%;
+  color: rgb(255, 255, 255);
   background-color: rgb(230, 80, 80);
+  float:left;
 }
 
 .cancel:hover{
@@ -1430,4 +1379,3 @@ textarea {
 .darkerColor{
   color:#062e3b;
 }
-

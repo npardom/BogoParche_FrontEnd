@@ -51,7 +51,7 @@ function Login() {
             value={password} placeholder = "Contraseña" type = "password" className = "loginField"
             required>
         </input>
-        <button className = "loginButton2">Ingresar</button>
+        <button className = "genericButton loginButton2">Ingresar</button>
       </form>
       <div className = "noAccountQuestion">¿No tienes cuenta?&nbsp; 
       <NavLink to="/signUp" className = "goToSignUp">Registrarse</NavLink>

@@ -238,7 +238,7 @@ function SugerirActividad() {
               <input onChange={getAgeRestriction} className="activityCheckbox" type="checkbox"></input>
             </div>
             <p className="textStyle1">(*) Campo Obligatorio</p>
-            <button className="sendButton">
+            <button className="genericButton sendButton">
               <img src={sendIcon} className="activityFormButtonIcon" />
               Enviar
             </button>

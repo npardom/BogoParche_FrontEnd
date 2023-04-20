@@ -1,5 +1,6 @@
 import { NavLink as Link } from "react-router-dom";
-import styled from "styled-components"
+import styled from "styled-components";
+import { showPopUp } from "../assets/datos";
 
 const NavLink = styled(Link)
 `
@@ -37,13 +38,6 @@ const NavLink = styled(Link)
 
 function MainMenu() {
   const loggedInUser = localStorage.getItem("username");
-
-  function showPopUp (){
-    var element = document.getElementById("registerPopUpBackground") as HTMLDivElement;
-    element.classList.add('appeared');
-    element = document.getElementById("registerPopUp") as HTMLDivElement;
-    element.classList.add('movedDown');
-  }
 
   function HandleParches(){
     if (!loggedInUser){

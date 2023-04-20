@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { Activity } from "../assets/datos";
 import goBackIcon from "../assets/icons/goBackIcon.png";
 import locationIcon from "../assets/icons/locationIcon.png";
 import categoryIcon from "../assets/icons/categoryIcon.png";
@@ -15,13 +14,14 @@ import reviewIcon from "../assets/icons/reviewIcon.png";
 import favoriteIcon from "../assets/icons/favoriteIcon.png";
 import CommentCard from '../components/CommentCard';
 import CommentForm from '../components/CommentForm';
+import { Activity, showPopUp } from "../assets/datos";
 
 function InfoActividad() {
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
   const [user, setUser] = useState("");
   const [willAssist, setWillAssist] = useState(false);
-
+  const [isFavorite, setIsFavorite] = useState(false);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([] as any);
 
@@ -41,6 +41,12 @@ function InfoActividad() {
     });
   }, [])
 
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("username");
+    if (loggedInUser) {
+      setUser(loggedInUser);
+    }
+  }, []);
 
   useEffect(() => {
     var s = slug as any;
@@ -72,13 +78,6 @@ function InfoActividad() {
     navigate("/editarActividad/"+ typeOfAct + activity.id_actividad.toString())
   }
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("username");
-    if (loggedInUser) {
-      setUser(loggedInUser);
-    }
-  }, []);
-
   function EditButton(){
     if(user){
       return (
@@ -93,13 +92,6 @@ function InfoActividad() {
 
   function goToCatalogue(){
     navigate("/")
-  }
-
-  function showPopUp (){
-    var element = document.getElementById("registerPopUpBackground") as HTMLDivElement;
-    element.classList.add('appeared');
-    element = document.getElementById("registerPopUp") as HTMLDivElement;
-    element.classList.add('movedDown');
   }
 
   function DateTime (){
@@ -173,15 +165,18 @@ function InfoActividad() {
     }
   }
 
-  function toggleCheckbox(){
+  function handleWillAssist(){
     if(user){
       var element = document.getElementById("assistCheck") as HTMLDivElement;
-      if (element.classList.toString() === "assistCheckboxBackground on"){
+      var element2 = document.getElementById("willAssistButtonId") as HTMLButtonElement;
+      if (willAssist){
         setWillAssist(false)
-        element.classList.remove('on');
+        element2.classList.remove('onButton');
+        element.classList.remove("onCheckbox");
       }else{
         setWillAssist(true)
-        element.classList.add('on');
+        element2.classList.add('onButton');
+        element.classList.add("onCheckbox");
       }
     }else{
       showPopUp();
@@ -190,7 +185,14 @@ function InfoActividad() {
 
   function addToFavorites(){
     if(user){
-      return
+      var element = document.getElementById("favoriteButton") as HTMLDivElement;
+      if (isFavorite){
+        setIsFavorite(false)
+        element.classList.remove('yesFavorito')
+      }else{
+        setIsFavorite(true)
+        element.classList.add('yesFavorito')
+      }
     }else{
       showPopUp();
     }
@@ -219,7 +221,7 @@ function InfoActividad() {
     <div className="infoBox"> 
       <div className="infoActivityContainer">
         <div className = "bottomTwoButtonsContainer">
-        <button onClick = {goToCatalogue} className="activityButton volver">
+        <button onClick = {goToCatalogue} className="genericButton volver">
             <img src={goBackIcon} className="activityFormButtonIcon" />
             Volver
         </button>
@@ -228,11 +230,12 @@ function InfoActividad() {
           <EditButton/>
         </div>
         <div className = "verticalButtonContainer">
-        <button className="activityButton favorito" onClick = {addToFavorites}>
-            <img src={favoriteIcon} className="activityFormButtonIcon" />Añadir a favoritos
+        <button className="genericButton favorito" onClick = {addToFavorites} id ="favoriteButton">
+            <img src={favoriteIcon} className="activityFormButtonIcon" />
+            {isFavorite? "Quitar de favoritos": "Añadir a favoritos"}
         </button>
-        <button className="activityButton willAssistButton" onClick ={toggleCheckbox}>
-          Planeo asistir
+        <button className="genericButton willAssistButton" id = "willAssistButtonId" onClick ={handleWillAssist}>
+         {willAssist? "Sí pienso asistir": "No pienso asistir"}
           <div id = "assistCheck" className="assistCheckboxBackground" >
             <div className="assistCheckbox" ></div>
           </div>
@@ -299,10 +302,10 @@ function InfoActividad() {
         </div>
 
         <div className = "bottomTwoButtonsContainer">
-          <button className="activityButton parche" onClick = {createParche}>
+          <button className="genericButton parche" onClick = {createParche}>
             <img src={createParcheIcon} className="activityFormButtonIcon" />Crear Parche
           </button>
-          <button className="activityButton reseña" onClick = {addComment}>
+          <button className="genericButton reseña" onClick = {addComment}>
             <img src={reviewIcon} className="activityFormButtonIcon" /> Añadir una reseña
           </button>
         </div>
