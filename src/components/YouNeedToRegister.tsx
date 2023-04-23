@@ -1,17 +1,10 @@
 import { NavLink } from "react-router-dom";
+import { hidePopUp } from "../assets/datos";
 
 function YouNeedToRegister() {
-
-  function hideMyself () {
-    var element = document.getElementById("registerPopUpBackground") as HTMLDivElement;
-    element.classList.remove('appeared')
-    element = document.getElementById("registerPopUp") as HTMLDivElement;
-    element.classList.remove('movedDown');
-  }
-
   return (
-    <div className ="registerPopUpWhole" id = "registerPopUpBackground" onClick ={hideMyself}>
-    <div className ="registerPopUpCard" id = "registerPopUp" onClick ={hideMyself}>
+    <div className ="registerPopUpWhole" id = "registerPopUpBackground" onClick ={hidePopUp}>
+    <div className ="registerPopUpCard" id = "registerPopUp" onClick ={hidePopUp}>
       <div className ="registerPopUpContainer">
       <NavLink to="/signUp" className = "goToSignUp2">
         Registrate

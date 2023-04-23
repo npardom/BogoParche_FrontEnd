@@ -1,5 +1,5 @@
 import icon from "../assets/icons/infoIcon.png";
-import logoUNAL from "../assets/logoUNAL.png";
+import logoUNAL from "../assets/logos/logoUNAL.png";
 import MemberCircle from "../components/MemberCircle";
 
 function AboutUs() {
@@ -22,18 +22,9 @@ function AboutUs() {
         <div className="memberCirclesArray">
           <MemberCircle name="Daniela Tocua" color="rgba(237,135,198,0.63)" />
           <MemberCircle name="Diana Monroy" color="rgba(214,164,235,0.63)" />
-          <MemberCircle
-            name="Juan Diego Cortes"
-            color="rgba(121,73,198,0.63)"
-          />
-          <MemberCircle
-            name="Esteban Umbarila"
-            color="rgba(125,220,250,0.63)"
-          />
-          <MemberCircle
-            name="Johhan Maldonado"
-            color="rgba(125,220,250,0.63)"
-          />
+          <MemberCircle name="Juan Diego Cortes" color="rgba(121,73,198,0.63)"/>
+          <MemberCircle name="Esteban Umbarila" color="rgba(125,220,250,0.63)"/>
+          <MemberCircle name="Johhan Maldonado" color="rgba(125,220,250,0.63)"/>
           <MemberCircle name="Nicolas Pardo" color="rgba(20,171,219,0.63)" />
         </div>
       </div>

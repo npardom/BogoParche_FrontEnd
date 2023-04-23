@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
 
 body {
-  background-image: url("./assets/background.png");
+  background-image: url("./assets/backgrounds/background.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -112,7 +112,7 @@ textarea {
   position: absolute;
   top: 0.625em;
   right: 0.625em;
-  transition: 0.4s;
+  transition: 0.5s;
   opacity:0%;
   width:0em;
   height:0em;
@@ -121,7 +121,7 @@ textarea {
 
 .userOptionButton{
   width:max-content;
-  color:rgb(21, 4, 47);
+  color:rgb(16, 7, 29);
   line-height: 0.813em;
   font-size: 0.1em;
   background-color: rgba(255, 255, 255);
@@ -130,15 +130,15 @@ textarea {
   border: 0em;
   float: right;
   margin-bottom: 0.188em;
-  transition: 0.4s;
+  transition: 0.5s;
   box-shadow: 0 0 0.7em rgba(0,0,0,0.4);
 }
 
 .userOptionButton:hover{
   color:white;
   background-color: rgba(37, 7, 59);
-  padding: 0.688em 0.75em 0.688em 0.75em;
-  transition: 0.4s;
+  padding: 0.8em 0.75em 0.8em 0.75em;
+  transition: 0.5s;
 }
 
 .loginButton:hover .userOptionsContainer {
@@ -231,7 +231,7 @@ textarea {
   height: 50vh;
   min-height: 21.875em;
   max-height: 25em;
-  background-image: url("./assets/aboutUsBackground.png");
+  background-image: url("./assets/backgrounds/aboutUsBackground.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: right;
@@ -571,6 +571,16 @@ textarea {
   text-shadow: 0em 0em 0.313em rgba(0, 0, 0, 0.415);
 }
 
+.noCommentsText{
+  display: flex;
+  font-family: "Source Sans Pro", "sans-serif";
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0 0 0 0;
+  text-shadow: 0em 0em 0.313em rgba(0, 0, 0, 0.415);
+}
+
 .adminActivitiesCard {
   opacity: 100%;
   width: 70%;
@@ -825,10 +835,6 @@ textarea {
   transition: 0.5s;
 }
 
-.checkBoxText{
-  margin: 0 0 0 0;
-}
-
 .opacityWhole {
   opacity:100%;
   transition: 0.5s;
@@ -863,7 +869,7 @@ textarea {
 }
 
 .filterCheckboxContainer{
-  width: 1em;
+  width: 100%;
   margin-right:0.438em;
 }
 
@@ -872,7 +878,7 @@ textarea {
   height: 1.15em;
   transition:0.5s;
   cursor: pointer; 
-  margin: 0 0 0 0;
+  margin: 0 0.5em 0.2em 0;
   accent-color: rgb(172, 84, 204);
 }
 
@@ -892,11 +898,6 @@ textarea {
 
 .categoryCheckbox2:focus{
   outline: none;
-}
-
-.filterItem label{
-  opacity:65%;
-  transition:0.5s;
 }
 
 .sendButton{
@@ -931,7 +932,7 @@ textarea {
 .registerPopUpCard{
   width: 13em;
   height:16em;
-  background-image: url("./assets/popUpBackground.png");
+  background-image: url("./assets/backgrounds/popUpBackground.png");
   background-size: cover;
   border-radius: 1.563em;
   position:absolute;
@@ -1034,7 +1035,7 @@ textarea {
 }
 
 .favorito:hover{
-  background-color: #0f5b72;
+  background-color: #156a84;
   transition: 0.5s;
 }
 
@@ -1055,7 +1056,7 @@ textarea {
 }
 
 .onButton{
-  background-color: rgb(48, 107, 36);
+  background-color: rgb(73, 121, 36);
   transition:0.5s;
 }
 

@@ -39,27 +39,24 @@ const NavLink = styled(Link)
 function MainMenu() {
   const loggedInUser = localStorage.getItem("username");
 
-  function HandleParches(){
+  function RestrictedMenuButtons(){
     if (!loggedInUser){
-      return <button className ="fakeMenuButton" onClick ={showPopUp}>Tus Parches</button>
+      return (<>
+        <button className ="fakeMenuButton" onClick ={showPopUp}>Tus Parches</button>
+        <button className ="fakeMenuButton" onClick ={showPopUp}>Sugerir Actividad</button>
+      </>)
     }else{
-      return <NavLink to="/parches">Tus Parches</NavLink>
-    }
-  }
-
-  function HandleSugerir(){
-    if (!loggedInUser){
-      return <button className ="fakeMenuButton" onClick ={showPopUp}>Sugerir Actividad</button>
-    }else{
-      return <NavLink to="/sugerirActividad">Sugerir Actividad</NavLink>
+      return (<>
+        <NavLink to="/parches">Tus Parches</NavLink>
+        <NavLink to="/sugerirActividad">Sugerir Actividad</NavLink>
+      </>)
     }
   }
 
   return (
     <div className="mainMenu">
       <NavLink to="/">Catálogo</NavLink>
-      <HandleParches/>
-      <HandleSugerir/>
+      <RestrictedMenuButtons/>
       <NavLink to="/acercaDe">Sobre Nosotros</NavLink>
     </div>
   );
