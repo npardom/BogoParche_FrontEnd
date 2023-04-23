@@ -924,7 +924,7 @@ textarea {
 }
 
 .appeared{
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index:999;
   transition: 0.5s;
 }
@@ -1334,13 +1334,6 @@ textarea {
   transition: 0.5s;
 }
 
-.opacityWhole2 {
-  opacity:100%;
-  bottom:1.563em;
-  z-index: 4000;
-  transition: 0.5s;
-}
-
 .commentInputField {
   width:99%;
   height: 6.25em;
@@ -1386,41 +1379,21 @@ textarea {
   color:#062e3b;
 }
 
-.informationPopUpWhole {
-  display: none; 
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); 
-  z-index: 999;
+.informationPopUpCard {
+  position: absolute;
+  top: 0em;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 23em;
+  background-color: #9453C2;
+  padding: 3em 2.5em 3em 2.5em;
+  border-radius: 1.6em;
+  line-height: 1em;
+  text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
+  opacity: 0%;
+  z-index: -4000;
+  transition: 0.5s;
 }
-
-@keyframes rotate-scale {
-  0% {
-    opacity: 0;
-    transform: scale(0.5) rotate(0deg);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2) rotate(180deg);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.5) rotate(360deg);
-  }
-}
-
-.appear-animation {
-  animation-name: rotate-scale;
-  animation-duration: 1s;
-  animation-timing-function: ease;
-  animation-delay: 0.2s;
-  animation-fill-mode: forwards;
-}
-
-
 
 .informationPopUpContainer {
   display: flex;
@@ -1428,95 +1401,48 @@ textarea {
   flex-direction: column; 
   align-items: center;
   font-family: 'Mulish', sans-serif;
-}
-
-.title {
-  margin-top: 0; 
-  margin-bottom: 20px;
-}
-
-.informationPopUpCard {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  height: 350px;
-  background-image: url("./assets/popUpBackground.png");
-  background-size: cover;
-  padding: 20px;
-  border-radius: 20px;
-}
-
-.subtitle {
-  margin: 0; 
-}
-
-.description {
-  font-size: 14px; 
-  color: #b4b4b4; 
-  margin: 0; 
-}
-
-.description2 {
-  font-size: 14px; 
-  color: #b4b4b4; 
-  margin-top: -17.5px; 
+  width:100%;
 }
 
 .informationGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 0.6em;
+  width:100%;
 }
 
-.informationSection {
-  display: flex;
-  gap: 10px;
-}
-
-.titleAndDescription {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-}
-
-.informationText {
-  margin-right: 120px;
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-  flex-shrink: 0; 
-}
-
-.appeared {
-  display: block !important; 
-}
-
-.icon {
-  width: 24px; 
-  height: 24px; 
-}
-
-.closeIcon {
+.closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 20px;
-  height: 20px;
+  top: 1em;
+  right: 1em;
+  width: 1.6em;
+  height: 1.6em;
   cursor: pointer;
 }
 
-.aboutActivity {
-  position: absolute;
-  bottom: 20px; /* Colocar en la parte inferior de la tarjeta */
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
+.suggestionPopUpTitle{
+  margin:0 0 1em 0;
 }
 
+.featureBox2 {
+  display:flex;
+  width:fit-content;
+  height: fit-content;
+  align-items: center;
+  justify-content: center;
+  margin: 0.563em 0 0 0;
+}
 
+.opacityWhole2 {
+  opacity:100%;
+  bottom:1.563em;
+  z-index: 4000;
+  transition: 0.5s;
+}
+
+.opacityWhole3 {
+  opacity:100%;
+  z-index: 4000;
+  top: 12em;
+  transition: 0.5s;
+}

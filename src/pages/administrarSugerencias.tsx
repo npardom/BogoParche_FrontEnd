@@ -1,6 +1,12 @@
+import { showSuggestionCard } from "../assets/datos"
+import InformationSuggestion from "../components/InformationSuggestion"
+
 function AdministrarSugerencias() {
   return (
-    <div>administrarSugerencias</div>
+    <>
+    <InformationSuggestion/>
+    <button onClick={showSuggestionCard}>Mostrar Pop-up</button>
+    </> 
   )
 }
 
