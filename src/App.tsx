@@ -12,6 +12,9 @@ import AboutUs from './pages/aboutUs';
 import Login from './pages/login';
 import SignUp from './pages/signUp';
 import YouNeedToRegister from './components/YouNeedToRegister';
+
+import InfoWindow from './pages/informationSuggestion';
+
 import {Navigate} from 'react-router-dom';
 
 export function App() {
@@ -86,6 +89,7 @@ export function App() {
             <Navigate replace to={"/"} />
           )
         } />
+         <Route path="/infoSugerencia" element={<InfoWindow />} />
       </Routes>
       <Footer />
     </Router>

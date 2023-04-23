@@ -1384,3 +1384,138 @@ textarea {
 .darkerColor{
   color:#062e3b;
 }
+
+.informationPopUpWhole {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 999;
+}
+
+@keyframes rotate-scale {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(360deg);
+  }
+}
+
+.appear-animation {
+  animation-name: rotate-scale;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-delay: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+
+
+.informationPopUpContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column; 
+  align-items: center;
+  font-family: 'Mulish', sans-serif;
+}
+
+.title {
+  margin-top: 0; 
+  margin-bottom: 20px;
+}
+
+.informationPopUpCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 350px;
+  background-image: url("./assets/popUpBackground.png");
+  background-size: cover;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.subtitle {
+  margin: 0; 
+}
+
+.description {
+  font-size: 14px; 
+  color: #b4b4b4; 
+  margin: 0; 
+}
+
+.description2 {
+  font-size: 14px; 
+  color: #b4b4b4; 
+  margin-top: -17.5px; 
+}
+
+.informationGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.informationSection {
+  display: flex;
+  gap: 10px;
+}
+
+.titleAndDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.informationText {
+  margin-right: 120px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  flex-shrink: 0; 
+}
+
+.appeared {
+  display: block !important; 
+}
+
+.icon {
+  width: 24px; 
+  height: 24px; 
+}
+
+.closeIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.aboutActivity {
+  position: absolute;
+  bottom: 20px; /* Colocar en la parte inferior de la tarjeta */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+
