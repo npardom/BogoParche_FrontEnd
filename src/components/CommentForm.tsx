@@ -51,7 +51,7 @@ function CommentForm({id}: {id:string}) {
     <>
     <div className ="registerPopUpWhole" id = "commentFormBackground" onClick ={hideComentForm}>
     </div>
-    <div id = {id} className = "commentFormCard">
+    <div id = "commentForm" className = "commentFormCard">
         <p className="commentFormTitle">Cuentanos tu opinión</p>
         <form onSubmit={handleSubmit}>
             <div className="featureTitleText darkerColor">Calificación</div>
