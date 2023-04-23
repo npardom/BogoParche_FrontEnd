@@ -6,7 +6,7 @@ import ActivitySmallCard from "../components/ActivitySmallCard";
 function Catalogue() {
   const [activities, setActivities] = useState([] as Activity[]);
   const [categories, setCategories] = useState([] as any);
-  const [user, setUser] = useState("");
+  const loggedInUser = localStorage.getItem("username");
 
   useEffect(() => {
     fetch("/api/get-categories", {
@@ -46,9 +46,7 @@ function Catalogue() {
     }
 
     for (var i = 0; i < pricesList.length; i++) {
-      const checkbox = document.getElementById(
-        pricesList[i]
-      ) as HTMLInputElement;
+      const checkbox = document.getElementById(pricesList[i]) as HTMLInputElement;
       if (checkbox.checked) {
         prices.push(pricesList[i]);
       }
@@ -64,10 +62,10 @@ function Catalogue() {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
-      .then((dato) => {
-        setActivities(dato);
-      });
+    .then((res) => res.json())
+    .then((dato) => {
+      setActivities(dato);
+    });
   }
 
   function CatalogueCards() {
@@ -89,21 +87,12 @@ function Catalogue() {
   function toggleButton(id: string) {
     var line = document.getElementById(id + "checkbox") as HTMLDivElement;
     var bttn = document.getElementById(id) as HTMLInputElement;
-    if (!bttn.checked) {
+    if (bttn.checked) {
       line.classList.add("opacityWhole");
-      bttn.checked = true;
     } else {
       line.classList.remove("opacityWhole");
-      bttn.checked = false;
     }
   }
-
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("username");
-    if (loggedInUser) {
-      setUser(loggedInUser);
-    }
-  }, []);
 
   return (
     <div className="catalogueContainer">
@@ -115,31 +104,31 @@ function Catalogue() {
           className="searchField"
         ></input>
       </form>
-      {user ? (
+      {loggedInUser ? (
         <div className="favsWillAssistBarContainer">
           <div
             className="catalogueSpecialFilterOption"
-            onClick={() => toggleButton("Favourites")}
             id="Favouritescheckbox"
           >
             <input
               type="checkbox"
               className="categoryCheckbox2"
               id="Favourites"
+              onChange={() => toggleButton("Favourites")}
             ></input>
-            <p>Favoritos</p>
+            <label htmlFor="Favourites">Favoritos</label>
           </div>
           <div
             className="catalogueSpecialFilterOption"
-            onClick={() => toggleButton("EventsToAssist")}
             id="EventsToAssistcheckbox"
           >
             <input
               type="checkbox"
               className="categoryCheckbox2"
               id="EventsToAssist"
+              onClick={() => toggleButton("EventsToAssist")}
             ></input>
-            <p>Eventos a asistir</p>
+            <label htmlFor="EventsToAssist">Eventos a asistir</label>
           </div>
         </div>
       ) : (
@@ -149,36 +138,16 @@ function Catalogue() {
         <div className="filterContainer">
           <p className="filterTitle filterTitle2">Categorías</p>
           {Object.keys(categories).map((categoryId: string) => (
-            <div
-              className="filterItem"
-              onClick={() => toggleButton(categoryId)}
-              id={categoryId + "checkbox"}
-            >
-              <div className="filterCheckboxContainer">
-                <input
-                  type="checkbox"
-                  className="categoryCheckbox"
-                  id={categoryId}
-                />
-              </div>
-              <p className="checkBoxText">{categories[categoryId]}</p>
+            <div className="filterItem" onClick={() => toggleButton(categoryId)} id={categoryId + "checkbox"}>
+              <input type="checkbox" className="categoryCheckbox" id={categoryId}/>
+              <label htmlFor={categoryId}>{categories[categoryId]}</label>
             </div>
           ))}
           <p className="filterTitle">Precios</p>
           {pricesList.map((price: string) => (
-            <div
-              className="filterItem"
-              onClick={() => toggleButton(price)}
-              id={price + "checkbox"}
-            >
-              <div className="filterCheckboxContainer">
-                <input
-                  type="checkbox"
-                  className="categoryCheckbox"
-                  id={price}
-                />
-              </div>
-              <p className="checkBoxText">{price}</p>
+            <div className="filterItem" onClick={() => toggleButton(price)} id={price + "checkbox"}>
+              <input type="checkbox" className="categoryCheckbox" id={price}/>
+              <label htmlFor={price}>{price}</label>
             </div>
           ))}
         </div>

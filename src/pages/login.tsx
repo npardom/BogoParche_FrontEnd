@@ -1,10 +1,7 @@
-import { NavLink } from "react-router-dom";
-import { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Login() {
-  const [token, setToken] = useState("");
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -30,10 +27,12 @@ function Login() {
     }).then((res) => res.json())
     .then((confirmation) => {
       if (confirmation.error){
-        alert("Ocurrió un error. Intenta de nuevo.");
+        alert("Usuario y/o contraseña inválidas. Inténtelo de nuevo.");
       } else {
         localStorage.setItem('username', confirmation.username);
-        navigate('/');
+        localStorage.setItem('access', confirmation.access);
+        localStorage.setItem('refresh', confirmation.refresh);
+        navigate("/");
         window.location.reload();
       }
     }) 

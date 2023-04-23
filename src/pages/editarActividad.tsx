@@ -1,15 +1,14 @@
 import icon from "../assets/icons/editIcon.png";
 import removeIcon from "../assets/icons/removeIcon.png";
 import updateIcon from "../assets/icons/updateIcon.png";
+import goBackIcon from "../assets/icons/goBackIcon.png";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Activity, pricesList } from "../assets/datos";
-import goBackIcon from "../assets/icons/goBackIcon.png";
 
 function EditarActividad() {
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
-  const navigate = useNavigate();
   const [categories, setCategories] = useState({} as any);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
@@ -25,47 +24,7 @@ function EditarActividad() {
   const [startHour, setStartHour] = useState("");
   const [endHour, setEndHour] = useState("");
   const [isPlan, setIsPlan] = useState(false);
-
-  useEffect(() => {
-    fetch("/api/get-categories", {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.data) {
-          setCategories(result.data);
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    var s = slug as any;
-    if (s.slice(0, 4) == "plan") {
-      var isPlan = "true";
-      var id = s.slice(4);
-    } else {
-      var isPlan = "false";
-      var id = s.slice(6);
-    }
-    fetch("/api/get-activity/" + id + "/" + isPlan, {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((dato) => {
-        setActivity(dato);
-      })
-      .catch(() => {
-        navigate("/");
-      });
-  }, []);
+  const navigate = useNavigate();
 
   const getLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLocation(event.target.value);
@@ -114,6 +73,47 @@ function EditarActividad() {
       setAgeRestriction(false);
     }
   };
+
+  useEffect(() => {
+    fetch("/api/get-categories", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.data) {
+        setCategories(result.data);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    var s = slug as any;
+    if (s.slice(0, 4) == "plan") {
+      var isPlan = "true";
+      var id = s.slice(4);
+    } else {
+      var isPlan = "false";
+      var id = s.slice(6);
+    }
+    fetch("/api/get-activity/" + id + "/" + isPlan, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => res.json())
+    .then((dato) => {
+      setActivity(dato);
+    })
+    .catch(() => {
+      navigate("/");
+    });
+  }, []);
 
   useEffect(() => {
     setTitle(activity.titulo_actividad);
@@ -165,11 +165,12 @@ function EditarActividad() {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => response.json())
-      .then((result) => {
-        alert("La actividad fue editada exitosamente.");
-        window.location.reload();
-      });
+    .then((response) => response.json())
+    .then((result) => {
+      alert("La actividad fue editada exitosamente.");
+      var typeOfAct = activity.es_plan ? "plan" : "evento";
+      navigate("/actividades/" + typeOfAct + activity.id_actividad.toString());
+    });
   };
 
   function deleteActivity() {
@@ -186,10 +187,10 @@ function EditarActividad() {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
-      .then(() => {
-        navigate("/");
-      });
+    .then((res) => res.json())
+    .then(() => {
+      navigate("/");
+    });
   }
 
   function goBack() {

@@ -1,22 +1,16 @@
-import commentBlueIcon from "../assets/icons/commentBlueIcon.png";
-import commentPinkIcon from "../assets/icons/commentPinkIcon.png";
+import commentIcon from "../assets/icons/commentIcon.png";
+import { Comment } from "../assets/datos";
 
-function CommentCard({color} : {color:string}) {
-  if (color =="pink") {
-    color = commentPinkIcon
-  } else {
-    color = commentBlueIcon
-  }
+function CommentCard({comment} : {comment: Comment}) {
   return (
     <div className="commentCard">
-      <img src={color} className="userCommentIcon" />
+      <img src={commentIcon} className="userCommentIcon" />
       <div className="commentTextContainer">
         <div className="commentText">
-          "Este es un comentario de prueba. Así se verá en pantalla. En proximos sprints se desarrollará
-          esta funcionalidad"
+        "{comment.comentario}"
         </div>
         <div className="commentInfo">
-          - UsuarioX. 26/03/2023. Calificación 2/5
+          - {comment.usuario}. {comment.fecha}. Calificación {comment.calificacion}/5
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { hideComentForm } from "../assets/datos";
 import sendIcon from "../assets/icons/sendIcon2.png";
 import cancelIcon from "../assets/icons/cancelIcon.png";
 
@@ -6,14 +7,7 @@ function CommentForm({id}: {id:string}) {
 
   const [score, setScore] = useState(1);
   const [comment, setComment] = useState("");
-  const [user, setUser] = useState("");
-
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("username");
-    if (loggedInUser) {
-      setUser(loggedInUser);
-    }
-  }, []);
+  const loggedInUser = localStorage.getItem("username");
 
   const handleFormChange = (e: React.ChangeEvent<HTMLFormElement>) => {
     setScore(parseInt(e.target.value));
@@ -28,7 +22,7 @@ function CommentForm({id}: {id:string}) {
     const body = {
       calificacion: score,
       comentario: comment,
-      usuario: user,
+      usuario: loggedInUser,
       fecha: new Date()
     }
     alert(JSON.stringify(body));
@@ -52,13 +46,6 @@ function CommentForm({id}: {id:string}) {
     });
     */
   };
-
-  function hideComentForm () {
-    var element = document.getElementById("commentFormBackground") as HTMLDivElement;
-    element.classList.remove('appeared')
-    var element = document.getElementById("commentForm") as HTMLDivElement;
-    element.classList.remove("opacityWhole2")
-  }
 
   return (
     <>

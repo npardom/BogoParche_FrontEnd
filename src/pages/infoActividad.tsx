@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import goBackIcon from "../assets/icons/goBackIcon.png";
 import locationIcon from "../assets/icons/locationIcon.png";
@@ -14,16 +14,33 @@ import reviewIcon from "../assets/icons/reviewIcon.png";
 import favoriteIcon from "../assets/icons/favoriteIcon.png";
 import CommentCard from '../components/CommentCard';
 import CommentForm from '../components/CommentForm';
-import { Activity, showPopUp } from "../assets/datos";
+import { Activity, showPopUp, showComentForm, Comment } from "../assets/datos";
 
 function InfoActividad() {
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
-  const [user, setUser] = useState("");
   const [willAssist, setWillAssist] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const navigate = useNavigate();
   const [categories, setCategories] = useState([] as any);
+  const loggedInUser = localStorage.getItem("username");
+  const navigate = useNavigate();
+
+  const comentarios: Comment[] = [{
+    calificacion: "2",
+    comentario: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
+    usuario: "usuario1",
+    fecha: "24/11/2022"
+  },{
+    calificacion: "4",
+    comentario: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
+    usuario: "usuario2",
+    fecha: "28/02/2022"
+  },{
+    calificacion: "5",
+    comentario: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
+    usuario: "usuario3",
+    fecha: "25/4/2022"
+  }]
 
   useEffect(()=>{
     fetch("/api/get-categories", {
@@ -40,13 +57,6 @@ function InfoActividad() {
       }
     });
   }, [])
-
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("username");
-    if (loggedInUser) {
-      setUser(loggedInUser);
-    }
-  }, []);
 
   useEffect(() => {
     var s = slug as any;
@@ -79,7 +89,7 @@ function InfoActividad() {
   }
 
   function EditButton(){
-    if(user){
+    if(loggedInUser){
       return (
         <button className='editActivityButton' onClick = {goToEdit}>
           <img src={pencilIcon} className="pageTitleIcon2" />
@@ -88,10 +98,6 @@ function InfoActividad() {
     } else {
       return <></>
     }
-  }
-
-  function goToCatalogue(){
-    navigate("/")
   }
 
   function DateTime (){
@@ -166,17 +172,11 @@ function InfoActividad() {
   }
 
   function handleWillAssist(){
-    if(user){
-      var element = document.getElementById("assistCheck") as HTMLDivElement;
-      var element2 = document.getElementById("willAssistButtonId") as HTMLButtonElement;
+    if(loggedInUser){
       if (willAssist){
         setWillAssist(false)
-        element2.classList.remove('onButton');
-        element.classList.remove("onCheckbox");
       }else{
         setWillAssist(true)
-        element2.classList.add('onButton');
-        element.classList.add("onCheckbox");
       }
     }else{
       showPopUp();
@@ -184,14 +184,11 @@ function InfoActividad() {
   }
 
   function addToFavorites(){
-    if(user){
-      var element = document.getElementById("favoriteButton") as HTMLDivElement;
+    if(loggedInUser){
       if (isFavorite){
         setIsFavorite(false)
-        element.classList.remove('yesFavorito')
       }else{
         setIsFavorite(true)
-        element.classList.add('yesFavorito')
       }
     }else{
       showPopUp();
@@ -199,21 +196,34 @@ function InfoActividad() {
   }
 
   function addComment(){
-    if(user){
-      var element = document.getElementById("commentFormBackground") as HTMLDivElement;
-      element.classList.add('appeared')
-      var element = document.getElementById("commentForm") as HTMLDivElement;
-      element.classList.add("opacityWhole2")
+    if(loggedInUser){
+      showComentForm();
     }else{
       showPopUp();
     }
   }
 
   function createParche(){
-    if(user){
+    if(loggedInUser){
       return
     }else{
       showPopUp();
+    }
+  }
+
+  function CommentCards() {
+    if (comentarios.length == 0) {
+      return (
+        <p className="noCommentsText">No hay comentarios para esta actividad</p>
+      );
+    } else {
+      return (
+        <>
+          {comentarios.map((comentario: Comment) => (
+            <CommentCard comment = {comentario}/>
+          ))}
+        </>
+      );
     }
   }
   
@@ -221,7 +231,7 @@ function InfoActividad() {
     <div className="infoBox"> 
       <div className="infoActivityContainer">
         <div className = "bottomTwoButtonsContainer">
-        <button onClick = {goToCatalogue} className="genericButton volver">
+        <button onClick = {()=>navigate("/")} className="genericButton volver">
             <img src={goBackIcon} className="activityFormButtonIcon" />
             Volver
         </button>
@@ -230,13 +240,13 @@ function InfoActividad() {
           <EditButton/>
         </div>
         <div className = "verticalButtonContainer">
-        <button className="genericButton favorito" onClick = {addToFavorites} id ="favoriteButton">
+        <button className={isFavorite?"genericButton favorito yesFavorito":"genericButton favorito"} onClick = {addToFavorites} id ="favoriteButton">
             <img src={favoriteIcon} className="activityFormButtonIcon" />
             {isFavorite? "Quitar de favoritos": "Añadir a favoritos"}
         </button>
-        <button className="genericButton willAssistButton" id = "willAssistButtonId" onClick ={handleWillAssist}>
+        <button className={willAssist?"genericButton willAssistButton onButton":"genericButton willAssistButton"} onClick ={handleWillAssist}>
          {willAssist? "Sí pienso asistir": "No pienso asistir"}
-          <div id = "assistCheck" className="assistCheckboxBackground" >
+          <div className={willAssist?"assistCheckboxBackground onCheckbox":"assistCheckboxBackground"} >
             <div className="assistCheckbox" ></div>
           </div>
         </button>
@@ -290,13 +300,7 @@ function InfoActividad() {
             </div>
             <div className="featureTitleText specialFeatureTitle">¿Que dice la gente?</div>
             <div className = "containerComments">
-            <CommentCard color = "blue"/>
-            <CommentCard color = "pink"/>
-            <CommentCard color = "blue"/>
-            <CommentCard color = "pink"/>
-            <CommentCard color = "pink"/>
-            <CommentCard color = "blue"/>
-            <CommentCard color = "pink"/>
+              <CommentCards/>
             </div>
           </div>
         </div>
@@ -310,7 +314,7 @@ function InfoActividad() {
           </button>
         </div>
       </div>
-      {user?<CommentForm id ="commentForm" />: <></>}
+      {loggedInUser?<CommentForm id ="commentForm" />: <></>}
     </div>
   );
 }
