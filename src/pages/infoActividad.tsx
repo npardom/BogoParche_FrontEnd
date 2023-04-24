@@ -62,10 +62,10 @@ function InfoActividad() {
   }, []);
 
   useEffect(()=>{
-    if (activity.titulo_actividad){
+    if (activity.titulo_actividad && loggedInUser){
       const body = {
         id_actividad: activity.id,
-        username: localStorage.getItem("username"),
+        username: loggedInUser,
         es_plan:activity.es_plan,
       }
       fetch("/api/get-favorites", {
