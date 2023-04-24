@@ -59,20 +59,6 @@ export function hideComentForm () {
   element.classList.remove("opacityWhole2")
 }
 
-export const showSuggestionCard = () => {
-  var element = document.getElementById("informationPopUpBackground") as HTMLDivElement;
-  element.classList.add('appeared')
-  element = document.getElementById("informationPopUp") as HTMLDivElement;
-  element.classList.add("opacityWhole3")
-}
-
-export const hideSuggestionCard = () => {
-  var element = document.getElementById("informationPopUpBackground") as HTMLDivElement;
-  element.classList.remove('appeared')
-  element = document.getElementById("informationPopUp") as HTMLDivElement;
-  element.classList.remove("opacityWhole3")
-}
-
 export const handleLogout = () => {
   localStorage.clear();
   window.location.reload();

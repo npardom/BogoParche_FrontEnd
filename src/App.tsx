@@ -12,6 +12,7 @@ import AdministrarSugerencias from './pages/administrarSugerencias';
 import AboutUs from './pages/aboutUs';
 import Login from './pages/login';
 import SignUp from './pages/signUp';
+import InformationSuggestion from './pages/InformationSuggestion';
 import YouNeedToRegister from './components/YouNeedToRegister';
 
 export function App() {
@@ -41,6 +42,7 @@ export function App() {
         <Route path="/actividades/:slug" element = {<InfoActividad />}/>
         <Route path="/editarActividad/:slug" element={loggedInUser ? <EditarActividad />: <Navigate replace to={"/"}/>} />
         <Route path="/administrarSugerencias" element={loggedInUser ? <AdministrarSugerencias/>:<Navigate replace to={"/"}/>} />
+        <Route path="/administrarSugerencia/:slug" element={loggedInUser ? <InformationSuggestion/>:<Navigate replace to={"/"}/>} />
       </Routes>
       <Footer />
     </Router>

@@ -26,6 +26,44 @@ function ActivityCharacteristics({activity}:{activity: Activity}) {
         }
       });
     }, [])
+  
+    function Fecha(){
+      if (activity.fecha_inicio === activity.fecha_fin) {
+        return (
+          <div className="featureText">{new Date(activity.fecha_inicio).toLocaleDateString()}</div>
+        )
+      } else{
+        return (
+        <>
+          <div className="featureText">
+          {"Desde " + new Date(activity.fecha_inicio).toLocaleDateString()}
+          </div>
+          <div className="featureText">
+          {"Hasta " + new Date(activity.fecha_fin).toLocaleDateString()}
+          </div>
+        </>
+        )
+      }
+    }
+    
+    function Hora(){
+      if (activity.hora_inicio === activity.hora_fin) {
+        return (
+          <div className="featureText">{activity.hora_inicio.slice(0,5)}</div>
+        )
+      } else{
+        return (
+        <>
+          <div className="featureText">
+          {"Desde " + activity.hora_inicio.slice(0,5)}
+          </div>
+          <div className="featureText">
+          {"Hasta " + activity.hora_fin.slice(0,5)}
+          </div>
+        </>
+        )
+      }
+    }
 
     function DateTime (){
       if (activity.es_plan){
@@ -59,44 +97,7 @@ function ActivityCharacteristics({activity}:{activity: Activity}) {
         )
       }
       }
-    
-      function Fecha(){
-        if (activity.fecha_inicio === activity.fecha_fin) {
-          return (
-            <div className="featureText">{new Date(activity.fecha_inicio).toLocaleDateString()}</div>
-          )
-        } else{
-          return (
-          <>
-            <div className="featureText">
-            {"Desde " + new Date(activity.fecha_inicio).toLocaleDateString()}
-            </div>
-            <div className="featureText">
-            {"Hasta " + new Date(activity.fecha_fin).toLocaleDateString()}
-            </div>
-          </>
-          )
-        }
-      }
-    
-      function Hora(){
-        if (activity.hora_inicio === activity.hora_fin) {
-          return (
-            <div className="featureText">{activity.hora_inicio.slice(0,5)}</div>
-          )
-        } else{
-          return (
-          <>
-            <div className="featureText">
-            {"Desde " + activity.hora_inicio.slice(0,5)}
-            </div>
-            <div className="featureText">
-            {"Hasta " + activity.hora_fin.slice(0,5)}
-            </div>
-          </>
-          )
-        }
-      }
+
   return (
     <>
     <div className="featureBox">

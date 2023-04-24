@@ -606,6 +606,8 @@ textarea {
 
 .paddingModified{
   min-width: 48em;
+  min-height: 20em;
+  max-height: 22em;
 }
 
 .formContainer {
@@ -935,6 +937,29 @@ textarea {
   background-color: rgba(0, 0, 0, 0.5);
   z-index:999;
   transition: 0.5s;
+}
+
+.suggestionPopUpBackground{
+  position:fixed;
+  top: 0;
+  bottom:0;
+  right: 0;
+  left:0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index:999;
+  animation: 0.5s ease-out 0s 1 appearSlowly;
+  transition: 0.5s;
+}
+
+@keyframes appearSlowly {
+  0% {
+    background-color: rgba(0, 0, 0, 0);
+    z-index:-1999;
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index:999;
+  }
 }
 
 .registerPopUpCard{
@@ -1388,18 +1413,16 @@ textarea {
 }
 
 .informationPopUpCard {
-  position: absolute;
-  top: 18em;
-  left: 50%;
-  transform: translate(-50%, 0);
+  position:relative;
+  margin: 0 auto 0 auto;
   width: 23em;
   background-color: #9453C2;
-  padding: 3em 2.5em 3em 2.5em;
+  padding: 2.5em 2.5em 2.5em 2.5em;
   border-radius: 1.6em;
   line-height: 1em;
   text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
-  opacity: 0%;
-  z-index: -4000;
+  animation: 0.5s ease-out 0s 1 slideInFromLeft;
+  z-index:4000;
   transition: 0.5s;
 }
 
@@ -1420,25 +1443,33 @@ textarea {
 }
 
 .closeButton {
-  position: absolute;
-  top: 1em;
-  right: 1em;
+  position:absolute;
   width: 1.6em;
   height: 1.6em;
   cursor: pointer;
+  right: 1.5em;
+  top:1.5em;
 }
 
 .suggestionPopUpTitle{
   margin:0 0 1em 0;
-  font-size: 1.3em;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.suggestionPopUpSubtitle{
+  margin:0 0 0.2em 0;
+  font-size: 1.05em;
+  color:#e1b9f4;
+  text-shadow: none;
 }
 
 .featureBox2 {
   display:flex;
-  width:fit-content;
+  width:100%;
   height: fit-content;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   margin: 0.563em 0 0 0;
 }
 
@@ -1449,13 +1480,6 @@ textarea {
   transition: 0.5s;
 }
 
-.opacityWhole3 {
-  opacity:100%;
-  z-index: 4000;
-  top: 12em;
-  transition: 0.5s;
-}
-
 .activitySuggestText{
   width: 100%;
   display: flex;
@@ -1463,18 +1487,13 @@ textarea {
   justify-content: left;
   margin-top: 1.2em;
   margin-bottom: 0.5em;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Mulish", sans-serif;
   font-size: 1em;
 }
 
 .suggestName{
   width: 18em;
   margin-right: 0.5em;
-}
-
-.suggestName:hover{
-  text-decoration: underline;
-  color: #D6A4EB;
 }
 
 .suggestUser{
@@ -1486,6 +1505,35 @@ textarea {
   width: 14em;
 }
 
+.suggestName2{
+  width: 17em;
+  margin-right: 0.5em;
+}
+
+.suggestUser2{
+  width: 11em;
+  margin-right: 0.5em;
+}
+
+.suggestActions2{
+  width: 14.5em;
+}
+
+.tableTitle{
+  padding: 0.5em 0 0.5em 0.5em;
+  background-color: #9453C2;
+  color: #ffffff;
+  border-radius: 0.4em;
+  cursor: pointer;
+  font-weight: bold;
+  transition:0.5s;
+}
+
+.actualActivity:hover{
+  color: #D6A4EB;
+  text-decoration: underline;
+}
+
 .activitySuggest{
   width: 100%;
   display: flex;
@@ -1494,11 +1542,13 @@ textarea {
   justify-content: left;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1em;
+  align-items: center;
 }
 
 .suggestsCardsContainer{
   width: 100%;
-  height: 14em;
+  height: 13em;
+  margin-bottom:1em;
   overflow-y: auto;
 }
 
