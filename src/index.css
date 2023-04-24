@@ -572,7 +572,7 @@ textarea {
 }
 
 .heightModified{
-  height: 12em;
+  height: 11em;
 }
 
 .noCommentsText{
@@ -605,9 +605,11 @@ textarea {
 }
 
 .paddingModified{
+  padding: 2em;
   max-width: 40em;
   min-width: 38.5em;
-  min-height: 20em;
+  height:fit-content;
+  min-height: 18em;
   max-height: 22em;
 }
 
@@ -1542,7 +1544,8 @@ textarea {
 
 .suggestsCardsContainer{
   width: 100%;
-  height: 13em;
+  max-height:13em;
+  height: fit-content;
   margin-bottom:1em;
   overflow-y: auto;
 }

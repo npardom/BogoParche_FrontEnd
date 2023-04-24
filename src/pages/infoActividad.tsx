@@ -15,6 +15,7 @@ function InfoActividad() {
   const [activity, setActivity] = useState({} as Activity);
   const [willAssist, setWillAssist] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteId, setFavoriteId] = useState(0);
   const loggedInUser = localStorage.getItem("username");
   const navigate = useNavigate();
 
@@ -60,6 +61,34 @@ function InfoActividad() {
     });
   }, []);
 
+  useEffect(()=>{
+    if (activity.titulo_actividad){
+      const body = {
+        id_actividad: activity.id,
+        username: localStorage.getItem("username"),
+        es_plan:activity.es_plan,
+      }
+      fetch("/api/get-favorites", {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify(body),
+        headers: {
+        "Content-Type": "application/json"
+        } 
+      })
+      .then((res) => res.json())
+      .then((dato) => {
+        if (dato.error){
+          setFavoriteId(0)
+          setIsFavorite(false)
+        }else{
+          setFavoriteId(dato)
+          setIsFavorite(true)
+        }
+      })
+    }
+  }, [activity,isFavorite])
+
   function goToEdit(){
     var typeOfAct = activity.es_plan ? "plan": "evento";
     navigate("/editarActividad/"+ typeOfAct + activity.id.toString())
@@ -89,10 +118,23 @@ function InfoActividad() {
     }
   }
 
-  function addToFavorites(){
+  function swithcFavorites(){
     if(loggedInUser){
       if (isFavorite){
-        alert("Ocurrió un e")
+        fetch("/api/delete-favorites/" + favoriteId, {
+          method: "DELETE",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => res.json())
+        .then(() => {
+          setIsFavorite(false)
+        })
+        .catch(() => {
+          alert("Ocurrió un error.")
+        });
       }else{
         const body = {
           id_actividad: activity.id,
@@ -108,7 +150,7 @@ function InfoActividad() {
           } 
         })
         .then((res) => res.json())
-        .then((dato) => {
+        .then(() => {
           setIsFavorite(true)
         })
         .catch(() => {
@@ -165,7 +207,7 @@ function InfoActividad() {
           <EditButton/>
         </div>
         <div className = "verticalButtonContainer">
-        <button className={isFavorite?"genericButton favorito yesFavorito":"genericButton favorito"} onClick = {addToFavorites} id ="favoriteButton">
+        <button className={isFavorite?"genericButton favorito yesFavorito":"genericButton favorito"} onClick = {swithcFavorites} id ="favoriteButton">
             <img src={favoriteIcon} className="activityFormButtonIcon" />
             {isFavorite? "Quitar de favoritos": "Añadir a favoritos"}
         </button>

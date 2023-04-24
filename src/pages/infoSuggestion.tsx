@@ -41,7 +41,7 @@ function InfoSuggestion() {
     <div className="informationPopUpCard">
       <img src={closeIcon} alt="Cerrar" className="closeButton" onClick={()=>navigate("/administrarSugerencias")} />
       <div className="informationPopUpContainer">
-        <h3 className = "suggestionPopUpSubtitle">Actividad Sugerida</h3>
+        <h3 className = "suggestionPopUpSubtitle">{activity.es_plan? "Plan " :"Evento "}Sugerido</h3>
         <h2 className = "suggestionPopUpTitle">{activity.titulo_actividad}</h2>
         <div className="informationGrid">
         <ActivityCharacteristics activity = {activity}/>
