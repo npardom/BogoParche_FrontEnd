@@ -60,10 +60,6 @@ function InfoActividad() {
     });
   }, []);
 
-  useEffect(()=>{
-    console.log(JSON.stringify(activity))
-  }, [activity])
-
   function goToEdit(){
     var typeOfAct = activity.es_plan ? "plan": "evento";
     navigate("/editarActividad/"+ typeOfAct + activity.id.toString())
@@ -103,7 +99,6 @@ function InfoActividad() {
           username: localStorage.getItem("username"),
           es_plan:activity.es_plan,
         }
-        alert(JSON.stringify(body))
         fetch("/api/add-favorites" , {
           method: "POST",
           mode: "cors",
