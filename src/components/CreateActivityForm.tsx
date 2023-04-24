@@ -32,9 +32,9 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
         const body = {
           titulo_actividad: title,
           ubicacion: location,
-          categoria: category,
+          id_categoria: category,
           rango_precio: price,
-          description: description,
+          descripcion: description,
           restriccion_edad: ageRestriction,
           medio_contacto: contact,
           es_privada: isPrivate,
@@ -46,6 +46,7 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
           horario_plan: schedule,
           es_aprobado: isApproved
         }
+        console.log(JSON.stringify(body))
         fetch(APIname, {
           method: "POST",
           mode: "cors",
@@ -67,7 +68,7 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
     
     const [categories, setCategories] = useState([] as any);
     const [title, setTitle] = useState("");
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState(0);
     const [location, setLocation] = useState("");
     const [schedule, setSchedule] = useState("");
     const [price, setPrice] = useState(pricesList[0]);
@@ -98,7 +99,7 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
     };
 
     const getCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setCategory(event.target.value);
+        setCategory(parseInt(event.target.value));
     };
 
     const getTypeFromPlan = (event: any) => {
@@ -219,7 +220,7 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
             <select onChange={getCategory} className="activityInputField" required>
             <option selected disabled hidden></option>
               {Object.keys(categories).map((categoryId: string) => (
-                <option value={categories[categoryId]}>{categories[categoryId]}</option>
+                <option value={categoryId}>{categories[categoryId]}</option>
               ))}
             </select >
           </div>

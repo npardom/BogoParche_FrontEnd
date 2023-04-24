@@ -605,7 +605,8 @@ textarea {
 }
 
 .paddingModified{
-  min-width: 48em;
+  max-width: 40em;
+  min-width: 38.5em;
   min-height: 20em;
   max-height: 22em;
 }
@@ -1492,13 +1493,10 @@ textarea {
 }
 
 .suggestName{
-  width: 18em;
+  width: 17.5em;
   margin-right: 0.5em;
-}
-
-.suggestUser{
-  width: 11em;
-  margin-right: 0.5em;
+  text-align: center;
+  font-weight: bold;
 }
 
 .suggestActions{
@@ -1508,15 +1506,12 @@ textarea {
 .suggestName2{
   width: 17em;
   margin-right: 0.5em;
-}
-
-.suggestUser2{
-  width: 11em;
-  margin-right: 0.5em;
+  text-align: center;
 }
 
 .suggestActions2{
-  width: 14.5em;
+  width: 13.5em;
+  text-align: center;
 }
 
 .tableTitle{
@@ -1553,19 +1548,19 @@ textarea {
 }
 
 .adminActivitiesContainer2{
-  width: 45em;
+  width: 33em;
 }
 
 .suggestsCardsContainer::-webkit-scrollbar {
-  width: 0.625em;
+  width: 0.5em;
 }
 
 .suggestsCardsContainer::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 255, 0.307);
+  background-color: rgba(255, 255, 255, 0);
   border-radius: 0.625em;
 }
 
 .suggestsCardsContainer::-webkit-scrollbar-thumb {
-  background-color: #E16DB5;
+  background-color: rgba(255, 255, 255, 0.25);
   border-radius: 1.25em;
 }

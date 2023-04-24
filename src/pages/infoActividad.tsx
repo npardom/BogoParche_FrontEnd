@@ -60,9 +60,13 @@ function InfoActividad() {
     });
   }, []);
 
+  useEffect(()=>{
+    console.log(JSON.stringify(activity))
+  }, [activity])
+
   function goToEdit(){
     var typeOfAct = activity.es_plan ? "plan": "evento";
-    navigate("/editarActividad/"+ typeOfAct + activity.id_actividad.toString())
+    navigate("/editarActividad/"+ typeOfAct + activity.id.toString())
   }
 
   function EditButton(){
@@ -92,9 +96,29 @@ function InfoActividad() {
   function addToFavorites(){
     if(loggedInUser){
       if (isFavorite){
-        setIsFavorite(false)
+        alert("Ocurrió un e")
       }else{
-        setIsFavorite(true)
+        const body = {
+          id_actividad: activity.id,
+          username: localStorage.getItem("username"),
+          es_plan:activity.es_plan,
+        }
+        alert(JSON.stringify(body))
+        fetch("/api/add-favorites" , {
+          method: "POST",
+          mode: "cors",
+          body: JSON.stringify(body),
+          headers: {
+          "Content-Type": "application/json"
+          } 
+        })
+        .then((res) => res.json())
+        .then((dato) => {
+          setIsFavorite(true)
+        })
+        .catch(() => {
+          alert("Ocurrió un error.")
+        });
       }
     }else{
       showPopUp();

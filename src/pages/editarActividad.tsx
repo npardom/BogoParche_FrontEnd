@@ -11,7 +11,7 @@ function EditarActividad() {
   const [activity, setActivity] = useState({} as Activity);
   const [categories, setCategories] = useState({} as any);
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(0);
   const [location, setLocation] = useState("");
   const [schedule, setSchedule] = useState("");
   const [price, setPrice] = useState(pricesList[0]);
@@ -39,7 +39,7 @@ function EditarActividad() {
   };
 
   const getCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(event.target.value);
+    setCategory(parseInt(event.target.value));
   };
 
   const getContact = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,7 +118,7 @@ function EditarActividad() {
   useEffect(() => {
     setTitle(activity.titulo_actividad);
     if (JSON.stringify(categories) != "{}" && activity.titulo_actividad) {
-      setCategory(categories[activity.id_categoria.toString()]);
+      setCategory(activity.id_categoria);
     }
     setLocation(activity.ubicacion);
     setSchedule(activity.horario_plan);
@@ -141,9 +141,9 @@ function EditarActividad() {
     const body = {
       titulo_actividad: title,
       ubicacion: location,
-      categoria: category,
+      id_categoria: category,
       rango_precio: price,
-      description: description,
+      descripcion: description,
       restriccion_edad: ageRestriction,
       medio_contacto: contact,
       es_privada: isPrivate,
@@ -155,7 +155,7 @@ function EditarActividad() {
       horario_plan: schedule,
       es_aprobado: true,
     };
-    var id = activity.id_actividad.toString();
+    var id = activity.id.toString();
     var isPlan2 = activity.es_plan.toString();
     fetch("/api/edit-activity/"+id+"/"+isPlan2, {
       method: "PUT",
@@ -169,12 +169,12 @@ function EditarActividad() {
     .then((result) => {
       alert("La actividad fue editada exitosamente.");
       var typeOfAct = activity.es_plan ? "plan" : "evento";
-      navigate("/actividades/" + typeOfAct + activity.id_actividad.toString());
+      navigate("/actividades/" + typeOfAct + activity.id.toString());
     });
   };
 
   function deleteActivity() {
-    var id = activity.id_actividad.toString();
+    var id = activity.id.toString();
     var isPlan = activity.es_plan.toString();
     var opcion = confirm("¿Desea eliminar la actividad?");
     if (opcion == false) {
@@ -195,7 +195,7 @@ function EditarActividad() {
 
   function goBack() {
     var typeOfAct = activity.es_plan ? "plan" : "evento";
-    navigate("/actividades/" + typeOfAct + activity.id_actividad.toString());
+    navigate("/actividades/" + typeOfAct + activity.id.toString());
   }
   
   return (
@@ -301,7 +301,7 @@ function EditarActividad() {
                 <>
                   {Object.keys(categories).map((categoryId: string) => (
                     <option
-                      value={categories[categoryId]}
+                      value={categoryId}
                       selected={activity.id_categoria.toString() === categoryId}
                     >
                       {categories[categoryId]}

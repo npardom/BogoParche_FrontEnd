@@ -29,7 +29,7 @@ function SignUp() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {username, email, password}
-    fetch("/api/signup", {
+    fetch("/api/createUser", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(body),

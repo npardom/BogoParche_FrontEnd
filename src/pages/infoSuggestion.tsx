@@ -4,7 +4,7 @@ import { Activity } from "../assets/datos";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function InformationSuggestion() {
+function InfoSuggestion() {
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
   const navigate = useNavigate();
@@ -58,4 +58,4 @@ function InformationSuggestion() {
   );
 }
 
-export default InformationSuggestion;
+export default InfoSuggestion;

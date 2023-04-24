@@ -10,9 +10,8 @@ function ActivityRequestCard({activity}: {activity:Activity}) {
     <div className="activitySuggest">
     <div className="suggestName actualActivity" onClick={()=>{
       var typeOfAct = activity.es_plan ? "plan": "evento";
-      navigate("/administrarSugerencia/"+ typeOfAct + activity.id_actividad.toString())
+      navigate("/administrarSugerencia/"+ typeOfAct + activity.id.toString())
     }}>{activity.titulo_actividad}</div>
-    <div className="suggestUser">usuario</div>
     <div className="suggestActions"> 
         <button className="genericButton updateButton">
             <img src={acceptIcon} className="activityFormButtonIcon" />

@@ -1,5 +1,5 @@
 export interface Activity {
-  id_actividad: number,
+  id: number,
   titulo_actividad: string,
   ubicacion: string,
   id_categoria: number,
