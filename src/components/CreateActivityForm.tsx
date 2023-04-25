@@ -46,7 +46,6 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
           horario_plan: schedule,
           es_aprobado: isApproved
         }
-        console.log(JSON.stringify(body))
         fetch(APIname, {
           method: "POST",
           mode: "cors",
@@ -159,7 +158,7 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
             ></input>
             <p className="activityInputText">Descripción Actividad*</p>
             <textarea onChange={getDescription}
-              maxLength={160}
+              maxLength={200}
               className="activityInputField descriptionInputField"
               required
             ></textarea>

@@ -230,7 +230,7 @@ function EditarActividad() {
             <p className="activityInputText">Descripción Actividad*</p>
             <textarea
               onChange={getDescription}
-              maxLength={160}
+              maxLength={200}
               className="activityInputField descriptionInputField"
               required
               value={description}
