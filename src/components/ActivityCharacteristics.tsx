@@ -40,10 +40,10 @@ function ActivityCharacteristics({activity}:{activity: Activity}) {
         return (
         <>
           <div className="featureText">
-          {"Desde " + new Date(activity.fecha_inicio).toLocaleDateString()}
+          {"Desde " + new Date(activity.fecha_inicio.replace(/-/g, '\/')).toLocaleDateString()}
           </div>
           <div className="featureText">
-          {"Hasta " + new Date(activity.fecha_fin).toLocaleDateString()}
+          {"Hasta " + new Date(activity.fecha_fin.replace(/-/g, '\/')).toLocaleDateString()}
           </div>
         </>
         )
