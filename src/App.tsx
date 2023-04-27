@@ -1,24 +1,29 @@
+// Importing packages for routing
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
+// Importing components
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Catalogue from './pages/catalogue';
-import Parches from './pages/parches';
-import SugerirActividad from './pages/sugerirActividad';
-import InfoActividad from './pages/infoActividad';
-import EditarActividad from './pages/editarActividad';
-import AñadirActividad from './pages/añadirActividad';
-import AdministrarSugerencias from './pages/administrarSugerencias';
-import AboutUs from './pages/aboutUs';
-import Login from './pages/login';
-import SignUp from './pages/signUp';
-import InfoSuggestion from './pages/infoSuggestion';
 import YouNeedToRegister from './components/YouNeedToRegister';
+// Importing editor-only pages
+import EditarActividad from './modules/editor/pages/editarActividad';
+import AñadirActividad from './modules/editor/pages/añadirActividad';
+import AdministrarSugerencias from './modules/editor/pages/administrarSugerencias';
+import InfoSuggestion from './modules/editor/pages/infoSuggestion';
+// Importing normal pages
+import AboutUs from './modules/user/pages/aboutUs';
+import Login from './modules/user/pages/login';
+import SignUp from './modules/user/pages/signUp';
+import Catalogue from './modules/user/pages/catalogue';
+import Parches from './modules/user/pages/parches';
+import SugerirActividad from './modules/user/pages/sugerirActividad';
+import InfoActividad from './modules/user/pages/infoActividad';
 
 export function App() {
-
+  // Getting the username (null if not signed up)
   const loggedInUser = localStorage.getItem("username");
 
+  // Function for rendering the pop-up for signing up
   function RegisterPopUp (){
     if (!loggedInUser){
       return <YouNeedToRegister/>

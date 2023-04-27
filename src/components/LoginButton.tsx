@@ -1,6 +1,6 @@
 import userIcon from "../assets/icons/userIcon.png";
 import { NavLink } from "react-router-dom";
-import { handleLogout } from "../assets/datos";
+import { handleLogout } from "../assets/functionsAndConstants";
 import { useNavigate } from "react-router-dom";
 
 function LoginButton() {
@@ -15,7 +15,7 @@ function LoginButton() {
     navigate("/administrarSugerencias");
   };
 
-  // If logged in
+  // If logged in, show user options
   if (loggedInUser) {
     var userName = loggedInUser;
     if (userName.length > 10){
@@ -33,7 +33,7 @@ function LoginButton() {
         </div>
       </button>
   }
-  // If not logged in
+  // If not logged in, show login/signup button
   return (
     <NavLink to="/login">
       <button className="loginButton">

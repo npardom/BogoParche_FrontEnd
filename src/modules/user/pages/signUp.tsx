@@ -8,6 +8,7 @@ function SignUp() {
   const [passwordAgain, setPasswordAgain] = useState("");
   const navigate = useNavigate();
 
+  // Getting info from the form fields
   const getUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };
@@ -21,11 +22,13 @@ function SignUp() {
     setPasswordAgain(event.target.value);
   };
 
+  // Defining conditional style for password completion
   const s: React.CSSProperties = {
     backgroundColor: (passwordAgain != password) && (passwordAgain != "") ? "#f78b8b": "white",
     color: passwordAgain != password ? "white": "black",    
   };
 
+  // Sending the sign-up data to the server
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {username, email, password}

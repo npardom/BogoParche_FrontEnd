@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
-import { hidePopUp } from "../assets/datos";
+import { togglePopUp } from "../assets/functionsAndConstants";
 
+// This pop-up shows up when trying to access a function or button
+// which requires having previously logged in
 function YouNeedToRegister() {
   return (
-    <div className ="registerPopUpWhole" id = "registerPopUpBackground" onClick ={hidePopUp}>
-    <div className ="registerPopUpCard" id = "registerPopUp" onClick ={hidePopUp}>
+    <div className ="registerPopUpWhole" id = "registerPopUpBackground" onClick ={()=>togglePopUp("registerPopUp",true)}>
+    <div className ="registerPopUpCard" id = "registerPopUp" onClick ={()=>togglePopUp("registerPopUp",true)}>
       <div className ="registerPopUpContainer">
       <NavLink to="/signUp" className = "goToSignUp2">
         Registrate

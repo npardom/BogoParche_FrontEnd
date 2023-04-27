@@ -1,13 +1,12 @@
-import icon from "../assets/icons/infoIcon.png";
-import logoUNAL from "../assets/logos/logoUNAL.png";
-import MemberCircle from "../components/MemberCircle";
+import { infoIcon, logoUNAL } from "../imports";
+import MemberCircle from "../../../components/MemberCircle";
 
 function AboutUs() {
   return (
     <div className="aboutUsCard">
       <div className="aboutUsContainer">
         <div className="pageTitle">
-          <img src={icon} className="pageTitleIcon" />
+          <img src={infoIcon} className="pageTitleIcon" />
           <div className="pageTitleText">Sobre Nosotros</div>
         </div>
         <div className="aboutUsBox">

@@ -1,22 +1,21 @@
 import { useState } from "react";
-import { hideComentForm } from "../assets/datos";
-import sendIcon from "../assets/icons/sendIcon2.png";
-import cancelIcon from "../assets/icons/cancelIcon.png";
+import { togglePopUp } from "../../../assets/functionsAndConstants";
+import { sendIcon, cancelIcon } from "../imports";
 
 function CommentForm({id}: {id:string}) {
-
   const [score, setScore] = useState(1);
   const [comment, setComment] = useState("");
   const loggedInUser = localStorage.getItem("username");
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLFormElement>) => {
+  // It gets the input of the comment from the input fields
+  const handleScoreChange = (e: React.ChangeEvent<HTMLFormElement>) => {
     setScore(parseInt(e.target.value));
   }
-
   const getComment = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.target.value);
   };
 
+  // It sends the comment to the server to be stored
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {
@@ -49,13 +48,13 @@ function CommentForm({id}: {id:string}) {
 
   return (
     <>
-    <div className ="registerPopUpWhole" id = "commentFormBackground" onClick ={hideComentForm}>
+    <div className ="registerPopUpWhole" id = "commentFormBackground" onClick ={()=>togglePopUp("commentForm", true)}>
     </div>
     <div id = "commentForm" className = "commentFormCard">
         <p className="commentFormTitle">Cuentanos tu opinión</p>
         <form onSubmit={handleSubmit}>
             <div className="featureTitleText darkerColor">Calificación</div>
-            <form className="star-rating" onChange={handleFormChange}>
+            <form className="star-rating" onChange={handleScoreChange}>
                 <input className="radio-input" type="radio" id="star5" name="star-input" value="5" />
                 <label className="radio-label" htmlFor="star5"></label>
                 <input className="radio-input" type="radio" id="star4" name="star-input" value="4" />
@@ -79,7 +78,7 @@ function CommentForm({id}: {id:string}) {
                 <img src={sendIcon} className="activityFormButtonIcon" />
                 Enviar
               </button>
-              <button type="button" className="genericButton cancel" onClick= {hideComentForm}>
+              <button type="button" className="genericButton cancel" onClick= {()=>togglePopUp("commentForm", true)}>
                   <img src={cancelIcon} className="activityFormButtonIcon" />
                   Cancelar
               </button>

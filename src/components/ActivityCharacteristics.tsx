@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Activity } from '../assets/datos';
+import { Activity } from '../assets/interfaces';
 import locationIcon from "../assets/icons/locationIcon.png";
 import categoryIcon from "../assets/icons/categoryIcon.png";
 import dateIcon from "../assets/icons/dateIcon.png";
@@ -8,25 +8,29 @@ import priceIcon from "../assets/icons/priceIcon.png";
 import over18Icon from "../assets/icons/over18Icon.png";
 import moreInfoIcon from "../assets/icons/moreInfoIcon.png";
 
+// It renders the main features of an activity 
 function ActivityCharacteristics({activity}:{activity: Activity}) {
     const [categories, setCategories] = useState([] as any);
 
-    useEffect(()=>{
+    // Get all categories
+    useEffect(() => {
       fetch("/api/get-categories", {
         method: "GET",
         mode: "cors",
         headers: {
-          "Content-Type": "application/json"
-        } 
+          "Content-Type": "application/json",
+        },
       })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.data){
-          setCategories(result.data);
-        }
-      });
-    }, [])
-  
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.data) {
+            setCategories(result.data);
+          }
+        });
+    }, []);
+
+    // It renders the date of an activity,
+    // based on wheter startDate = endDate
     function Fecha(){
       if (activity.fecha_inicio === activity.fecha_fin) {
         return (
@@ -45,7 +49,9 @@ function ActivityCharacteristics({activity}:{activity: Activity}) {
         )
       }
     }
-    
+
+    // It renders the time of an activity,
+    // based on wheter startHour = endHour
     function Hora(){
       if (activity.hora_inicio === activity.hora_fin) {
         return (
@@ -65,6 +71,8 @@ function ActivityCharacteristics({activity}:{activity: Activity}) {
       }
     }
 
+    // Renders the date/time info, based on whether
+    // it's a plan or event
     function DateTime (){
       if (activity.es_plan){
         return (

@@ -1,5 +1,5 @@
-import commentIcon from "../assets/icons/commentIcon.png";
-import { Comment } from "../assets/datos";
+import { commentIcon } from "../imports";
+import { Comment } from "../../../assets/interfaces";
 
 function CommentCard({comment} : {comment: Comment}) {
   return (
@@ -7,10 +7,10 @@ function CommentCard({comment} : {comment: Comment}) {
       <img src={commentIcon} className="userCommentIcon" />
       <div className="commentTextContainer">
         <div className="commentText">
-        "{comment.comentario}"
+        "{comment.comment}"
         </div>
         <div className="commentInfo">
-          - {comment.usuario}. {comment.fecha}. Calificación {comment.calificacion}/5
+          - {comment.username}. {comment.date}. Calificación {comment.score}/5
         </div>
       </div>
     </div>

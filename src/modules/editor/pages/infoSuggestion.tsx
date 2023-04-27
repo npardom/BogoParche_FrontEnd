@@ -1,14 +1,16 @@
-import closeIcon from "../assets/icons/closeIcon.png";
-import ActivityCharacteristics from "../components/ActivityCharacteristics";
-import { Activity } from "../assets/datos";
+import { closeIcon } from "../imports";
+import ActivityCharacteristics from "../../../components/ActivityCharacteristics";
+import { Activity } from "../../../assets/interfaces";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+// Card that shows the information of a suggested activity
 function InfoSuggestion() {
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
   const navigate = useNavigate();
 
+  // Getting the desired activity from the URL
   useEffect(() => {
     var s = slug as any;
     if(s.slice(0,4) == "plan"){

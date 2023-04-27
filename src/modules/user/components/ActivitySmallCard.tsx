@@ -1,4 +1,4 @@
-import { Activity } from "../assets/datos"
+import { Activity } from "../../../assets/interfaces"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +6,7 @@ function ActivitySmallCard({activity}: {activity:Activity}) {
   const [categories, setCategories] = useState([] as any);
   const navigate = useNavigate();
 
+  // Gets all categories
   useEffect(()=>{
     fetch("/api/get-categories", {
       method: "GET",

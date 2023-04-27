@@ -1,7 +1,6 @@
-import { Activity} from "../assets/datos"
-import denyIcon from "../assets/icons/denySuggestIcon.png";
-import acceptIcon from "../assets/icons/acceptSuggestIcon.png";
+import { Activity} from "../../../assets/interfaces"
 import { useNavigate } from "react-router-dom";
+import { denyIcon, acceptIcon } from "../imports";
 
 function ActivityRequestCard({activity}: {activity:Activity}) {
   const navigate = useNavigate();

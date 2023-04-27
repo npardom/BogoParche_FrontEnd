@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
-import { Activity } from "../assets/datos";
-import icon from "../assets/icons/suggestAdminIcon.png";
+import { Activity } from "../../../assets/interfaces";
+import { suggestAdminIcon } from "../imports";
 import ActivityRequestCard from "../components/ActivityRequestCard";
 
 function AdministrarSugerencias() {
   const [activities, setActivities] = useState([] as Activity[]);
 
+  // Get all activities not approved yet
   useEffect(() => {
     fetch("/api/activities")
       .then((res) => res.json())
       .then((dato) => setActivities(dato));
   }, []);
 
+  // Render each activity in the page
   function SuggestCards() {
     if (activities.length == 0) {
       return(
@@ -33,7 +35,7 @@ function AdministrarSugerencias() {
     <div className="adminActivitiesCard paddingModified">
       <div className="adminActivitiesContainer2">
         <div className="pageTitle">
-          <img src={icon} className="pageTitleIcon" />
+          <img src={suggestAdminIcon} className="pageTitleIcon" />
           <div className="pageTitleText">Administrador de sugerencias</div>
         </div>
         <div className={activities.length != 0 ? "activitySuggestText" : "notShow"}>

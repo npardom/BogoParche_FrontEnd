@@ -1,41 +1,41 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { Activity, showPopUp, showComentForm, Comment } from "../assets/datos";
-import goBackIcon from "../assets/icons/goBackIcon.png";
-import pencilIcon from "../assets/icons/pencilIcon.png";
-import createParcheIcon from "../assets/icons/createParcheIcon.png";
-import reviewIcon from "../assets/icons/reviewIcon.png";
-import favoriteIcon from "../assets/icons/favoriteIcon.png";
+import { Activity,  Comment } from "../../../assets/interfaces";
+import { togglePopUp } from "../../../assets/functionsAndConstants";
 import CommentCard from '../components/CommentCard';
 import CommentForm from '../components/CommentForm';
-import ActivityCharacteristics from '../components/ActivityCharacteristics';
+import ActivityCharacteristics from '../../../components/ActivityCharacteristics';
+import { goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon } from '../imports';
 
+// Card that shows the full information of a public activity
 function InfoActividad() {
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
   const [willAssist, setWillAssist] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [favoriteId, setFavoriteId] = useState(0);
-  const loggedInUser = localStorage.getItem("username");
   const navigate = useNavigate();
+  // This will allow us to restrict buttons if the user is not signed up
+  const loggedInUser = localStorage.getItem("username");
 
   const comentarios: Comment[] = [{
-    calificacion: "2",
-    comentario: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
-    usuario: "usuario1",
-    fecha: "24/11/2022"
+    score: "2",
+    comment: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
+    username: "usuario1",
+    date: "24/11/2022"
   },{
-    calificacion: "4",
-    comentario: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
-    usuario: "usuario2",
-    fecha: "28/02/2022"
+    score: "4",
+    comment: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
+    username: "usuario2",
+    date: "28/02/2022"
   },{
-    calificacion: "5",
-    comentario: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
-    usuario: "usuario3",
-    fecha: "25/4/2022"
+    score: "5",
+    comment: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
+    username: "usuario3",
+    date: "25/4/2022"
   }]
 
+  // Getting the activity from the URL
   useEffect(() => {
     var s = slug as any;
     if(s.slice(0,4) == "plan"){
@@ -53,14 +53,11 @@ function InfoActividad() {
       } 
     })
     .then((res) => res.json())
-    .then((dato) => {
-      setActivity(dato)
-    })
-    .catch(() => {
-      navigate("/");
-    });
+    .then((dato) => {setActivity(dato)})
+    .catch(() => {navigate("/")});
   }, []);
 
+  // Checking if an activity is marked as favorite
   useEffect(()=>{
     if (activity.titulo_actividad && loggedInUser){
       const body = {
@@ -89,11 +86,13 @@ function InfoActividad() {
     }
   }, [activity,isFavorite])
 
+  // Redirects to the editing page for the current activity
   function goToEdit(){
     var typeOfAct = activity.es_plan ? "plan": "evento";
     navigate("/editarActividad/"+ typeOfAct + activity.id.toString())
   }
-
+  
+  // Sets the Edit Button
   function EditButton(){
     if(loggedInUser){
       return (
@@ -106,6 +105,7 @@ function InfoActividad() {
     }
   }
 
+  // Toggles the "Will Assist" state of an activity
   function handleWillAssist(){
     if(loggedInUser){
       if (willAssist){
@@ -114,11 +114,13 @@ function InfoActividad() {
         setWillAssist(true)
       }
     }else{
-      showPopUp();
+      togglePopUp("registerPopUp", false);
     }
   }
 
-  function swithcFavorites(){
+  // Toggles the "Favorite" state of an activity
+  // and sends the state to the server
+  function switchFavorites(){
     if(loggedInUser){
       if (isFavorite){
         fetch("/api/delete-favorites/" + favoriteId, {
@@ -129,16 +131,12 @@ function InfoActividad() {
           },
         })
         .then((res) => res.json())
-        .then(() => {
-          setIsFavorite(false)
-        })
-        .catch(() => {
-          alert("Ocurrió un error.")
-        });
+        .then(() => {setIsFavorite(false)})
+        .catch(() => {alert("Ocurrió un error.")});
       }else{
         const body = {
           id_actividad: activity.id,
-          username: localStorage.getItem("username"),
+          username: loggedInUser,
           es_plan:activity.es_plan,
         }
         fetch("/api/add-favorites" , {
@@ -150,23 +148,19 @@ function InfoActividad() {
           } 
         })
         .then((res) => res.json())
-        .then(() => {
-          setIsFavorite(true)
-        })
-        .catch(() => {
-          alert("Ocurrió un error.")
-        });
+        .then(() => {setIsFavorite(true)})
+        .catch(() => {alert("Ocurrió un error.")});
       }
     }else{
-      showPopUp();
+      togglePopUp("registerPopUp", false);
     }
   }
 
   function addComment(){
     if(loggedInUser){
-      showComentForm();
+      togglePopUp("commentForm", false);
     }else{
-      showPopUp();
+      togglePopUp("registerPopUp", false);
     }
   }
 
@@ -174,10 +168,11 @@ function InfoActividad() {
     if(loggedInUser){
       return
     }else{
-      showPopUp();
+      togglePopUp("registerPopUp", false);
     }
   }
 
+  // It renders the comment section
   function CommentCards() {
     if (comentarios.length == 0) {
       return (
@@ -207,7 +202,7 @@ function InfoActividad() {
           <EditButton/>
         </div>
         <div className = "verticalButtonContainer">
-        <button className={isFavorite?"genericButton favorito yesFavorito":"genericButton favorito"} onClick = {swithcFavorites} id ="favoriteButton">
+        <button className={isFavorite?"genericButton favorito yesFavorito":"genericButton favorito"} onClick = {switchFavorites} id ="favoriteButton">
             <img src={favoriteIcon} className="activityFormButtonIcon" />
             {isFavorite? "Quitar de favoritos": "Añadir a favoritos"}
         </button>

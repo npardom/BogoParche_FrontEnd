@@ -1,10 +1,8 @@
-import icon from "../assets/icons/editIcon.png";
-import removeIcon from "../assets/icons/removeIcon.png";
-import updateIcon from "../assets/icons/updateIcon.png";
-import goBackIcon from "../assets/icons/goBackIcon.png";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Activity, pricesList } from "../assets/datos";
+import { Activity } from "../../../assets/interfaces";
+import { pricesList } from "../../../assets/functionsAndConstants";
+import { editIcon, removeIcon, updateIcon, goBackIcon } from "../imports";
 
 function EditarActividad() {
   const { slug } = useParams();
@@ -26,46 +24,37 @@ function EditarActividad() {
   const [isPlan, setIsPlan] = useState(false);
   const navigate = useNavigate();
 
+  // Getting all the modified information from the input fields
   const getLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLocation(event.target.value);
   };
-
   const getPrice = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setPrice(event.target.value);
   };
-
   const getDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescription(event.target.value);
   };
-
   const getCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(parseInt(event.target.value));
   };
-
   const getContact = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContact(event.target.value);
   };
-
   const getStartDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStartDate(event.target.value);
   };
-
   const getEndDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEndDate(event.target.value);
   };
-
   const getStartHour = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStartHour(event.target.value);
   };
-
   const getEndHour = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEndHour(event.target.value);
   };
-
   const getSchedule = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setSchedule(event.target.value);
   };
-
   const getAgeRestriction = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked === true) {
       setAgeRestriction(true);
@@ -74,6 +63,7 @@ function EditarActividad() {
     }
   };
 
+  // Gets the current categories from the database
   useEffect(() => {
     fetch("/api/get-categories", {
       method: "GET",
@@ -90,6 +80,7 @@ function EditarActividad() {
     });
   }, []);
 
+  // Gets the activity from the URL
   useEffect(() => {
     var s = slug as any;
     if (s.slice(0, 4) == "plan") {
@@ -115,6 +106,7 @@ function EditarActividad() {
     });
   }, []);
 
+  // Updating the fields when the page is loaded
   useEffect(() => {
     setTitle(activity.titulo_actividad);
     if (JSON.stringify(categories) != "{}" && activity.titulo_actividad) {
@@ -136,6 +128,7 @@ function EditarActividad() {
     setIsPlan(activity.es_plan);
   }, [activity, categories]);
 
+  // Sending to the server the new fields of the activity
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {
@@ -173,6 +166,7 @@ function EditarActividad() {
     });
   };
 
+  // It sends a request to the server to delete the activity
   function deleteActivity() {
     var id = activity.id.toString();
     var isPlan = activity.es_plan.toString();
@@ -193,6 +187,7 @@ function EditarActividad() {
     });
   }
 
+  // It navigates back to the main page of the activity
   function goBack() {
     var typeOfAct = activity.es_plan ? "plan" : "evento";
     navigate("/actividades/" + typeOfAct + activity.id.toString());
@@ -210,7 +205,7 @@ function EditarActividad() {
             Volver
           </button>
           <div className="pageTitle editActivityTitle">
-          <img src={icon} className="pageTitleIcon" />
+          <img src={editIcon} className="pageTitleIcon" />
           <div className="pageTitleText">Editar Actividad</div>
           </div>
         </div>
