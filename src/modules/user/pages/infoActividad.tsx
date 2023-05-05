@@ -204,10 +204,10 @@ function InfoActividad() {
         <div className = "verticalButtonContainer">
         <button className={isFavorite?"genericButton favorito yesFavorito":"genericButton favorito"} onClick = {switchFavorites} id ="favoriteButton">
             <img src={favoriteIcon} className="activityFormButtonIcon" />
-            {isFavorite? "Quitar de favoritos": "Añadir a favoritos"}
+            <p className = "toggledText">{isFavorite? "Quitar de favoritos": "Añadir a favoritos"}</p>
         </button>
         <button className={willAssist?"genericButton willAssistButton onButton":"genericButton willAssistButton"} onClick ={handleWillAssist}>
-         {willAssist? "Sí pienso asistir": "No pienso asistir"}
+         <p className = "toggledText">{willAssist? "Sí pienso asistir": "No pienso asistir"}</p>
           <div className={willAssist?"assistCheckboxBackground onCheckbox":"assistCheckboxBackground"} >
             <div className="assistCheckbox" ></div>
           </div>

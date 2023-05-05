@@ -5,16 +5,17 @@ import { togglePopUp } from "../assets/functionsAndConstants";
 const NavLink = styled(Link)
  `display: block;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 0.98em;
   border: 2px solid white;
   background-color: rgba(0,0,0,0);
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.165);
   border-radius: 8px;
-  padding:6px 15px 6px 15px;
-  margin: 0 4px 0 4px;
+  padding:0.4em 0.95em 0.4em 0.95em;
+  margin: 0 0.25em 0 0.25em;
   height:fit-content;
   transition: 0.5s;
   color: white;
+  text-align: center;
 
   &:visited {
     color: white;

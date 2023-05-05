@@ -150,7 +150,7 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
           ></textarea>
         </div>
         <div className="column">
-        <p className="activityInputText">Tipo Actividad</p>
+        <p className="activityInputText activityTypeText">Tipo Actividad</p>
           <div className ="activityTypeContainer">
             <input onClick={getTypeFromEvent} type="radio" className="activityCheckbox2" name="type" defaultChecked />
             <label htmlFor="html">Evento</label><br/>

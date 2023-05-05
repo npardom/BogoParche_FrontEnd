@@ -14,11 +14,11 @@ function ActivityRequestCard({activity}: {activity:Activity}) {
     <div className="suggestActions"> 
         <button className="genericButton updateButton">
             <img src={acceptIcon} className="activityFormButtonIcon" />
-            Aceptar
+            <p className ="toggledText">Aceptar</p>
         </button>
         <button type="button" className="genericButton deleteButton">
             <img src={denyIcon} className="activityFormButtonIcon" />
-            Eliminar
+            <p className ="toggledText">Eliminar</p>
         </button>
     </div>
     </div>

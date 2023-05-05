@@ -196,7 +196,7 @@ function EditarActividad() {
   return (
     <div className="adminActivitiesCard">
       <div className="adminActivitiesContainer">
-        <div className="twoButtonsContainer">
+        <div className="twoButtonsContainer editTitleContainer">
           <button
             onClick={goBack}
             className="genericButton volver"
@@ -232,7 +232,7 @@ function EditarActividad() {
             ></textarea>
           </div>
           <div className="column">
-            <p className="activityInputText disabledText">Tipo Actividad</p>
+            <p className="activityInputText disabledText activityTypeText">Tipo Actividad</p>
             <p className="activityIsPlanPlainText">
               {isPlan ? "Plan" : "Evento"}
             </p>
@@ -338,11 +338,11 @@ function EditarActividad() {
             </div>
             <p className="textStyle1">(*) Campo Obligatorio</p>
             <div className="twoButtonsContainer">
-              <button className="genericButton updateButton">
+              <button className="genericButton updateButton updateButton2">
                 <img src={updateIcon} className="activityFormButtonIcon" />
                 Actualizar
               </button>
-              <button type="button" className="genericButton deleteButton" onClick= {deleteActivity}>
+              <button type="button" className="genericButton deleteButton deleteButton2" onClick= {deleteActivity}>
                 <img src={removeIcon} className="activityFormButtonIcon" />
                 Eliminar
               </button>
