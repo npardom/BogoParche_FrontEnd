@@ -42,3 +42,18 @@
     "100k - 150k",
     "+ 150k"
   ];
+
+  onmousemove = function(e){
+    var element0= document.getElementById("clouds1") as HTMLDivElement;
+    var element= document.getElementById("clouds2") as HTMLDivElement;
+    var element2= document.getElementById("mountain1") as HTMLDivElement;
+    var element3= document.getElementById("mountain2") as HTMLDivElement;
+    var element4= document.getElementById("citySkyline") as HTMLDivElement;
+
+    element0.style.backgroundPositionX = (e.clientX /-1000).toString() +"em";
+    element.style.backgroundPositionX = (e.clientX /-400).toString() +"em";
+
+    element2.style.backgroundPositionX = (e.clientX /-320 ).toString() +"em";
+    element3.style.backgroundPositionX = (e.clientX /-180 ).toString() +"em";
+    element4.style.backgroundPositionX = (e.clientX /-110 ).toString() +"em";
+  };

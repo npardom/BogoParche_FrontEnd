@@ -5,6 +5,7 @@ import LoginButton from "./LoginButton";
 function Header() {
   return (
     <div className = "header">
+      <div className ="planeContainer" id = "plane"></div>
       <TitleBox />
       <MainMenu />
       <LoginButton />

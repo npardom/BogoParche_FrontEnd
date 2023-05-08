@@ -3,12 +3,116 @@
 
 body {
   background-image: url("./assets/backgrounds/background.png");
-  background-size: cover;
+  background-size:cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position-x: center;
   background-position-y: center;
   color: white;
+}
+
+.planeContainer{
+  background-image: url("./assets/backgrounds/plane.png");
+  background-size:cover;
+  width: 8em;
+  height: 4em;
+  position:fixed;
+  left: -10em;
+  z-index: 4;
+  animation: move 20s linear 5s infinite;
+}
+
+@keyframes move {
+  0% {
+    left: -10em;
+    top: 1em;
+  }
+  10% {
+    top: 3em;
+  }
+  20% {
+    top: 1em;
+  }
+  30% {
+    top: 3em;
+  }
+  40% {
+    top: 1em;
+  }
+  50% {
+    left: 230em;
+  }
+  100% {
+    left: 230em;
+  }
+}
+
+.cloudContainer1{
+  background-image: url("./assets/backgrounds/clouds.png");
+  background-size:cover;
+  background-repeat: repeat-x;
+  background-position-y: center;
+  position:fixed;
+  top: 0;
+  bottom:0;
+  right: 0;
+  left:0;
+  z-index: -4002;
+}
+
+.cloudContainer2{
+  background-image: url("./assets/backgrounds/clouds2.png");
+  background-size:cover;
+  background-repeat: repeat-x;
+  background-position-y: center;
+  position:fixed;
+  top: 0;
+  bottom:0;
+  right: 0;
+  left:0;
+  z-index: -4000;
+}
+
+.mountainContainer{
+  background-image: url("./assets/backgrounds/mount1.png");
+  background-size:contain;
+  background-repeat:repeat-x;
+  background-position-y: bottom;
+  width:100%;
+  height:10em;
+  position: fixed;
+  left:0;
+  right:0;
+  bottom: 0em;
+  z-index: -4001;
+}
+
+.mountain2Container{
+  background-image: url("./assets/backgrounds/mount2.png");
+  background-size:contain;
+  background-repeat:repeat-x;
+  background-position-y: bottom;
+  width:100%;
+  height:10em;
+  position: fixed;
+  left:0;
+  right:0;
+  bottom: 0em;
+  z-index: -3999;
+}
+
+.citySkylineContainer{
+  background-image: url("./assets/backgrounds/skyline.png");
+  background-size:contain;
+  background-repeat:repeat-x;
+  background-position-y: bottom;
+  width:100%;
+  height:10em;
+  position: fixed;
+  left:0;
+  right:0;
+  bottom: 0em;
+  z-index: -3998;
 }
 
 .toggledText{
@@ -46,7 +150,7 @@ textarea {
 }
 
 .websiteLogo:hover {
-  width: 14.7em;
+  width: 15em;
   transition: all 0.3s;
 }
 
@@ -78,6 +182,7 @@ textarea {
   transition: 0.4s;
   background-color: transparent;
   border: transparent;
+  z-index: 5000;
 }
 
 .loginButtonText{
@@ -183,51 +288,43 @@ textarea {
 .footer{
   display: flex;
   position: fixed;
-  bottom: -2.5em;
+  bottom: -1em;
   font-family: 'Mulish', sans-serif;
   line-height: 0.938em;
-  padding: 0.313em 1.25em 0.313em 1.25em;
-  border-radius: 1.25em 1.25em 0 0;
+  padding: 0.4em 1.25em 0.6em 1.25em;
+  border-radius: 1em 1em 0 0;
   width: fit-content;
-  background-color: rgba(16, 2, 27, 0.308);
+  background-color: rgba(0, 0, 0, 0.4);
   left: 50%;
   transform: translate(-50%, 0);
-  transition: 1s;
+  transition: 0.7s;
+  align-items: center;
+  z-index: -3990;
+  opacity: 0%;
 }
 
-.footer:hover {
-  opacity: 100%;
-  background-color: rgb(25, 12, 34);
+.footer:hover{
   bottom: 0em;
-  transition: 1s;
+  opacity: 100%;
+  transition: 0.7s;
 }
+
 
 .milhojasLogo {
-  opacity: 0%;
-  width: 8.125em;
-  height: 3.438em;
+  width: 7em;
+  height: 2.8em;
   margin: 0 0 0 0 ;
   transition: 1s;
 }
 
 .footerText {
-  opacity: 0%;
   font-size: 1.063em;
-  margin: 1.188em 0.625em 0 0;
+  margin: 0 0.625em 0 0;
   text-align: right;
   transition: 1s;
   width: max-content;
 }
 
-.footer:hover .milhojasLogo {
-  opacity: 100%;
-  transition: 1s;
-}
-
-.footer:hover .footerText{
-  opacity: 100%;
-  transition: 1s;
-}
 
 .aboutUsCard {
   opacity: 100%;
@@ -365,7 +462,7 @@ textarea {
 
 .card {
   width: 16.5em;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(22, 13, 33, 0.65);
   border-radius: 1.563em;
   height: 17.5em;
   margin: 1.25em auto 1.875em auto;
@@ -474,7 +571,11 @@ textarea {
 
 .activityCard {
   width: 34.063em;
-  background-color: white;
+  background-image: url("./assets/backgrounds/activityCard1.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
   border-radius: 0.938em;
   color: black;
   font-family: 'Source Sans Pro', sans-serif;
@@ -482,7 +583,7 @@ textarea {
   padding:1.25em 1.25em 1.25em 1.25em;
   margin:0 0.313em 0.313em 0.313em;
   font-size: 1em;
-  transition: 0.5s;
+  transition: 0.7s;
   overflow-wrap: anywhere;
 }
 
@@ -516,9 +617,14 @@ textarea {
 }
 
 .activityCard:hover {
-  background-color: #9453C2;
+  background-image: url("./assets/backgrounds/activityCard2.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: bottom;
   color: white;
-  transition: 0.5s;
+  cursor:pointer;
+  transition: 0.7s;
 }
 
 .activityCard:hover .activityCardTitle {
@@ -538,7 +644,7 @@ textarea {
   justify-content: center;
   width:48.125em;
   align-items: center;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(22, 13, 33, 0.65);
   margin: 0em auto 3em auto;
   padding:1.875em;
   border-radius: 1.25em;
@@ -555,7 +661,8 @@ textarea {
 }
 
 .catalogueCardsContainer::-webkit-scrollbar {
-  width: 0.625em;
+  width: 0.6em;
+  height: 0.6em;
 }
 
 .catalogueCardsContainer::-webkit-scrollbar-track {
@@ -575,6 +682,9 @@ textarea {
   justify-content: center;
   height: 20em;
   text-shadow: 0em 0em 0.313em rgba(0, 0, 0, 0.415);
+  padding: 1em;
+  margin:0;
+  text-align: center;
 }
 
 .heightModified{
@@ -599,7 +709,7 @@ textarea {
   height: 45vh;
   min-height: 22.5em;
   max-height: 25em;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(22, 13, 33, 0.65);
   border-radius: 2.5em;
   margin: 1.25em auto 1.875em auto;
   animation: 0.5s ease-out 0s 1 slideInFromLeft;
@@ -699,6 +809,7 @@ textarea {
   text-align: left;
   border-radius: 0.45em;
   border: transparent;
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
   transition: 0.5s;
 }
 
@@ -1132,7 +1243,7 @@ textarea {
   height: 45vh;
   min-height: 22.5em;
   max-height: 25em;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(22, 13, 33, 0.65);
   border-radius: 2.5em;
   margin: 1.25em auto 1.875em auto;
   animation: 0.5s ease-out 0s 1 slideInFromLeft;
@@ -1366,7 +1477,11 @@ textarea {
   height: 16.25em;
   padding: 1.25em;
   border-radius: 0.938em;
-  background-color: #1999C2;
+  background-image: url("./assets/backgrounds/commentFormBackground.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
   margin: 0 0 0 0;
   position:absolute;
   bottom:3.75em;
@@ -1381,7 +1496,7 @@ textarea {
   height: 6.25em;
   font-size: 1em;
   margin:0.5em 0 0.5em 0;
-  background-color: #0d485c;
+  background-color: rgba(0,0,0,0.4);
   color:white;
 }
 
@@ -1425,7 +1540,11 @@ textarea {
   position:relative;
   margin: 0 auto 0 auto;
   width: 23em;
-  background-color: #9453C2;
+  background-image: url("./assets/backgrounds/suggestionBackground.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
   padding: 2.5em 2.5em 2.5em 2.5em;
   border-radius: 1.6em;
   line-height: 1em;

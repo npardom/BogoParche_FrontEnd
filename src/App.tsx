@@ -34,6 +34,8 @@ export function App() {
 
   return (
     <Router>
+      <div className="cloudContainer1" id ="clouds1"></div>
+      <div className="cloudContainer2" id ="clouds2"></div>
       <Header />
       <RegisterPopUp/>
       <Routes>
@@ -50,6 +52,9 @@ export function App() {
         <Route path="/administrarSugerencia/:slug" element={loggedInUser ? <InfoSuggestion/>:<Navigate replace to={"/"}/>} />
       </Routes>
       <Footer />
+      <div className="mountainContainer" id ="mountain1"></div>
+      <div className="mountain2Container" id ="mountain2"></div>
+      <div className="citySkylineContainer" id ="citySkyline"></div>
     </Router>
   );
 }
