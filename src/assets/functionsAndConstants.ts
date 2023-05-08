@@ -53,7 +53,7 @@
     element0.style.backgroundPositionX = (e.clientX /-1000).toString() +"em";
     element.style.backgroundPositionX = (e.clientX /-400).toString() +"em";
 
-    element2.style.backgroundPositionX = (e.clientX /-320 ).toString() +"em";
+    element2.style.backgroundPositionX = (e.clientX /-320 + 40).toString() +"em";
     element3.style.backgroundPositionX = (e.clientX /-180 ).toString() +"em";
     element4.style.backgroundPositionX = (e.clientX /-110 ).toString() +"em";
   };

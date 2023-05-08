@@ -18,7 +18,7 @@ function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {email, password}
-    fetch("/api/login", {
+    fetch("/api/auth/login", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(body),
@@ -33,6 +33,7 @@ function Login() {
         localStorage.setItem('username', confirmation.username);
         localStorage.setItem('access', confirmation.access);
         localStorage.setItem('refresh', confirmation.refresh);
+        localStorage.setItem('isAdmin', confirmation.isAdmin);
         navigate("/");
         window.location.reload();
       }

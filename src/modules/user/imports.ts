@@ -11,5 +11,6 @@ import reviewIcon from "../../assets/icons/reviewIcon.png";
 import favoriteIcon from "../../assets/icons/favoriteIcon.png";
 import suggestIcon from "../../assets/icons/suggestIcon.png";
 import sendIcon2 from "../../assets/icons/sendIcon.png";
+import minusIcon from "../../assets/icons/minusIcon.png";
 
-export {commentIcon,sendIcon,cancelIcon, infoIcon, logoUNAL,searchIcon, goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon, suggestIcon, sendIcon2}
+export {commentIcon,sendIcon,cancelIcon, infoIcon, logoUNAL,searchIcon, goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon, suggestIcon, sendIcon2,minusIcon}

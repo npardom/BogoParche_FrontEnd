@@ -2,10 +2,13 @@ import { useState } from "react";
 import { togglePopUp } from "../../../assets/functionsAndConstants";
 import { sendIcon, cancelIcon } from "../imports";
 
-function CommentForm({id}: {id:string}) {
+function CommentForm({id, isPlan}: {id: number,isPlan: boolean}) {
   const [score, setScore] = useState(1);
   const [comment, setComment] = useState("");
-  const loggedInUser = localStorage.getItem("username");
+  // Get access token
+  const accessToken = localStorage.getItem("access");
+  // Get refresh token
+  const refreshToken = localStorage.getItem("refresh");
 
   // It gets the input of the comment from the input fields
   const handleScoreChange = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -15,35 +18,55 @@ function CommentForm({id}: {id:string}) {
     setComment(event.target.value);
   };
 
+  function updateRefreshToken(){
+    fetch("/api/refresh", {
+      method: "POST",
+      mode: "cors",
+      body: refreshToken,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + accessToken,
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      localStorage.setItem('access', result.access);
+      localStorage.setItem('refresh', result.refresh);
+    });
+  }
+
   // It sends the comment to the server to be stored
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {
       calificacion: score,
-      comentario: comment,
-      usuario: loggedInUser,
-      fecha: new Date()
+      texto_comentario: comment,
+      id_actividad: id,
+      es_plan: isPlan,
     }
-    alert(JSON.stringify(body));
-    /*
-    fetch("API", {
+    fetch("/api/activity/comment", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + accessToken,
       },
     })
     .then((response) => response.json())
-    .then((result) => {
-      if (result.id){
-        alert("La sugerencia fue enviada exitosamente.");
+    .then((response) => {
+      if (response.result){
+        alert("Comentario creado exitosamente.");
         window.location.reload();
       } else {
         alert("Ocurrió un error. Intenta de nuevo.");
       }
+    })
+    .catch(error => {
+      if (error.message === '401') {
+        updateRefreshToken();
+      }
     });
-    */
   };
 
   return (

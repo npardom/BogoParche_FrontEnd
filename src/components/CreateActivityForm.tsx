@@ -2,9 +2,14 @@ import {useState, useEffect} from "react";
 import { pricesList } from "../assets/functionsAndConstants";
 
 function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,classCustom: string}) {
+  // Get access token
+  const accessToken = localStorage.getItem("access");
+  // Get refresh token
+  const refreshToken = localStorage.getItem("refresh");
+
   // Get all categories
   useEffect(()=>{
-    fetch("/api/get-categories", {
+    fetch("/api/category/get-categories", {
       method: "GET",
       mode: "cors",
       headers: {
@@ -19,17 +24,35 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
     });
   }, [])
 
+  function updateRefreshToken(){
+    fetch("/api/refresh", {
+      method: "POST",
+      mode: "cors",
+      body: refreshToken,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + accessToken,
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      localStorage.setItem('access', result.access);
+      localStorage.setItem('refresh', result.refresh);
+    });
+  }
+
   // Sends the information received to the server
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (classCustom== "sendButton"){
-      var APIname = "/api/create-activity-suggestion"
-      var type = "sugerencia"
-      var isApproved = false;
+    if (isPlan){
+      var APIname = "/api/plan"
     } else {
-      var APIname = "/api/create-activity"
+      var APIname = "/api/event"
+    }
+    if (classCustom== "sendButton"){
+      var type = "sugerencia"
+    } else {
       var type = "actividad"
-      var isApproved = true;
     }
     const body = {
       titulo_actividad: title,
@@ -46,7 +69,6 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
       hora_fin: endHour,
       es_plan :isPlan,
       horario_plan: schedule,
-      es_aprobado: isApproved
     }
     fetch(APIname, {
       method: "POST",
@@ -54,6 +76,7 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + accessToken,
       },
     })
     .then((response) => response.json())
@@ -63,6 +86,11 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
         window.location.reload();
       } else {
         alert("Ocurrió un error. Intenta de nuevo.");
+      }
+    })
+    .catch(error => {
+      if (error.message === '401') {
+        updateRefreshToken();
       }
     });  
   };

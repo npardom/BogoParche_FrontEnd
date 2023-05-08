@@ -8,7 +8,7 @@ function ActivitySmallCard({activity}: {activity:Activity}) {
 
   // Gets all categories
   useEffect(()=>{
-    fetch("/api/get-categories", {
+    fetch("/api/category/get-categories", {
       method: "GET",
       mode: "cors",
       headers: {
@@ -25,8 +25,7 @@ function ActivitySmallCard({activity}: {activity:Activity}) {
  
   return(
   <div onClick = {() => {
-    var typeOfAct = activity.es_plan ? "plan": "evento";
-    navigate("/actividades/"+ typeOfAct + activity.id.toString())
+    navigate("/actividades/"+ activity.id.toString())
   }} className = "activityCard" 
   id = {activity.id.toString()}>
     <p className ="activityCardCategory"><b>{categories[activity.id_categoria.toString()]}</b></p>

@@ -32,7 +32,7 @@ function SignUp() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {username, email, password}
-    fetch("/api/createUser", {
+    fetch("/api/user", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(body),
@@ -48,7 +48,7 @@ function SignUp() {
         } else if (result.error =="this username is already registered") {
           alert("Este usuario ya se encuentra registrado.");
         }
-      } else if (result.data){
+      } else if (result.username){
         alert("Cuenta creada con exito.");
         navigate("/login");
       }

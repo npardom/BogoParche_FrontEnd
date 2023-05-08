@@ -14,7 +14,7 @@ function ActivityCharacteristics({activity}:{activity: Activity}) {
 
     // Get all categories
     useEffect(() => {
-      fetch("/api/get-categories", {
+      fetch("/api/category/get-categories", {
         method: "GET",
         mode: "cors",
         headers: {

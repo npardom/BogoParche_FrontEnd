@@ -5,7 +5,7 @@ import { togglePopUp } from "../../../assets/functionsAndConstants";
 import CommentCard from '../components/CommentCard';
 import CommentForm from '../components/CommentForm';
 import ActivityCharacteristics from '../../../components/ActivityCharacteristics';
-import { goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon } from '../imports';
+import { goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon, minusIcon } from '../imports';
 
 // Card that shows the full information of a public activity
 function InfoActividad() {
@@ -13,39 +13,36 @@ function InfoActividad() {
   const [activity, setActivity] = useState({} as Activity);
   const [willAssist, setWillAssist] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [commentList, setCommentList] = useState([] as Comment[]);
   const [favoriteId, setFavoriteId] = useState(0);
   const navigate = useNavigate();
   // This will allow us to restrict buttons if the user is not signed up
   const loggedInUser = localStorage.getItem("username");
 
-  const comentarios: Comment[] = [{
-    score: "2",
-    comment: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
-    username: "usuario1",
-    date: "24/11/2022"
-  },{
-    score: "4",
-    comment: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
-    username: "usuario2",
-    date: "28/02/2022"
-  },{
-    score: "5",
-    comment: "Este es un comentario de prueba. Será implementado en un futuro sprint.",
-    username: "usuario3",
-    date: "25/4/2022"
-  }]
+  useEffect(() => {
+    var id = slug as any;
+    if(activity.titulo_actividad){
+      fetch("/api/activity/get-comments/" + id + "/" + activity.es_plan, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response) {
+          setCommentList(response);
+        }
+      });
+    }
+  }, [activity]);
+
 
   // Getting the activity from the URL
   useEffect(() => {
-    var s = slug as any;
-    if(s.slice(0,4) == "plan"){
-      var isPlan = "true";
-      var id = s.slice(4);
-    }else{
-      var isPlan = "false";
-      var id = s.slice(6);
-    }
-    fetch("/api/get-activity/"+id+"/"+isPlan , {
+    var id = slug as any;
+    fetch("/api/activity/"+id , {
       method: "GET",
       mode: "cors",
       headers: {
@@ -65,6 +62,7 @@ function InfoActividad() {
         username: loggedInUser,
         es_plan:activity.es_plan,
       }
+      /*
       fetch("/api/get-favorites", {
         method: "POST",
         mode: "cors",
@@ -82,14 +80,13 @@ function InfoActividad() {
           setFavoriteId(dato)
           setIsFavorite(true)
         }
-      })
+      })*/
     }
   }, [activity,isFavorite])
 
   // Redirects to the editing page for the current activity
   function goToEdit(){
-    var typeOfAct = activity.es_plan ? "plan": "evento";
-    navigate("/editarActividad/"+ typeOfAct + activity.id.toString())
+    navigate("/editarActividad/"+ activity.id.toString())
   }
   
   // Sets the Edit Button
@@ -174,14 +171,14 @@ function InfoActividad() {
 
   // It renders the comment section
   function CommentCards() {
-    if (comentarios.length == 0) {
+    if (commentList.length == 0) {
       return (
         <p className="noCommentsText">No hay comentarios para esta actividad</p>
       );
     } else {
       return (
         <>
-          {comentarios.map((comentario: Comment) => (
+          {commentList.map((comentario: Comment) => (
             <CommentCard comment = {comentario}/>
           ))}
         </>
@@ -203,8 +200,12 @@ function InfoActividad() {
         </div>
         <div className = "verticalButtonContainer">
         <button className={isFavorite?"genericButton favorito yesFavorito":"genericButton favorito"} onClick = {switchFavorites} id ="favoriteButton">
-            <img src={favoriteIcon} className="activityFormButtonIcon" />
-            <p className = "toggledText">{isFavorite? "Quitar de favoritos": "Añadir a favoritos"}</p>
+          {isFavorite?
+          <img src={minusIcon} className="activityFormButtonIcon" />
+          :
+          <img src={favoriteIcon} className="activityFormButtonIcon" />
+          }
+          <p className = "toggledText">{isFavorite? "Quitar de favoritos": "Añadir a favoritos"}</p>
         </button>
         <button className={willAssist?"genericButton willAssistButton onButton":"genericButton willAssistButton"} onClick ={handleWillAssist}>
          <p className = "toggledText">{willAssist? "Sí pienso asistir": "No pienso asistir"}</p>
@@ -241,7 +242,7 @@ function InfoActividad() {
           </button>
         </div>
       </div>
-      {loggedInUser?<CommentForm id ="commentForm" />: <></>}
+      {loggedInUser?<CommentForm id ={activity.id} isPlan={activity.es_plan} />: <></>}
     </div>
   );
 }

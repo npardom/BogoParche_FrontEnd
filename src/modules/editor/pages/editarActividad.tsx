@@ -5,6 +5,11 @@ import { pricesList } from "../../../assets/functionsAndConstants";
 import { editIcon, removeIcon, updateIcon, goBackIcon } from "../imports";
 
 function EditarActividad() {
+  // Get access token
+  const accessToken = localStorage.getItem("access");
+  // Get refresh token
+  const refreshToken = localStorage.getItem("refresh");
+
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
   const [categories, setCategories] = useState({} as any);
@@ -23,7 +28,7 @@ function EditarActividad() {
   const [endHour, setEndHour] = useState("");
   const [isPlan, setIsPlan] = useState(false);
   const navigate = useNavigate();
-
+  
   // Getting all the modified information from the input fields
   const getLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLocation(event.target.value);
@@ -65,7 +70,7 @@ function EditarActividad() {
 
   // Gets the current categories from the database
   useEffect(() => {
-    fetch("/api/get-categories", {
+    fetch("/api/category/get-categories", {
       method: "GET",
       mode: "cors",
       headers: {
@@ -82,15 +87,8 @@ function EditarActividad() {
 
   // Gets the activity from the URL
   useEffect(() => {
-    var s = slug as any;
-    if (s.slice(0, 4) == "plan") {
-      var isPlan = "true";
-      var id = s.slice(4);
-    } else {
-      var isPlan = "false";
-      var id = s.slice(6);
-    }
-    fetch("/api/get-activity/" + id + "/" + isPlan, {
+    var id = slug as any;
+    fetch("/api/activity/" + id, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -128,9 +126,32 @@ function EditarActividad() {
     setIsPlan(activity.es_plan);
   }, [activity, categories]);
 
+  function updateRefreshToken(){
+    fetch("/api/refresh", {
+      method: "POST",
+      mode: "cors",
+      body: refreshToken,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + accessToken,
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      localStorage.setItem('access', result.access);
+      localStorage.setItem('refresh', result.refresh);
+    });
+  }
+
   // Sending to the server the new fields of the activity
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    var id = activity.id.toString();
+    if (isPlan){
+      var APIname = "/api/plan/" + id;
+    } else {
+      var APIname = "/api/event/" + id;
+    }
     const body = {
       titulo_actividad: title,
       ubicacion: location,
@@ -144,53 +165,62 @@ function EditarActividad() {
       fecha_fin: endDate,
       hora_inicio: startHour,
       hora_fin: endHour,
-      es_plan: isPlan,
       horario_plan: schedule,
-      es_aprobado: true,
     };
-    var id = activity.id.toString();
-    var isPlan2 = activity.es_plan.toString();
-    fetch("/api/edit-activity/"+id+"/"+isPlan2, {
+    fetch(APIname, {
       method: "PUT",
       mode: "cors",
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + accessToken,
       },
     })
     .then((response) => response.json())
     .then((result) => {
-      alert("La actividad fue editada exitosamente.");
-      var typeOfAct = activity.es_plan ? "plan" : "evento";
-      navigate("/actividades/" + typeOfAct + activity.id.toString());
-    });
+      if (result.id){
+        alert("La actividad fue editada exitosamente.");
+        window.location.reload();
+      } else {
+        alert("Ocurrió un error. Intenta de nuevo.");
+      }
+    })
+    .catch(error => {
+      if (error.message === '401') {
+        updateRefreshToken();
+      }
+    }); 
   };
 
   // It sends a request to the server to delete the activity
   function deleteActivity() {
     var id = activity.id.toString();
-    var isPlan = activity.es_plan.toString();
     var opcion = confirm("¿Desea eliminar la actividad?");
     if (opcion == false) {
       return;
     }
-    fetch("/api/delete-activity/" + id + "/" + isPlan, {
+    fetch("/api/activity/" + id, {
       method: "DELETE",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + accessToken,
       },
     })
     .then((res) => res.json())
     .then(() => {
       navigate("/");
+    })
+    .catch(error => {
+      if (error.message === '401') {
+        updateRefreshToken();
+      }
     });
   }
 
   // It navigates back to the main page of the activity
   function goBack() {
-    var typeOfAct = activity.es_plan ? "plan" : "evento";
-    navigate("/actividades/" + typeOfAct + activity.id.toString());
+    navigate("/actividades/" + activity.id.toString());
   }
   
   return (
@@ -199,7 +229,7 @@ function EditarActividad() {
         <div className="twoButtonsContainer editTitleContainer">
           <button
             onClick={goBack}
-            className="genericButton volver"
+            className="genericButton volver volver2"
           >
             <img src={goBackIcon} className="activityFormButtonIcon" />
             Volver

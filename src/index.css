@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
 
+label {
+  cursor: pointer;
+}
+
 body {
   background-image: url("./assets/backgrounds/background.png");
   background-size:cover;
@@ -182,7 +186,8 @@ textarea {
   transition: 0.4s;
   background-color: transparent;
   border: transparent;
-  z-index: 5000;
+  z-index: 2;
+  cursor: pointer;
 }
 
 .loginButtonText{
@@ -324,7 +329,6 @@ textarea {
   transition: 1s;
   width: max-content;
 }
-
 
 .aboutUsCard {
   opacity: 100%;
@@ -811,6 +815,7 @@ textarea {
   border: transparent;
   box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .updateButton{
@@ -924,6 +929,7 @@ textarea {
   justify-content: center;
   opacity:75%;
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .filterContainer {
@@ -1049,7 +1055,7 @@ textarea {
   bottom:0;
   right: 0;
   left:0;
-  z-index:-1100;
+  z-index:-4000;
   transition: 0.5s;
 }
 
@@ -1269,6 +1275,7 @@ textarea {
   transition:0.5s;
   padding: 0.125em;
   margin-left:0.625em;
+  cursor: pointer;
 }
 
 .editActivityButton:hover{
@@ -1902,7 +1909,7 @@ textarea {
     margin-right: 0;
   }
 
-  .volver{
+  .volver2{
     margin-right:0em;
     margin-bottom: 1em;
     float:left;

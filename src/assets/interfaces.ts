@@ -16,8 +16,10 @@ export interface Activity {
 }
 
 export interface Comment {
-  score: string,
-  comment: string,
-  username: string,
-  date: string
+  id_comentario: number,
+  id_usuario: number,
+  id_actividad: number,
+  texto_comentario: string,
+  calificacion: number,
+  createdAt: Date,
 }

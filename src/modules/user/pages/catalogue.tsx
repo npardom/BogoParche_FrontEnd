@@ -11,7 +11,7 @@ function Catalogue() {
 
   // Gets all the categories from the database
   useEffect(() => {
-    fetch("/api/get-categories", {
+    fetch("/api/category/get-categories", {
       method: "GET",
       mode: "cors",
       headers: {
@@ -28,7 +28,7 @@ function Catalogue() {
 
   // Receives all the public activities on the database
   useEffect(() => {
-    fetch("/api/activities")
+    fetch("/api/activity/all")
       .then((res) => res.json())
       .then((dato) => setActivities(dato));
   }, []);
