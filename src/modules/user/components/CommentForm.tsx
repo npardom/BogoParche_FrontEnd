@@ -56,14 +56,9 @@ function CommentForm({id, isPlan}: {id: number,isPlan: boolean}) {
     .then((response) => response.json())
     .then((response) => {
       if (response.result){
-        alert("Comentario creado exitosamente.");
         window.location.reload();
       } else {
         alert("Ocurrió un error. Intenta de nuevo.");
-      }
-    })
-    .catch(error => {
-      if (error.message === '401') {
         updateRefreshToken();
       }
     });

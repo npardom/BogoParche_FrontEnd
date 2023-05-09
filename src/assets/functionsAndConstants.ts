@@ -18,6 +18,7 @@
     }
   }
   
+  // Function for loggin out, it clears the local storage tokens
   export const handleLogout = () => {
     localStorage.clear();
     window.location.reload();
@@ -43,6 +44,7 @@
     "+ 150k"
   ];
 
+  // Function for the parallax effect
   onmousemove = function(e){
     var element0= document.getElementById("clouds1") as HTMLDivElement;
     var element= document.getElementById("clouds2") as HTMLDivElement;
@@ -57,3 +59,32 @@
     element3.style.backgroundPositionX = (e.clientX /-180 ).toString() +"em";
     element4.style.backgroundPositionX = (e.clientX /-110 ).toString() +"em";
   };
+
+  export const refreshToken = () => {
+    return localStorage.getItem("refresh");
+  }
+
+  export const accessToken = () => {
+    return localStorage.getItem("access");
+  }
+
+  export function updateRefreshToken(){
+    const body = {refresh: refreshToken()};
+    fetch("/api/auth/refresh", {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + accessToken(),
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      alert("updating")
+      alert(result.access)
+      alert(result.refresh)
+      localStorage.setItem('access', result.access);
+      localStorage.setItem('refresh', result.refresh);
+    });
+  }

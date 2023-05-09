@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Activity } from "../../../assets/interfaces";
-import { pricesList } from "../../../assets/functionsAndConstants";
+import { pricesList,accessToken ,updateRefreshToken } from "../../../assets/functionsAndConstants";
 import { editIcon, removeIcon, updateIcon, goBackIcon } from "../imports";
 
 function EditarActividad() {
-  // Get access token
-  const accessToken = localStorage.getItem("access");
-  // Get refresh token
-  const refreshToken = localStorage.getItem("refresh");
-
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
   const [categories, setCategories] = useState({} as any);
@@ -126,23 +121,6 @@ function EditarActividad() {
     setIsPlan(activity.es_plan);
   }, [activity, categories]);
 
-  function updateRefreshToken(){
-    fetch("/api/refresh", {
-      method: "POST",
-      mode: "cors",
-      body: refreshToken,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": 'Bearer ' + accessToken,
-      },
-    })
-    .then((response) => response.json())
-    .then((result) => {
-      localStorage.setItem('access', result.access);
-      localStorage.setItem('refresh', result.refresh);
-    });
-  }
-
   // Sending to the server the new fields of the activity
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -173,7 +151,7 @@ function EditarActividad() {
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": 'Bearer ' + accessToken,
+        "Authorization": "Bearer " + accessToken(),
       },
     })
     .then((response) => response.json())
@@ -181,15 +159,11 @@ function EditarActividad() {
       if (result.id){
         alert("La actividad fue editada exitosamente.");
         window.location.reload();
-      } else {
-        alert("Ocurrió un error. Intenta de nuevo.");
-      }
-    })
-    .catch(error => {
-      if (error.message === '401') {
+      }else if (result.error === "Invalid jwt token"){
+        alert("s")
         updateRefreshToken();
       }
-    }); 
+    });
   };
 
   // It sends a request to the server to delete the activity
@@ -204,7 +178,7 @@ function EditarActividad() {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": 'Bearer ' + accessToken,
+        "Authorization": "Bearer " + accessToken,
       },
     })
     .then((res) => res.json())
