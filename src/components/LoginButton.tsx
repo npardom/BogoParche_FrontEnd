@@ -1,10 +1,8 @@
 import userIcon from "../assets/icons/userIcon.png";
-import { NavLink } from "react-router-dom";
-import { handleLogout } from "../assets/functionsAndConstants";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { handleLogout, isAdmin, loggedInUser } from "../assets/functionsAndConstants";
 
 function LoginButton() {
-  const loggedInUser = localStorage.getItem("username");
   const navigate = useNavigate();
 
   const goToActivities = () => {
@@ -16,10 +14,10 @@ function LoginButton() {
   };
 
   // If logged in, show user options
-  if (loggedInUser) {
-    var userName = loggedInUser;
+  if (loggedInUser()) {
+    var userName = loggedInUser() as string;
     if (userName.length > 10){
-      userName = loggedInUser.slice(0, 10) + "...";
+      userName = userName.slice(0, 10) + "...";
     }
     return <button className="loginButton">
         <div className= "loginButtonText">
@@ -27,8 +25,13 @@ function LoginButton() {
         </div>
         <img src={userIcon} className="userIcon" />
         <div className ="userOptionsContainer">
-          <div className = "userOptionButton" onClick={goToActivities}>Añadir Actividad</div>
-          <div className = "userOptionButton" onClick={goToSuggestions}>Administrar Sugerencias</div>
+          {isAdmin()?
+            <>
+              <div className = "userOptionButton" onClick={goToActivities}>Añadir Actividad</div>
+              <div className = "userOptionButton" onClick={goToSuggestions}>Administrar Sugerencias</div>
+            </>
+          : <></>
+          }
           <div className = "userOptionButton" onClick={handleLogout}>Cerrar Sesión</div>
         </div>
       </button>

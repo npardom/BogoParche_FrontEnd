@@ -1,36 +1,23 @@
 import { useState, useEffect } from "react";
-import { Activity} from "../../../assets/interfaces";
-import { pricesList, toggleCatalogueCheckbox } from "../../../assets/functionsAndConstants";
-import ActivitySmallCard from "../components/ActivitySmallCard";
-import { searchIcon } from "../imports";
+import { Activity } from "../../../assets/interfaces";
+import { pricesList, toggleCatalogueCheckbox,categoryNames} from "../../../assets/functionsAndConstants";
+import { searchIcon, ActivitySmallCard} from "../imports";
 
 function Catalogue() {
   const [activities, setActivities] = useState([] as Activity[]);
   const [categories, setCategories] = useState([] as any);
   const loggedInUser = localStorage.getItem("username");
 
-  // Gets all the categories from the database
+  // Gets all the categories
   useEffect(() => {
-    fetch("/api/category/get-categories", {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.data) {
-          setCategories(result.data);
-        }
-      });
+    setCategories(categoryNames());
   }, []);
 
   // Receives all the public activities on the database
   useEffect(() => {
     fetch("/api/activity/all")
-      .then((res) => res.json())
-      .then((dato) => setActivities(dato));
+    .then((res) => res.json())
+    .then((dato) =>{setActivities(dato)});
   }, []);
 
   function sendFilter(e: React.FormEvent<HTMLFormElement>) {
@@ -95,6 +82,7 @@ function Catalogue() {
           id="searchBarId"
           placeholder="Ingresa términos de búsqueda"
           className="searchField"
+          autoComplete="off"
         ></input>
       </form>
       {loggedInUser ? (

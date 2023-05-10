@@ -304,7 +304,7 @@ textarea {
   transform: translate(-50%, 0);
   transition: 0.7s;
   align-items: center;
-  z-index: -3990;
+  z-index: -999;
   opacity: 0%;
 }
 
@@ -1055,7 +1055,7 @@ textarea {
   bottom:0;
   right: 0;
   left:0;
-  z-index:-4000;
+  z-index:-1000;
   transition: 0.5s;
 }
 
@@ -1104,7 +1104,6 @@ textarea {
   display:flex;
   align-items: center;
   justify-content: center;
-  z-index:1000;
   transition: 0.5s;
 }
 

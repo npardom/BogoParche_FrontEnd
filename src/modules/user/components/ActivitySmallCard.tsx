@@ -1,33 +1,24 @@
 import { Activity } from "../../../assets/interfaces"
 import { useEffect, useState } from "react";
+import { categoryNames } from "../../../assets/functionsAndConstants";
 import { useNavigate } from "react-router-dom";
 
 function ActivitySmallCard({activity}: {activity:Activity}) {
   const [categories, setCategories] = useState([] as any);
   const navigate = useNavigate();
 
-  // Gets all categories
-  useEffect(()=>{
-    fetch("/api/category/get-categories", {
-      method: "GET",
-      mode: "cors",
-      headers: {
-      "Content-Type": "application/json"
-    } 
-    })
-    .then((response) => response.json())
-    .then((result) => {
-      if (result.data){
-        setCategories(result.data);
-      }
-    });
-  }, [])
+  // Gets all the categories
+  useEffect(() => {
+    setCategories(categoryNames());
+  }, []);
+
+  // It navigates to the main page of the activity
+  function goToActivity(id: string) {
+    navigate("/actividades/" + id);
+  }
  
   return(
-  <div onClick = {() => {
-    navigate("/actividades/"+ activity.id.toString())
-  }} className = "activityCard" 
-  id = {activity.id.toString()}>
+  <div onClick = {()=>goToActivity(activity.id.toString())} className = "activityCard" id = {activity.id.toString()}>
     <p className ="activityCardCategory"><b>{categories[activity.id_categoria.toString()]}</b></p>
     <p className = "activityCardTitle">{activity.titulo_actividad}</p>
     <p className ="activityCardLocation"><b>Ubicación: </b>{activity.ubicacion}</p>

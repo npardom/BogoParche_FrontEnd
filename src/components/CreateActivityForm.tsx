@@ -1,47 +1,13 @@
-import {useState, useEffect} from "react";
-import { pricesList } from "../assets/functionsAndConstants";
+import { useState, useEffect } from "react";
+import { pricesList, categoryNames, updateRefreshToken, accessToken } from "../assets/functionsAndConstants";
 
 function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,classCustom: string}) {
-  // Get access token
-  const accessToken = localStorage.getItem("access");
-  // Get refresh token
-  const refreshToken = localStorage.getItem("refresh");
+  // Gets all the categories
+  useEffect(() => {
+    setCategories(categoryNames());
+  }, []);
 
-  // Get all categories
-  useEffect(()=>{
-    fetch("/api/category/get-categories", {
-      method: "GET",
-      mode: "cors",
-      headers: {
-      "Content-Type": "application/json"
-      } 
-    })
-    .then((response) => response.json())
-    .then((result) => {
-      if (result.data){
-        setCategories(result.data);
-      }
-    });
-  }, [])
-
-  function updateRefreshToken(){
-    fetch("/api/refresh", {
-      method: "POST",
-      mode: "cors",
-      body: refreshToken,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": 'Bearer ' + accessToken,
-      },
-    })
-    .then((response) => response.json())
-    .then((result) => {
-      localStorage.setItem('access', result.access);
-      localStorage.setItem('refresh', result.refresh);
-    });
-  }
-
-  // Sends the information received to the server
+  // Sends the received information to the server
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isPlan){
@@ -76,7 +42,7 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": 'Bearer ' + accessToken,
+        "Authorization": "Bearer " + accessToken(),
       },
     })
     .then((response) => response.json())
@@ -86,10 +52,6 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
         window.location.reload();
       } else {
         alert("Ocurrió un error. Intenta de nuevo.");
-      }
-    })
-    .catch(error => {
-      if (error.message === '401') {
         updateRefreshToken();
       }
     });  

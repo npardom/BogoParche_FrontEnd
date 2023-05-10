@@ -1,22 +1,45 @@
 import { Activity} from "../../../assets/interfaces"
+import { accessToken, updateRefreshToken } from "../../../assets/functionsAndConstants";
 import { useNavigate } from "react-router-dom";
 import { denyIcon, acceptIcon } from "../imports";
 
 function ActivityRequestCard({activity}: {activity:Activity}) {
   const navigate = useNavigate();
 
+  // It sends a request to delete the activity
+  function deleteActivity() {
+    var id = activity.id.toString();
+    var opcion = confirm("¿Desea eliminar la actividad?");
+    if (opcion == false) {return};
+    fetch("/api/activity/" + id, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + accessToken(),
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.id){
+        window.location.reload();
+      }else if (result.error === "Invalid jwt token"){
+        updateRefreshToken();
+      }
+    });
+  }
+
   return (
     <div className="activitySuggest">
-    <div className="suggestName actualActivity" onClick={()=>{
-      var typeOfAct = activity.es_plan ? "plan": "evento";
-      navigate("/administrarSugerencia/"+ typeOfAct + activity.id.toString())
-    }}>{activity.titulo_actividad}</div>
+    <div className="suggestName actualActivity" onClick={()=>{navigate("/sugerencia/"+ activity.id.toString())}}>
+      {activity.titulo_actividad}
+    </div>
     <div className="suggestActions"> 
         <button className="genericButton updateButton">
             <img src={acceptIcon} className="activityFormButtonIcon" />
             <p className ="toggledText">Aceptar</p>
         </button>
-        <button type="button" className="genericButton deleteButton">
+        <button type="button" className="genericButton deleteButton" onClick={deleteActivity}>
             <img src={denyIcon} className="activityFormButtonIcon" />
             <p className ="toggledText">Eliminar</p>
         </button>

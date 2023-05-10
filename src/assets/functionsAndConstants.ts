@@ -1,3 +1,4 @@
+ 
   // Function for showing hidden pop-ups  
   export function togglePopUp (type: string, remove: boolean){
     if (type == "commentForm"){
@@ -20,7 +21,10 @@
   
   // Function for loggin out, it clears the local storage tokens
   export const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem('username');
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+    localStorage.removeItem('isAdmin');
     window.location.reload();
   };
   
@@ -60,14 +64,31 @@
     element4.style.backgroundPositionX = (e.clientX /-110 ).toString() +"em";
   };
 
+  // Gets the refresh token from the local storage
   export const refreshToken = () => {
     return localStorage.getItem("refresh");
   }
 
+  // Gets the access token from the local storage
   export const accessToken = () => {
     return localStorage.getItem("access");
   }
 
+  // Gets if the user is logged in
+  export const loggedInUser = () => {
+    return localStorage.getItem("username");
+  }
+
+  // Gets if the current user is admin
+  export const isAdmin = () => {
+    return (localStorage.getItem("isAdmin")==="true");
+  }
+
+  export const categoryNames = () =>{
+    return JSON.parse(localStorage.getItem("categoryNames") as any);
+  };
+
+  // It gets new access and refresh tokens
   export function updateRefreshToken(){
     const body = {refresh: refreshToken()};
     fetch("/api/auth/refresh", {
@@ -81,10 +102,25 @@
     })
     .then((response) => response.json())
     .then((result) => {
-      alert("updating")
-      alert(result.access)
-      alert(result.refresh)
       localStorage.setItem('access', result.access);
       localStorage.setItem('refresh', result.refresh);
     });
   }
+
+  // Gets the current categories from the database
+  export function getCategoriesName(){
+    fetch("/api/category/get-categories", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.data) {
+        localStorage.setItem('categoryNames', JSON.stringify(result.data));
+      }
+    });
+  }
+  

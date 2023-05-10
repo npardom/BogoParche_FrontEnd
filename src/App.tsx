@@ -1,21 +1,24 @@
-// Importing packages for routing
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+// Importing packages
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
 // Importing components and pages
-import { Header,Footer,YouNeedToRegister, EditarActividad, AñadirActividad,AdministrarSugerencias, InfoSuggestion, AboutUs, Login, SignUp, Catalogue, Parches, SugerirActividad, InfoActividad} from "./imports";
+import { Header,Footer,YouNeedToRegister, EditActivity, AddActivity,ManageSuggestions, InfoSuggestion, AboutUs, Login, SignUp, Catalogue, Parches, SuggestActivity, InfoActivity} from "./imports";
+import { loggedInUser, isAdmin,getCategoriesName } from './assets/functionsAndConstants';
 
 export function App() {
-  // Getting the username (null if not signed up)
-  const loggedInUser = localStorage.getItem("username");
-
   // Function for rendering the pop-up for signing up
   function RegisterPopUp (){
-    if (!loggedInUser){
+    if (!loggedInUser()){
       return <YouNeedToRegister/>
     }else{
       return <></>
     }
   }
+
+  // Gets all the categories from the database
+  useEffect(() => {
+    getCategoriesName();
+  }, []);
 
   return (
     <Router>
@@ -25,16 +28,16 @@ export function App() {
       <RegisterPopUp/>
       <Routes>
         <Route path="/" element={<Catalogue />} />
-        <Route path="/parches" element={loggedInUser ? <Parches/>:<Navigate replace to={"/"}/>} />
-        <Route path="/sugerirActividad" element={loggedInUser ? <SugerirActividad/>:<Navigate replace to={"/"}/>} />
-        <Route path="/añadirActividad" element={loggedInUser ? <AñadirActividad/> : <Navigate replace to={"/"}/>} />
+        <Route path="/parches" element={loggedInUser() ? <Parches/>:<Navigate replace to={"/"}/>} />
+        <Route path="/sugerirActividad" element={loggedInUser() ? <SuggestActivity/>:<Navigate replace to={"/"}/>} />
+        <Route path="/añadirActividad" element={isAdmin() ? <AddActivity/> : <Navigate replace to={"/"}/>} />
         <Route path="/acercaDe" element={<AboutUs />} />
-        <Route path="/login" element={!loggedInUser ? <Login />:<Navigate replace to={"/"} />} />
-        <Route path="/signUp" element={!loggedInUser ? <SignUp />: <Navigate replace to={"/"} />} />
-        <Route path="/actividades/:slug" element = {<InfoActividad />}/>
-        <Route path="/editarActividad/:slug" element={loggedInUser ? <EditarActividad />: <Navigate replace to={"/"}/>} />
-        <Route path="/administrarSugerencias" element={loggedInUser ? <AdministrarSugerencias/>:<Navigate replace to={"/"}/>} />
-        <Route path="/administrarSugerencia/:slug" element={loggedInUser ? <InfoSuggestion/>:<Navigate replace to={"/"}/>} />
+        <Route path="/login" element={!loggedInUser() ? <Login />:<Navigate replace to={"/"} />} />
+        <Route path="/signUp" element={!loggedInUser() ? <SignUp />: <Navigate replace to={"/"} />} />
+        <Route path="/actividades/:slug" element = {<InfoActivity />}/>
+        <Route path="/editarActividad/:slug" element={isAdmin() ? <EditActivity />: <Navigate replace to={"/"}/>} />
+        <Route path="/administrarSugerencias" element={isAdmin() ? <ManageSuggestions/>:<Navigate replace to={"/"}/>} />
+        <Route path="/sugerencia/:slug" element={isAdmin() ? <InfoSuggestion/>:<Navigate replace to={"/"}/>} />
       </Routes>
       <Footer />
       <div className="mountainContainer" id ="mountain1"></div>

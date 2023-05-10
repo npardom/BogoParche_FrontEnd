@@ -2,9 +2,7 @@ import { commentIcon } from "../imports";
 import { Comment } from "../../../assets/interfaces";
 
 function CommentCard({comment} : {comment: Comment}) {
-
-  var date: string = new Date(comment.createdAt.toString().replace(/-/g, '\/').slice(0,10)).toLocaleDateString();
-
+  var date: string = new Date(comment.createdAt.toString().slice(0,10)).toLocaleDateString();
   return (
     <div className="commentCard">
       <img src={commentIcon} className="userCommentIcon" />

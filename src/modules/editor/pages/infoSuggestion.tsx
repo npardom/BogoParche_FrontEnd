@@ -1,5 +1,4 @@
-import { closeIcon } from "../imports";
-import ActivityCharacteristics from "../../../components/ActivityCharacteristics";
+import { closeIcon, ActivityCharacteristics } from "../imports";
 import { Activity } from "../../../assets/interfaces";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -10,17 +9,10 @@ function InfoSuggestion() {
   const [activity, setActivity] = useState({} as Activity);
   const navigate = useNavigate();
 
-  // Getting the desired activity from the URL
+  // Gets the activity from the URL
   useEffect(() => {
-    var s = slug as any;
-    if(s.slice(0,4) == "plan"){
-      var isPlan = "true";
-      var id = s.slice(4);
-    }else{
-      var isPlan = "false";
-      var id = s.slice(6);
-    }
-    fetch("/api/get-activity/"+id+"/"+isPlan , {
+    var id = slug as any;
+    fetch("/api/activity/"+id , {
       method: "GET",
       mode: "cors",
       headers: {
@@ -29,10 +21,11 @@ function InfoSuggestion() {
     })
     .then((res) => res.json())
     .then((dato) => {
-      setActivity(dato)
-    })
-    .catch(() => {
-      navigate("/");
+      if(dato.error){
+        navigate("/");
+      }else{
+        setActivity(dato);
+      }
     });
   }, []);
 

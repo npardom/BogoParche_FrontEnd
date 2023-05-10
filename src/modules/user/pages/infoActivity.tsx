@@ -1,24 +1,19 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { Activity,  Comment } from "../../../assets/interfaces";
-import { togglePopUp } from "../../../assets/functionsAndConstants";
-import CommentCard from '../components/CommentCard';
-import CommentForm from '../components/CommentForm';
-import ActivityCharacteristics from '../../../components/ActivityCharacteristics';
-import { goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon, minusIcon } from '../imports';
+import { togglePopUp, loggedInUser, isAdmin, accessToken, updateRefreshToken} from "../../../assets/functionsAndConstants";
+import { goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon, minusIcon, CommentCard, CommentForm, ActivityCharacteristics} from '../imports';
 
 // Card that shows the full information of a public activity
-function InfoActividad() {
+function InfoActivity() {
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
   const [willAssist, setWillAssist] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [commentList, setCommentList] = useState([] as Comment[]);
-  const [favoriteId, setFavoriteId] = useState(0);
   const navigate = useNavigate();
-  // This will allow us to restrict buttons if the user is not signed up
-  const loggedInUser = localStorage.getItem("username");
 
+  // Gets the comments from the activity
   useEffect(() => {
     var id = slug as any;
     if(activity.titulo_actividad){
@@ -38,8 +33,7 @@ function InfoActividad() {
     }
   }, [activity]);
 
-
-  // Getting the activity from the URL
+  // Gets the activity from the URL
   useEffect(() => {
     var id = slug as any;
     fetch("/api/activity/"+id , {
@@ -50,50 +44,25 @@ function InfoActividad() {
       } 
     })
     .then((res) => res.json())
-    .then((dato) => {setActivity(dato)})
-    .catch(() => {navigate("/")});
+    .then((dato) => {
+      if(dato.error){
+        navigate("/");
+      }else{
+        setActivity(dato);
+      }
+    });
   }, []);
 
-  // Checking if an activity is marked as favorite
-  useEffect(()=>{
-    if (activity.titulo_actividad && loggedInUser){
-      const body = {
-        id_actividad: activity.id,
-        username: loggedInUser,
-        es_plan:activity.es_plan,
-      }
-      /*
-      fetch("/api/get-favorites", {
-        method: "POST",
-        mode: "cors",
-        body: JSON.stringify(body),
-        headers: {
-        "Content-Type": "application/json"
-        } 
-      })
-      .then((res) => res.json())
-      .then((dato) => {
-        if (dato.error){
-          setFavoriteId(0)
-          setIsFavorite(false)
-        }else{
-          setFavoriteId(dato)
-          setIsFavorite(true)
-        }
-      })*/
-    }
-  }, [activity,isFavorite])
-
   // Redirects to the editing page for the current activity
-  function goToEdit(){
-    navigate("/editarActividad/"+ activity.id.toString())
+  function goToEdit(id: string){
+    navigate("/editarActividad/"+ id);
   }
-  
+
   // Sets the Edit Button
   function EditButton(){
-    if(loggedInUser){
+    if(isAdmin()){
       return (
-        <button className='editActivityButton' onClick = {goToEdit}>
+        <button className='editActivityButton' onClick = {()=> goToEdit(activity.id.toString())}>
           <img src={pencilIcon} className="pageTitleIcon2" />
         </button>
       )
@@ -102,13 +71,95 @@ function InfoActividad() {
     }
   }
 
+  // Checking if an activity is marked as favorite
+  useEffect(()=>{
+    if (activity.titulo_actividad && loggedInUser()){
+      fetch("/api/favorite/" + activity.id, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + accessToken(),
+        } 
+      })
+      .then((res) => res.json())
+      .then((dato) => {
+        if (dato.exists === true){
+          setIsFavorite(true)
+        } else if (dato.exists === false){
+          setIsFavorite(false)
+        } else {
+          updateRefreshToken();
+        }
+      })
+    }
+  }, [activity,isFavorite])
+
+  // Checking if an activity is marked as willAssist
+  useEffect(()=>{
+    if (activity.titulo_actividad && loggedInUser()){
+      fetch("/api/attendance/" + activity.id, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + accessToken(),
+        } 
+      })
+      .then((res) => res.json())
+      .then((dato) => {
+        if (dato.exists === true){
+          setWillAssist(true)
+        } else if (dato.exists === false){
+          setWillAssist(false)
+        } else {
+          updateRefreshToken();
+        }
+      })
+    }
+  }, [activity,willAssist])
+
   // Toggles the "Will Assist" state of an activity
   function handleWillAssist(){
-    if(loggedInUser){
+    if(loggedInUser()){
       if (willAssist){
-        setWillAssist(false)
+        fetch("/api/attendance/" + activity.id, {
+          method: "DELETE",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + accessToken(),
+          },
+        })
+        .then((res) => res.json())
+        .then((res) => {
+          if(res.msg =="Attendance succesfully deleted"){
+            setWillAssist(false)
+          }else{
+            updateRefreshToken();
+          }
+        })
       }else{
-        setWillAssist(true)
+        const body = {
+          id_actividad: activity.id,
+        }
+        fetch("/api/attendance", {
+          method: "POST",
+          mode: "cors",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + accessToken(),
+          },
+        })
+        .then((res) => res.json())
+        .then((res) => {
+          if(res.msg =="Attendance succesfully added"){
+            setWillAssist(true)
+          }else{
+            updateRefreshToken();
+          }
+        })
       }
     }else{
       togglePopUp("registerPopUp", false);
@@ -116,53 +167,64 @@ function InfoActividad() {
   }
 
   // Toggles the "Favorite" state of an activity
-  // and sends the state to the server
   function switchFavorites(){
-    if(loggedInUser){
+    if(loggedInUser()){
       if (isFavorite){
-        fetch("/api/delete-favorites/" + favoriteId, {
+        fetch("/api/favorite/" + activity.id, {
           method: "DELETE",
           mode: "cors",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + accessToken(),
           },
         })
         .then((res) => res.json())
-        .then(() => {setIsFavorite(false)})
-        .catch(() => {alert("Ocurrió un error.")});
+        .then((res) => {
+          if(res.msg =="Favorite succesfully deleted"){
+            setIsFavorite(false)
+          }else{
+            updateRefreshToken();
+          }
+        })
       }else{
         const body = {
           id_actividad: activity.id,
-          username: loggedInUser,
-          es_plan:activity.es_plan,
         }
-        fetch("/api/add-favorites" , {
+        fetch("/api/favorite", {
           method: "POST",
           mode: "cors",
           body: JSON.stringify(body),
           headers: {
-          "Content-Type": "application/json"
-          } 
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + accessToken(),
+          },
         })
         .then((res) => res.json())
-        .then(() => {setIsFavorite(true)})
-        .catch(() => {alert("Ocurrió un error.")});
+        .then((res) => {
+          if(res.msg =="Favorite succesfully added"){
+            setIsFavorite(true)
+          }else{
+            updateRefreshToken();
+          }
+        })
       }
     }else{
       togglePopUp("registerPopUp", false);
     }
   }
 
-  function addComment(){
-    if(loggedInUser){
+  // Shows the comment fields if logged in
+  function showCommentBox(){
+    if(loggedInUser()){
       togglePopUp("commentForm", false);
     }else{
       togglePopUp("registerPopUp", false);
     }
   }
 
+  // Creates an instance of parche
   function createParche(){
-    if(loggedInUser){
+    if(loggedInUser()){
       return
     }else{
       togglePopUp("registerPopUp", false);
@@ -237,14 +299,14 @@ function InfoActividad() {
           <button className="genericButton parche" onClick = {createParche}>
             <img src={createParcheIcon} className="activityFormButtonIcon" />Crear Parche
           </button>
-          <button className="genericButton reseña" onClick = {addComment}>
+          <button className="genericButton reseña" onClick = {showCommentBox}>
             <img src={reviewIcon} className="activityFormButtonIcon" /> Añadir una reseña
           </button>
         </div>
       </div>
-      {loggedInUser?<CommentForm id ={activity.id} isPlan={activity.es_plan} />: <></>}
+      {loggedInUser()?<CommentForm id ={activity.id}/>: <></>}
     </div>
   );
 }
 
-export default InfoActividad
+export default InfoActivity

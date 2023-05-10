@@ -1,5 +1,4 @@
-import { infoIcon, logoUNAL } from "../imports";
-import MemberCircle from "../../../components/MemberCircle";
+import { infoIcon, UNlogo, MemberCircle } from "../imports";
 
 function AboutUs() {
   return (
@@ -10,7 +9,7 @@ function AboutUs() {
           <div className="pageTitleText">Sobre Nosotros</div>
         </div>
         <div className="aboutUsBox">
-          <img src={logoUNAL} className="iconUNAL" />
+          <img src={UNlogo} className="iconUNAL" />
           <div className="verticalLine"></div>
           <div className="aboutUsText">
             Somos el <b>grupo Milhojas.</b> Un equipo de estudiantes de la <b>Universidad Nacional de Colombia.</b>

@@ -1,32 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Activity } from '../assets/interfaces';
-import locationIcon from "../assets/icons/locationIcon.png";
-import categoryIcon from "../assets/icons/categoryIcon.png";
-import dateIcon from "../assets/icons/dateIcon.png";
-import timeIcon from "../assets/icons/timeIcon.png";
-import priceIcon from "../assets/icons/priceIcon.png";
-import over18Icon from "../assets/icons/over18Icon.png";
-import moreInfoIcon from "../assets/icons/moreInfoIcon.png";
+import { categoryNames } from '../assets/functionsAndConstants';
+import {locationIcon,categoryIcon,dateIcon,timeIcon,priceIcon,over18Icon,moreInfoIcon} from '../imports';
 
 // It renders the main features of an activity 
 function ActivityCharacteristics({activity}:{activity: Activity}) {
     const [categories, setCategories] = useState([] as any);
 
-    // Get all categories
+    // Gets all the categories
     useEffect(() => {
-      fetch("/api/category/get-categories", {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          if (result.data) {
-            setCategories(result.data);
-          }
-        });
+      setCategories(categoryNames());
     }, []);
 
     // It renders the date of an activity,

@@ -1,6 +1,6 @@
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
-import { togglePopUp } from "../assets/functionsAndConstants";
+import { togglePopUp, loggedInUser } from "../assets/functionsAndConstants";
 
 const NavLink = styled(Link)
  `display: block;
@@ -36,11 +36,9 @@ const NavLink = styled(Link)
   }`;
 
 function MainMenu() {
-  const loggedInUser = localStorage.getItem("username");
-
   // It restricts buttons depending on whether the user is logged in
   function RestrictedMenuButtons(){
-    if (!loggedInUser){
+    if (!loggedInUser()){
       return (<>
         <button className ="fakeMenuButton" onClick ={()=>togglePopUp("registerPopUp", false)}>Tus Parches</button>
         <button className ="fakeMenuButton" onClick ={()=>togglePopUp("registerPopUp", false)}>Sugerir Actividad</button>

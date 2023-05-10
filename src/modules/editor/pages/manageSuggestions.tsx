@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
 import { Activity } from "../../../assets/interfaces";
-import { suggestAdminIcon } from "../imports";
-import ActivityRequestCard from "../components/ActivityRequestCard";
+import { suggestAdminIcon, ActivityRequestCard } from "../imports";
 
-function AdministrarSugerencias() {
+function ManageSuggestions() {
   const [activities, setActivities] = useState([] as Activity[]);
 
-  // Get all activities not approved yet
+  // Receives all the public activities on the database
   useEffect(() => {
-    fetch("/api/activities")
-      .then((res) => res.json())
-      .then((dato) => setActivities(dato));
+    fetch("/api/activity/all")
+    .then((res) => res.json())
+    .then((dato) =>{setActivities(dato)});
   }, []);
 
   // Render each activity in the page
@@ -51,4 +50,4 @@ function AdministrarSugerencias() {
   )
 }
 
-export default AdministrarSugerencias
+export default ManageSuggestions

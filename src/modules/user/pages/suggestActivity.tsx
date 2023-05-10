@@ -1,7 +1,6 @@
-import { suggestIcon,sendIcon2 } from "../imports";
-import CreateActivityForm from "../../../components/CreateActivityForm";
+import { suggestIcon,sendIcon2, CreateActivityForm } from "../imports";
 
-function SugerirActividad() {
+function SuggestActivity() {
   return (
     <div className="adminActivitiesCard">
       <div className="adminActivitiesContainer">
@@ -15,4 +14,4 @@ function SugerirActividad() {
   );
 }
 
-export default SugerirActividad
+export default SuggestActivity

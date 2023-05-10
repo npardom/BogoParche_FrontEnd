@@ -1,14 +1,10 @@
 import { useState } from "react";
-import { togglePopUp } from "../../../assets/functionsAndConstants";
+import { togglePopUp, accessToken, updateRefreshToken } from "../../../assets/functionsAndConstants";
 import { sendIcon, cancelIcon } from "../imports";
 
-function CommentForm({id, isPlan}: {id: number,isPlan: boolean}) {
+function CommentForm({id}: {id: number}) {
   const [score, setScore] = useState(1);
   const [comment, setComment] = useState("");
-  // Get access token
-  const accessToken = localStorage.getItem("access");
-  // Get refresh token
-  const refreshToken = localStorage.getItem("refresh");
 
   // It gets the input of the comment from the input fields
   const handleScoreChange = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -18,39 +14,21 @@ function CommentForm({id, isPlan}: {id: number,isPlan: boolean}) {
     setComment(event.target.value);
   };
 
-  function updateRefreshToken(){
-    fetch("/api/refresh", {
-      method: "POST",
-      mode: "cors",
-      body: refreshToken,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": 'Bearer ' + accessToken,
-      },
-    })
-    .then((response) => response.json())
-    .then((result) => {
-      localStorage.setItem('access', result.access);
-      localStorage.setItem('refresh', result.refresh);
-    });
-  }
-
   // It sends the comment to the server to be stored
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {
       calificacion: score,
       texto_comentario: comment,
-      id_actividad: id,
-      es_plan: isPlan,
+      id_actividad: id
     }
-    fetch("/api/activity/comment", {
+    fetch("/api/comment", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": 'Bearer ' + accessToken,
+        "Authorization": "Bearer " + accessToken(),
       },
     })
     .then((response) => response.json())

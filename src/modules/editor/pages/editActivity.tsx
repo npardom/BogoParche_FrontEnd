@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Activity } from "../../../assets/interfaces";
-import { pricesList,accessToken ,updateRefreshToken } from "../../../assets/functionsAndConstants";
+import { pricesList,accessToken ,updateRefreshToken, categoryNames} from "../../../assets/functionsAndConstants";
 import { editIcon, removeIcon, updateIcon, goBackIcon } from "../imports";
 
-function EditarActividad() {
+function EditActivity() {
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
   const [categories, setCategories] = useState({} as any);
@@ -63,39 +63,28 @@ function EditarActividad() {
     }
   };
 
-  // Gets the current categories from the database
+  // Gets all the categories
   useEffect(() => {
-    fetch("/api/category/get-categories", {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response) => response.json())
-    .then((result) => {
-      if (result.data) {
-        setCategories(result.data);
-      }
-    });
+    setCategories(categoryNames());
   }, []);
 
   // Gets the activity from the URL
   useEffect(() => {
     var id = slug as any;
-    fetch("/api/activity/" + id, {
+    fetch("/api/activity/"+id , {
       method: "GET",
       mode: "cors",
       headers: {
-        "Content-Type": "application/json",
-      },
+      "Content-Type": "application/json"
+      } 
     })
     .then((res) => res.json())
     .then((dato) => {
-      setActivity(dato);
-    })
-    .catch(() => {
-      navigate("/");
+      if(dato.error){
+        navigate("/");
+      }else{
+        setActivity(dato);
+      }
     });
   }, []);
 
@@ -121,7 +110,7 @@ function EditarActividad() {
     setIsPlan(activity.es_plan);
   }, [activity, categories]);
 
-  // Sending to the server the new fields of the activity
+  // It sends a request to update the activity
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     var id = activity.id.toString();
@@ -160,41 +149,37 @@ function EditarActividad() {
         alert("La actividad fue editada exitosamente.");
         window.location.reload();
       }else if (result.error === "Invalid jwt token"){
-        alert("s")
         updateRefreshToken();
       }
     });
   };
 
-  // It sends a request to the server to delete the activity
+  // It sends a request to delete the activity
   function deleteActivity() {
     var id = activity.id.toString();
     var opcion = confirm("¿Desea eliminar la actividad?");
-    if (opcion == false) {
-      return;
-    }
+    if (opcion == false) {return};
     fetch("/api/activity/" + id, {
       method: "DELETE",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + accessToken,
+        "Authorization": "Bearer " + accessToken(),
       },
     })
-    .then((res) => res.json())
-    .then(() => {
-      navigate("/");
-    })
-    .catch(error => {
-      if (error.message === '401') {
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.id){
+        navigate("/");
+      }else if (result.error === "Invalid jwt token"){
         updateRefreshToken();
       }
     });
   }
 
   // It navigates back to the main page of the activity
-  function goBack() {
-    navigate("/actividades/" + activity.id.toString());
+  function goBackToActivity(id: string) {
+    navigate("/actividades/" + id);
   }
   
   return (
@@ -202,7 +187,7 @@ function EditarActividad() {
       <div className="adminActivitiesContainer">
         <div className="twoButtonsContainer editTitleContainer">
           <button
-            onClick={goBack}
+            onClick={()=>goBackToActivity(activity.id.toString())}
             className="genericButton volver volver2"
           >
             <img src={goBackIcon} className="activityFormButtonIcon" />
@@ -358,4 +343,4 @@ function EditarActividad() {
   );
 }
 
-export default EditarActividad;
+export default EditActivity;

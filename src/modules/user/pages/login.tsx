@@ -14,7 +14,7 @@ function Login() {
     setPassword(event.target.value);
   };
 
-  // Sending login info to the back and receiving tokens
+  // Sending login info and receiving tokens
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {email, password}

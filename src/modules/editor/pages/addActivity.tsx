@@ -1,7 +1,6 @@
-import { createIcon, addIcon } from "../imports";
-import CreateActivityForm from "../../../components/CreateActivityForm";
+import { createIcon, addIcon, CreateActivityForm } from "../imports";
 
-function AñadirActividad () {
+function AddActivity () {
   return (
     <div className="adminActivitiesCard">
       <div className="adminActivitiesContainer">
@@ -15,4 +14,4 @@ function AñadirActividad () {
   );
 }
 
-export default AñadirActividad;
+export default AddActivity;
