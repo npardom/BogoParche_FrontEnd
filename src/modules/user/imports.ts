@@ -13,7 +13,7 @@ import suggestIcon from "../../assets/icons/suggestIcon.png";
 import sendIcon2 from "../../assets/icons/sendIcon.png";
 import minusIcon from "../../assets/icons/minusIcon.png";
 import ActivitySmallCard from "./components/ActivitySmallCard";
-import MemberCircle from "../../components/MemberCircle";
+import MemberCircle from "./components/MemberCircle";
 import CommentCard from "./components/CommentCard";
 import CommentForm from "./components/CommentForm";
 import ActivityCharacteristics from "../../components/ActivityCharacteristics";

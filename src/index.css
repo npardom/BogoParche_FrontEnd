@@ -251,10 +251,15 @@ textarea {
 }
 
 .userOptionButton:hover{
+  background-color: rgb(64, 36, 117);
   color:white;
-  background-color: rgba(37, 7, 59);
   padding: 0.8em 0.75em 0.8em 0.75em;
   transition: 0.5s;
+  box-shadow: 0 0 0.7em rgba(0, 0, 0, 0.42);
+}
+
+.closeSessionButton:hover{
+  background-color: rgb(211, 74, 106);
 }
 
 .loginButton:hover .userOptionsContainer {
@@ -587,7 +592,7 @@ textarea {
   padding:1.25em 1.25em 1.25em 1.25em;
   margin:0 0.313em 0.313em 0.313em;
   font-size: 1em;
-  transition: 0.7s;
+  transition: all 0.7s;
   overflow-wrap: anywhere;
 }
 
@@ -628,7 +633,7 @@ textarea {
   background-position-y: bottom;
   color: white;
   cursor:pointer;
-  transition: 0.7s;
+  transition: all 0.7s;
 }
 
 .activityCard:hover .activityCardTitle {
@@ -1439,8 +1444,21 @@ textarea {
 
 .commentInfo{
   font-family: "Source Sans Pro", sans-serif;
-  font-weight:bold;
   text-align: right;
+  color:white;
+  font-weight:bold;
+}
+
+.notStarsComment{
+  font-weight:normal;
+  color:rgb(226, 188, 37);
+  font-size: 1.2em;
+}
+
+.starsComment{
+  color:rgba(255,255,255,0.4);
+  font-weight:normal;
+  font-size: 1.2em;
 }
 
 

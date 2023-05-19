@@ -1,6 +1,6 @@
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
-import { togglePopUp, loggedInUser } from "../assets/functionsAndConstants";
+import { togglePopUp, loggedInUser } from "../../../assets/functionsAndConstants";
 
 const NavLink = styled(Link)
  `display: block;

@@ -1,6 +1,6 @@
 // Importing components
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./modules/user/components/Header";
+import Footer from "./modules/user/components/Footer";
 import YouNeedToRegister from './components/YouNeedToRegister';
 // Importing editor-only pages
 import EditActivity from './modules/editor/pages/editActivity';

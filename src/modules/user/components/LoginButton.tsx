@@ -1,6 +1,6 @@
-import userIcon from "../assets/icons/userIcon.png";
+import userIcon from "../../../assets/icons/userIcon.png";
 import { NavLink, useNavigate } from "react-router-dom";
-import { handleLogout, isAdmin, loggedInUser } from "../assets/functionsAndConstants";
+import { handleLogout, isAdmin, loggedInUser } from "../../../assets/functionsAndConstants";
 
 function LoginButton() {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ function LoginButton() {
             </>
           : <></>
           }
-          <div className = "userOptionButton" onClick={handleLogout}>Cerrar Sesión</div>
+          <div className = "userOptionButton closeSessionButton" onClick={handleLogout}>Cerrar Sesión</div>
         </div>
       </button>
   }

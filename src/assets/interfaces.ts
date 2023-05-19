@@ -22,4 +22,11 @@ export interface Comment {
   texto_comentario: string,
   calificacion: number,
   createdAt: Date,
+  user: CommentUserObject
+}
+
+export interface CommentUserObject {
+  id: number,
+  username: string,
+  email: string,
 }

@@ -93,7 +93,7 @@ function InfoActivity() {
         }
       })
     }
-  }, [activity,isFavorite])
+  }, [activity])
 
   // Checking if an activity is marked as willAssist
   useEffect(()=>{
@@ -117,7 +117,7 @@ function InfoActivity() {
         }
       })
     }
-  }, [activity,willAssist])
+  }, [activity])
 
   // Toggles the "Will Assist" state of an activity
   function handleWillAssist(){
