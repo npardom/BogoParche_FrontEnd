@@ -186,7 +186,7 @@ textarea {
   transition: 0.4s;
   background-color: transparent;
   border: transparent;
-  z-index: 2;
+  z-index: 5;
   cursor: pointer;
 }
 
@@ -892,7 +892,7 @@ textarea {
   width:1.15em;
   height: 1.15em;
   margin-left:0.9em;
-  margin-right:0.938em;
+  margin-right:0.6em;
   opacity: 80%;
 }
 

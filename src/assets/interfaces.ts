@@ -17,16 +17,9 @@ export interface Activity {
 
 export interface Comment {
   id_comentario: number,
-  id_usuario: number,
+  username: string,
   id_actividad: number,
   texto_comentario: string,
   calificacion: number,
   createdAt: Date,
-  user: CommentUserObject
-}
-
-export interface CommentUserObject {
-  id: number,
-  username: string,
-  email: string,
 }

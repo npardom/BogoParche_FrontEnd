@@ -11,7 +11,7 @@ function CommentCard({comment} : {comment: Comment}) {
         "{comment.texto_comentario}"
         </div>
         <div className="commentInfo">
-        - {comment.user.username}. {date}. <span className="notStarsComment">{"★".repeat(comment.calificacion)}</span><span className="starsComment">{"☆".repeat(5-comment.calificacion)}</span>
+        - {comment.username}. {date}. <span className="notStarsComment">{"★".repeat(comment.calificacion)}</span><span className="starsComment">{"☆".repeat(5-comment.calificacion)}</span>
         </div>
       </div>
     </div>
