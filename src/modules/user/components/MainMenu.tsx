@@ -40,12 +40,12 @@ function MainMenu() {
   function RestrictedMenuButtons(){
     if (!loggedInUser()){
       return (<>
-        <button className ="fakeMenuButton" onClick ={()=>togglePopUp("registerPopUp", false)}>Tus Parches</button>
+        <button className ="fakeMenuButton" onClick ={()=>togglePopUp("registerPopUp", false)}>Mis Parches</button>
         <button className ="fakeMenuButton" onClick ={()=>togglePopUp("registerPopUp", false)}>Sugerir Actividad</button>
       </>)
     }else{
       return (<>
-        <NavLink to="/parches">Tus Parches</NavLink>
+        <NavLink to="/parches">Mis Parches</NavLink>
         <NavLink to="/sugerirActividad">Sugerir Actividad</NavLink>
       </>)
     }

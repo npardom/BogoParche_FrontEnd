@@ -148,6 +148,8 @@ function EditActivity() {
       if (result.id){
         alert("La actividad fue editada exitosamente.");
         window.location.reload();
+      }else if (result.error === "You don't have access to this activity"){
+        alert("No tienes permisos para modificar esta actividad.")
       }else if (result.error === "Invalid jwt token"){
         updateRefreshToken();
       }
@@ -169,8 +171,10 @@ function EditActivity() {
     })
     .then((response) => response.json())
     .then((result) => {
-      if (result.id){
+      if (result.titulo_actividad){
         navigate("/");
+      }else if (result.error === "You don't have access to this activity"){
+        alert("No tienes permisos para eliminar esta actividad.")
       }else if (result.error === "Invalid jwt token"){
         updateRefreshToken();
       }

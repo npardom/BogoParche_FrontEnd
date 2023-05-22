@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { pricesList, categoryNames, updateRefreshToken, accessToken } from "../assets/functionsAndConstants";
 
-function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,classCustom: string}) {
+function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:string, text:string,classCustom: string,parcheCreation:boolean}) {
   // Gets all the categories
   useEffect(() => {
     setCategories(categoryNames());
@@ -19,6 +19,10 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
       var type = "sugerencia"
     } else {
       var type = "actividad"
+    }
+    var isPrivate = false;
+    if(parcheCreation){
+      isPrivate = true;
     }
     const body = {
       titulo_actividad: title,
@@ -48,7 +52,11 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
     .then((response) => response.json())
     .then((result) => {
       if (result.id){
-        alert("La " + type + " fue creada exitosamente.");
+        if(parcheCreation){
+          alert("Parche creado exitosamente.");
+        }else{
+          alert("La " + type + " fue creada exitosamente.");
+        }
         window.location.reload();
       } else {
         alert("Ocurrió un error. Intenta de nuevo.");
@@ -66,7 +74,6 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
   const [description, setDescription] = useState("");
   const [ageRestriction, setAgeRestriction] = useState(false);
   const [contact, setContact] = useState("");
-  const [isPrivate, setIsPrivate] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [startHour, setStartHour] = useState("");
@@ -124,7 +131,7 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
   return (
   <form className = "formContainer" onSubmit={handleSubmit}>
         <div className="column">
-          <p className="activityInputText">Nombre Actividad*</p>
+          <p className="activityInputText">{parcheCreation? "Nombre Parche*":"Nombre Actividad*"} </p>
           <input onChange={getTitle}
           className="activityInputField" required></input>
           <p className="activityInputText">Ubicación*</p>
@@ -132,7 +139,7 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
             className="activityInputField"
             required
           ></input>
-          <p className="activityInputText">Descripción Actividad*</p>
+          <p className="activityInputText">Descripción*</p>
           <textarea onChange={getDescription}
             maxLength={200}
             className="activityInputField descriptionInputField"
@@ -140,12 +147,13 @@ function CreateActivityForm({icon, text, classCustom}:{icon:string, text:string,
           ></textarea>
         </div>
         <div className="column">
-        <p className="activityInputText activityTypeText">Tipo Actividad</p>
+        <p className="activityInputText activityTypeText">{parcheCreation? "Tipo Parche*":"Tipo Actividad*"}</p>
           <div className ="activityTypeContainer">
-            <input onClick={getTypeFromEvent} type="radio" className="activityCheckbox2" name="type" defaultChecked />
-            <label htmlFor="html">Evento</label><br/>
-            <input onClick={getTypeFromPlan} type="radio" className="activityCheckbox3"name="type"/>
-            <label htmlFor="html">Plan</label><br/>
+            <input onClick={getTypeFromEvent} type="radio" className="activityCheckbox2" name="type" defaultChecked  title="Actividad ocasional de duración finita (ej. Festival Estereo Picnic, Concierto Coldplay, etc)."/>
+            <label htmlFor="html" title="Actividad ocasional de duración finita (ej. Festival Estereo Picnic, Feria del Libro, etc).">Evento</label><br/>
+            <input onClick={getTypeFromPlan} type="radio" className="activityCheckbox3"name="type"
+            title="Actividad recurrente, usualmente disponible todo el año (ej. Museo del Oro, Monserrate, etc)"/>
+            <label htmlFor="html" title="Actividad recurrente, usualmente disponible todo el año (ej. Museo del Oro, Monserrate, etc)">Plan</label><br/>
           </div>
           {isPlan ? (
             <>

@@ -1,10 +1,33 @@
-import { commentIcon } from "../imports";
+import { commentIcon, closeIcon } from "../imports";
 import { Comment } from "../../../assets/interfaces";
+import { accessToken, updateRefreshToken} from "../../../assets/functionsAndConstants";
 
 function CommentCard({comment} : {comment: Comment}) {
-  var date: string = new Date(comment.createdAt.toString().slice(0,10)).toLocaleDateString();
+  var date: string = new Date(comment.created_at.toString().slice(0,10)).toLocaleDateString();
+
+  function deleteComment(){
+    fetch("/api/comment/" + comment.id_comentario, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + accessToken()
+      },
+    })
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.msg === "Comment succesfully deleted") {
+        window.location.reload();
+      }else {
+        updateRefreshToken();
+      }
+    });
+  }
+
   return (
     <div className="commentCard">
+      {comment.owned ? 
+      <img src={closeIcon} alt="Cerrar" className="closeButton2" onClick={deleteComment} title="Eliminar Comentario"/>: <></>}
       <img src={commentIcon} className="userCommentIcon" />
       <div className="commentTextContainer">
         <div className="commentText">

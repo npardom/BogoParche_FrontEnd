@@ -7,7 +7,7 @@ function ManageSuggestions() {
 
   // Receives all the public activities on the database
   useEffect(() => {
-    fetch("/api/activity/all")
+    fetch("/api/activity/all-not-approved")
     .then((res) => res.json())
     .then((dato) =>{setActivities(dato)});
   }, []);

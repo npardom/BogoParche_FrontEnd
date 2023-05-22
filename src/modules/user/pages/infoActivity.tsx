@@ -17,17 +17,20 @@ function InfoActivity() {
   useEffect(() => {
     var id = slug as any;
     if(activity.titulo_actividad){
-      fetch("/api/activity/get-comments/" + id + "/" + activity.es_plan, {
+      fetch("/api/comment/" + id, {
         method: "GET",
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer " + accessToken()
         },
       })
       .then((response) => response.json())
       .then((response) => {
         if (response) {
           setCommentList(response);
+        }else {
+          updateRefreshToken();
         }
       });
     }
@@ -62,7 +65,7 @@ function InfoActivity() {
   function EditButton(){
     if(isAdmin()){
       return (
-        <button className='editActivityButton' onClick = {()=> goToEdit(activity.id.toString())}>
+        <button className='editActivityButton' onClick = {()=> goToEdit(activity.id.toString())} title ="Editar actividad">
           <img src={pencilIcon} className="pageTitleIcon2" />
         </button>
       )

@@ -21,5 +21,6 @@ export interface Comment {
   id_actividad: number,
   texto_comentario: string,
   calificacion: number,
-  createdAt: Date,
+  created_at: Date,
+  owned: Boolean
 }

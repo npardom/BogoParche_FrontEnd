@@ -367,6 +367,10 @@ textarea {
   width: fit-content;
 }
 
+.parcheCardsContainer1{
+  width: 100%;
+}
+
 @keyframes slideInFromLeft {
   0% {
     transform: translateX(-5%);
@@ -858,6 +862,35 @@ textarea {
   transition: 0.5s;
 }
 
+.createParcheButton{
+  color: rgb(119, 26, 118);
+  background-color: rgb(255, 255, 255);
+  margin: 0.938em auto 0 auto;
+}
+
+.createParcheButton:hover{
+  background-color: rgb(246, 218, 255);
+}
+
+.createParcheButton2{
+  color: white;
+  background-color: rgba(193, 88, 189, 0.8);
+  margin: 0.5em auto 0.7em auto;
+  width:100%;
+  padding-top:0.7em;
+  padding-bottom:0.7em;
+  border: 0.1em solid transparent;
+}
+
+.createParcheButton2:hover{
+  background-color: rgba(193, 88, 189, 0.6);
+  border: 0.1em solid white;
+}
+
+.createParcheCard{
+  background-color: rgba(49, 11, 54, 0.6);
+}
+
 .activityFormButtonIcon {
   width: 1.375em;
   margin-right:0.313em;
@@ -1183,7 +1216,8 @@ textarea {
 }
 
 .editActivityTitle {
-  margin-left:10em;
+  margin-left:9em;
+  margin-top:0;
 }
 
 .volver:hover{
@@ -1420,6 +1454,7 @@ textarea {
   align-items:flex-start;
   justify-content: center;
   margin-bottom: 0.313em;
+  position:relative;
 }
 
 .commentTextContainer{
@@ -1718,6 +1753,10 @@ textarea {
   border-radius: 1.25em;
 }
 
+.volver2{
+  margin-left:0.3em;
+}
+
 @media only screen and (max-width: 50em){  
   .websiteSlogan{
     display: none;
@@ -1944,5 +1983,142 @@ textarea {
     margin: 0.625em auto 1em auto;
     transition: all 1s;
   }
+}
 
+.closeButton2 {
+  position:absolute;
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+  right: 0em;
+  top:0em;
+}
+
+.parcheCardsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-height:14.8em;
+  overflow-y:auto;
+  overflow-x:hidden;
+  width:100%;
+}
+
+.parcheCardsContainer::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.parcheCardsContainer::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 0.625em;
+}
+
+.parcheCardsContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 1.25em;
+}
+
+.parcheCard {
+  height:5em;
+  background-image: url("./assets/backgrounds/activityCard1.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  border-radius: 0.938em;
+  color: black;
+  line-height: 0.938em;
+  padding:1em;
+  margin: 0em 0.4em 0.4em 0em;
+  transition: all 0.7s;
+  overflow-wrap: anywhere;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.parcheCard:hover {
+  background-image: url("./assets/backgrounds/activityCard2.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: bottom;
+  color: white;
+  cursor:pointer;
+  transition: all 0.7s;
+}
+
+.titleParcheSmallCard{
+  font-family: 'Mulish', sans-serif;
+  margin: 0 auto 0.6em auto;
+  font-size: 1.1em;
+  text-align: center;
+  color: #A77DDF;
+}
+
+.descriptionParcheSmallCard{
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0;
+  font-size: 1em;
+  text-align: center;
+  color:#4e4e4e
+}
+
+.middleLine2{
+  width:30%;
+  height:0.1em;
+  background-color: #A77DDF;
+  border:none;
+}
+
+.parcheCard:hover .titleParcheSmallCard{
+  color:white;
+  transition: all 0.7s;
+}
+
+.parcheCard:hover .descriptionParcheSmallCard{
+  color:white;
+  transition: all 0.7s;
+}
+
+.parcheCard:hover .middleLine2{
+  background-color: white;
+  transition: all 0.7s;
+}
+
+.adminParchesCard {
+  width: 70%;
+  max-width: 50em;
+  min-width: 42.5em;
+  height: fit-content;
+  min-height: 18em;
+}
+
+@media only screen and (max-width: 50em){  
+  .adminParchesCard {
+    width:35em;
+    max-width: 35em;
+    min-width:35em;
+    transition: all 1s;
+  }
+}
+
+@media only screen and (max-width: 40em){  
+  .adminParchesCard {
+    width:25em;
+    max-width: 25em;
+    min-width:25em;
+    transition: all 1s;
+  }
+  .parcheCardsContainer {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 30em){  
+  .adminParchesCard {
+    width:15em;
+    max-width: 15em;
+    min-width:15em;
+    transition: all 1s;
+  }
 }

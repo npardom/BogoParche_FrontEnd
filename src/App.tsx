@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 // Importing components and pages
-import { Header,Footer,YouNeedToRegister, EditActivity, AddActivity,ManageSuggestions, InfoSuggestion, AboutUs, Login, SignUp, Catalogue, Parches, SuggestActivity, InfoActivity} from "./imports";
+import { Header,Footer,YouNeedToRegister, EditActivity, AddActivity,ManageSuggestions, InfoSuggestion, AboutUs, Login, SignUp, Catalogue, Parches, CreateParche, SuggestActivity, InfoActivity} from "./imports";
 import { loggedInUser, isAdmin,getCategoriesName } from './assets/functionsAndConstants';
 
 export function App() {
@@ -29,6 +29,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<Catalogue />} />
         <Route path="/parches" element={loggedInUser() ? <Parches/>:<Navigate replace to={"/"}/>} />
+        <Route path="/crearParche" element={loggedInUser() ? <CreateParche/>:<Navigate replace to={"/"}/>} />
         <Route path="/sugerirActividad" element={loggedInUser() ? <SuggestActivity/>:<Navigate replace to={"/"}/>} />
         <Route path="/añadirActividad" element={isAdmin() ? <AddActivity/> : <Navigate replace to={"/"}/>} />
         <Route path="/acercaDe" element={<AboutUs />} />

@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Activity } from "../../../assets/interfaces";
-import { pricesList, toggleCatalogueCheckbox,categoryNames} from "../../../assets/functionsAndConstants";
+import { pricesList, toggleCatalogueCheckbox,categoryNames, loggedInUser, accessToken} from "../../../assets/functionsAndConstants";
 import { searchIcon, ActivitySmallCard} from "../imports";
 
 function Catalogue() {
   const [activities, setActivities] = useState([] as Activity[]);
   const [categories, setCategories] = useState([] as any);
-  const loggedInUser = localStorage.getItem("username");
 
   // Gets all the categories
   useEffect(() => {
@@ -44,11 +43,28 @@ function Catalogue() {
     var address = "categories=" + categoriesChecked.join(",") + "&";
     address += "range_prices=" + prices.join(",") + "&";
     address += "search=" + search.value;
-    fetch("/api/filter?" + address, {
+    var apiName = "/api/filter/noauth?";
+    if(loggedInUser()){
+      // Check if favorite and attendance options are checked
+      var favoriteOption = "false";
+      var assistOption = "false";
+      const checkbox = document.getElementById("Favourites") as HTMLInputElement;
+      const checkbox2 = document.getElementById("EventsToAssist") as HTMLInputElement;
+      if (checkbox.checked) {
+        favoriteOption = "true";
+      }
+      if (checkbox2.checked) {
+        assistOption = "true";
+      }
+      address += "&favorite=" + favoriteOption + "&attendance=" + assistOption;
+      apiName = "/api/filter/auth?";
+    }
+    fetch(apiName + address, {
       method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": "Bearer " + accessToken()
       },
     })
     .then((res) => res.json())
@@ -85,7 +101,7 @@ function Catalogue() {
           autoComplete="off"
         ></input>
       </form>
-      {loggedInUser ? (
+      {loggedInUser() ? (
         <div className="favsWillAssistBarContainer">
           <div
             className="catalogueSpecialFilterOption"

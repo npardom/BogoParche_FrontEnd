@@ -8,7 +8,7 @@ function AddActivity () {
           <img src={createIcon} className="pageTitleIcon" />
           <div className="pageTitleText">Añadir Actividad</div>
         </div>
-        <CreateActivityForm icon={addIcon} text={"Crear Actividad"} classCustom={"createButton"}/>
+        <CreateActivityForm icon={addIcon} text={"Crear Actividad"} classCustom={"createButton"} parcheCreation ={false}/>
       </div>
     </div>
   );

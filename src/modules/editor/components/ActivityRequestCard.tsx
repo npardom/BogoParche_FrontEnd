@@ -29,17 +29,40 @@ function ActivityRequestCard({activity}: {activity:Activity}) {
     });
   }
 
+  // It sends a request to delete the activity
+  function approveActivity() {
+    var id = activity.id.toString();
+    var opcion = confirm("¿Desea aprobar la actividad?");
+    if (opcion == false) {return};
+    fetch("/api/activity/approve/" + id, {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + accessToken(),
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.msg === "Approve succesfully"){
+        window.location.reload();
+      }else if (result.error === "Invalid jwt token"){
+        updateRefreshToken();
+      }
+    });
+  }
+
   return (
     <div className="activitySuggest">
     <div className="suggestName actualActivity" onClick={()=>{navigate("/sugerencia/"+ activity.id.toString())}}>
       {activity.titulo_actividad}
     </div>
     <div className="suggestActions"> 
-        <button className="genericButton updateButton">
+        <button className="genericButton updateButton" onClick={approveActivity}>
             <img src={acceptIcon} className="activityFormButtonIcon" />
             <p className ="toggledText">Aceptar</p>
         </button>
-        <button type="button" className="genericButton deleteButton" onClick={deleteActivity}>
+        <button className="genericButton deleteButton" onClick={deleteActivity}>
             <img src={denyIcon} className="activityFormButtonIcon" />
             <p className ="toggledText">Eliminar</p>
         </button>

@@ -13,6 +13,7 @@ import Login from './modules/user/pages/login';
 import SignUp from './modules/user/pages/signUp';
 import Catalogue from './modules/user/pages/catalogue';
 import Parches from './modules/user/pages/parches';
+import CreateParche from './modules/user/pages/createParche';
 import SuggestActivity from './modules/user/pages/suggestActivity';
 import InfoActivity from './modules/user/pages/infoActivity';
 // Importing icons
@@ -24,4 +25,4 @@ import priceIcon from "./assets/icons/priceIcon.png";
 import over18Icon from "./assets/icons/over18Icon.png";
 import moreInfoIcon from "./assets/icons/moreInfoIcon.png";
 
-export {Header,Footer,YouNeedToRegister, EditActivity, AddActivity,ManageSuggestions, InfoSuggestion, AboutUs, Login, SignUp, Catalogue, Parches, SuggestActivity, InfoActivity, locationIcon,categoryIcon,dateIcon,timeIcon,priceIcon,over18Icon,moreInfoIcon}
+export {Header,Footer,YouNeedToRegister, EditActivity, AddActivity,ManageSuggestions, InfoSuggestion, AboutUs, Login, SignUp, Catalogue, CreateParche, Parches, SuggestActivity, InfoActivity, locationIcon,categoryIcon,dateIcon,timeIcon,priceIcon,over18Icon,moreInfoIcon}

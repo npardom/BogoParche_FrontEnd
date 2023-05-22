@@ -8,7 +8,7 @@ function SuggestActivity() {
           <img src={suggestIcon} className="pageTitleIcon" />
           <div className="pageTitleText">Sugerir una Actividad</div>
         </div>
-        <CreateActivityForm icon = {sendIcon2} text = "Enviar" classCustom ="sendButton" />
+        <CreateActivityForm icon = {sendIcon2} text = "Enviar" classCustom ="sendButton" parcheCreation ={false}/>
       </div>
     </div>
   );
