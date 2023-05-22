@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { togglePopUp, accessToken, updateRefreshToken } from "../../../assets/functionsAndConstants";
 import { sendIcon, cancelIcon } from "../imports";
 
-function CommentForm({id}: {id: number}) {
+function CommentForm({id, isPrivate}: {id: number, isPrivate: boolean}) {
   const [score, setScore] = useState(1);
   const [comment, setComment] = useState("");
+
+  useEffect(()=>{
+    if(isPrivate){
+      setScore(5)
+    }
+  }, [isPrivate])
 
   // It gets the input of the comment from the input fields
   const handleScoreChange = (e: React.ChangeEvent<HTMLFormElement>) => {
@@ -46,9 +52,10 @@ function CommentForm({id}: {id: number}) {
     <>
     <div className ="registerPopUpWhole" id = "commentFormBackground" onClick ={()=>togglePopUp("commentForm", true)}>
     </div>
-    <div id = "commentForm" className = "commentFormCard">
-        <p className="commentFormTitle">Cuentanos tu opinión</p>
+    <div id = "commentForm" className = {isPrivate ? "commentFormCard commentFormCard2": "commentFormCard"}>
+        <p className="commentFormTitle">{isPrivate ? "Algún comentario?":"Cuentanos tu opinión"}</p>
         <form onSubmit={handleSubmit}>
+          {isPrivate ? <></>:<>
             <div className="featureTitleText darkerColor">Calificación</div>
             <form className="star-rating" onChange={handleScoreChange}>
                 <input className="radio-input" type="radio" id="star5" name="star-input" value="5" />
@@ -63,11 +70,13 @@ function CommentForm({id}: {id: number}) {
                 <label className="radio-label" htmlFor="star1"></label>
             </form>
             <div className="featureTitleText darkerColor">Comentarios</div>
+            </>}
             <textarea
             onChange={getComment}
             className="activityInputField commentInputField"
             required
             maxLength={150}
+            placeholder="Escribe aquí"
             ></textarea>
             <div className="twoButtonsContainer">
               <button className="genericButton sendButton2">

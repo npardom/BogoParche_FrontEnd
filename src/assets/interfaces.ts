@@ -12,7 +12,8 @@ export interface Activity {
   fecha_fin: string,
   hora_inicio: string,
   hora_fin: string,
-  horario_plan: string
+  horario_plan: string,
+  es_privada: boolean
 }
 
 export interface Comment {
@@ -22,5 +23,5 @@ export interface Comment {
   texto_comentario: string,
   calificacion: number,
   created_at: Date,
-  owned: Boolean
+  owned: boolean
 }

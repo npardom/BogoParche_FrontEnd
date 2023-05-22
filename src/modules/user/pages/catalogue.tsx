@@ -16,11 +16,12 @@ function Catalogue() {
   useEffect(() => {
     fetch("/api/activity/all")
     .then((res) => res.json())
-    .then((dato) =>{setActivities(dato)});
+    .then((dato) =>{
+      setActivities(dato)
+    });
   }, []);
 
-  function sendFilter(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function sendFilter() {
     var prices = [];
     var categoriesChecked = [];
     var cats = Object.keys(categories);
@@ -89,18 +90,23 @@ function Catalogue() {
       );
     }
   }
+  function updateFilter(id: string){
+    toggleCatalogueCheckbox(id)
+    setTimeout(sendFilter, 500)
+  }
   
   return (
     <div className="catalogueContainer">
-      <form className="searchContainer" onSubmit={sendFilter}>
+      <div className="searchContainer">
         <img src={searchIcon} className="searchImage"></img>
         <input
           id="searchBarId"
           placeholder="Ingresa términos de búsqueda"
           className="searchField"
           autoComplete="off"
+          onChange={sendFilter}
         ></input>
-      </form>
+      </div>
       {loggedInUser() ? (
         <div className="favsWillAssistBarContainer">
           <div
@@ -111,7 +117,7 @@ function Catalogue() {
               type="checkbox"
               className="categoryCheckbox2"
               id="Favourites"
-              onChange={() => toggleCatalogueCheckbox("Favourites")}
+              onChange={() => updateFilter("Favourites")}
             ></input>
             <label htmlFor="Favourites">Favoritos</label>
           </div>
@@ -123,7 +129,7 @@ function Catalogue() {
               type="checkbox"
               className="categoryCheckbox2"
               id="EventsToAssist"
-              onClick={() => toggleCatalogueCheckbox("EventsToAssist")}
+              onClick={() => updateFilter("EventsToAssist")}
             ></input>
             <label htmlFor="EventsToAssist">Eventos a asistir</label>
           </div>
@@ -135,14 +141,14 @@ function Catalogue() {
         <div className="filterContainer">
           <p className="filterTitle filterTitle2">Categorías</p>
           {Object.keys(categories).map((categoryId: string) => (
-            <div className="filterItem" onClick={() => toggleCatalogueCheckbox(categoryId)} id={categoryId + "checkbox"}>
+            <div className="filterItem" onClick={() => updateFilter(categoryId)} id={categoryId + "checkbox"}>
               <input type="checkbox" className="categoryCheckbox" id={categoryId}/>
               <label htmlFor={categoryId}>{categories[categoryId]}</label>
             </div>
           ))}
           <p className="filterTitle">Precios</p>
           {pricesList.map((price: string) => (
-            <div className="filterItem" onClick={() => toggleCatalogueCheckbox(price)} id={price + "checkbox"}>
+            <div className="filterItem" onClick={() => updateFilter(price)} id={price + "checkbox"}>
               <input type="checkbox" className="categoryCheckbox" id={price}/>
               <label htmlFor={price}>{price}</label>
             </div>

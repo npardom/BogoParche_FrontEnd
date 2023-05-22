@@ -36,7 +36,7 @@ export function App() {
         <Route path="/login" element={!loggedInUser() ? <Login />:<Navigate replace to={"/"} />} />
         <Route path="/signUp" element={!loggedInUser() ? <SignUp />: <Navigate replace to={"/"} />} />
         <Route path="/actividades/:slug" element = {<InfoActivity />}/>
-        <Route path="/editarActividad/:slug" element={isAdmin() ? <EditActivity />: <Navigate replace to={"/"}/>} />
+        <Route path="/editarActividad/:slug" element={loggedInUser() ? <EditActivity />: <Navigate replace to={"/"}/>} />
         <Route path="/administrarSugerencias" element={isAdmin() ? <ManageSuggestions/>:<Navigate replace to={"/"}/>} />
         <Route path="/sugerencia/:slug" element={isAdmin() ? <InfoSuggestion/>:<Navigate replace to={"/"}/>} />
       </Routes>

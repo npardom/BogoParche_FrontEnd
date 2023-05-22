@@ -63,9 +63,9 @@ function InfoActivity() {
 
   // Sets the Edit Button
   function EditButton(){
-    if(isAdmin()){
+    if(isAdmin() || (loggedInUser() && activity.es_privada)){
       return (
-        <button className='editActivityButton' onClick = {()=> goToEdit(activity.id.toString())} title ="Editar actividad">
+        <button className='editActivityButton' onClick = {()=> goToEdit(activity.id.toString())} title ={activity.es_privada ? "Editar parche": "Editar actividad"}>
           <img src={pencilIcon} className="pageTitleIcon2" />
         </button>
       )
@@ -238,24 +238,32 @@ function InfoActivity() {
   function CommentCards() {
     if (commentList.length == 0) {
       return (
-        <p className="noCommentsText">No hay comentarios para esta actividad</p>
+        <p className="noCommentsText">No hay comentarios para {activity.es_privada ?"este parche": "esta actividad"}</p>
       );
     } else {
       return (
         <>
           {commentList.map((comentario: Comment) => (
-            <CommentCard comment = {comentario}/>
+            <CommentCard comment = {comentario} isPrivate = {activity.es_privada}/>
           ))}
         </>
       );
     }
   }
+
+  function goBack(){
+    if(activity.es_privada){
+      navigate("/parches")
+    }else{
+      navigate("/")
+    }
+  }
   
   return (
-    <div className="infoBox"> 
+    <div className={activity.es_privada ? "infoBox createParcheCard":"infoBox"}> 
       <div className="infoActivityContainer">
         <div className = "bottomTwoButtonsContainer">
-        <button onClick = {()=>navigate("/")} className="genericButton volver">
+        <button onClick = {goBack} className="genericButton volver">
             <img src={goBackIcon} className="activityFormButtonIcon" />
             Volver
         </button>
@@ -287,7 +295,7 @@ function InfoActivity() {
           <div className ="columnDescriptionReviewsContainer">
             <div className="featureBox">
               <div>
-                <div className="featureTitleText">Acerca de la actividad</div>
+                <div className="featureTitleText">Acerca {activity.es_privada ? "del parche":"de la actividad"}</div>
                 <div className="featureText">{activity.descripcion}</div>
               </div>
             </div>
@@ -298,16 +306,16 @@ function InfoActivity() {
           </div>
         </div>
 
-        <div className = "bottomTwoButtonsContainer">
-          <button className="genericButton parche" onClick = {createParche}>
+        <div className = "bottomTwoButtonsContainer2">
+          {activity.es_privada ? <></>:<button className="genericButton parche" onClick = {createParche}>
             <img src={createParcheIcon} className="activityFormButtonIcon" />Crear Parche
-          </button>
+          </button>}
           <button className="genericButton reseña" onClick = {showCommentBox}>
-            <img src={reviewIcon} className="activityFormButtonIcon" /> Añadir una reseña
+            <img src={reviewIcon} className="activityFormButtonIcon" /> Añadir {activity.es_privada ? "comentario": "reseña"}
           </button>
         </div>
       </div>
-      {loggedInUser()?<CommentForm id ={activity.id}/>: <></>}
+      {loggedInUser()?<CommentForm id ={activity.id} isPrivate= {activity.es_privada}/>: <></>}
     </div>
   );
 }

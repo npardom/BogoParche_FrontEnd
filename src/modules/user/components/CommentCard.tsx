@@ -2,7 +2,7 @@ import { commentIcon, closeIcon } from "../imports";
 import { Comment } from "../../../assets/interfaces";
 import { accessToken, updateRefreshToken} from "../../../assets/functionsAndConstants";
 
-function CommentCard({comment} : {comment: Comment}) {
+function CommentCard({comment, isPrivate} : {comment: Comment,isPrivate:boolean}) {
   var date: string = new Date(comment.created_at.toString().slice(0,10)).toLocaleDateString();
 
   function deleteComment(){
@@ -34,7 +34,13 @@ function CommentCard({comment} : {comment: Comment}) {
         "{comment.texto_comentario}"
         </div>
         <div className="commentInfo">
-        - {comment.username}. {date}. <span className="notStarsComment">{"★".repeat(comment.calificacion)}</span><span className="starsComment">{"☆".repeat(5-comment.calificacion)}</span>
+        - {comment.username}. {date}. 
+        {
+        isPrivate ? <></>:
+        <>
+        <span className="notStarsComment">{"★".repeat(comment.calificacion)}</span><span className="starsComment">{"☆".repeat(5-comment.calificacion)}</span>
+        </>
+        }
         </div>
       </div>
     </div>

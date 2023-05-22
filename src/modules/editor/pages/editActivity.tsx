@@ -100,7 +100,7 @@ function EditActivity() {
     setDescription(activity.descripcion);
     setAgeRestriction(activity.restriccion_edad);
     setContact(activity.medio_contacto);
-    setIsPrivate(false);
+    setIsPrivate(activity.es_privada);
     if (activity.fecha_inicio) {
       setStartDate(activity.fecha_inicio.slice(0, 10));
       setEndDate(activity.fecha_fin.slice(0, 10));
@@ -146,8 +146,8 @@ function EditActivity() {
     .then((response) => response.json())
     .then((result) => {
       if (result.id){
-        alert("La actividad fue editada exitosamente.");
-        window.location.reload();
+        alert(activity.es_privada ? "El parche fue editado exitosamente.":"La actividad fue editada exitosamente.");
+        goBackToActivity(activity.id.toString())
       }else if (result.error === "You don't have access to this activity"){
         alert("No tienes permisos para modificar esta actividad.")
       }else if (result.error === "Invalid jwt token"){
@@ -159,7 +159,7 @@ function EditActivity() {
   // It sends a request to delete the activity
   function deleteActivity() {
     var id = activity.id.toString();
-    var opcion = confirm("¿Desea eliminar la actividad?");
+    var opcion = confirm(activity.es_privada ? "¿Desea eliminar este parche?":"¿Desea eliminar esta actividad?");
     if (opcion == false) {return};
     fetch("/api/activity/" + id, {
       method: "DELETE",
@@ -172,7 +172,11 @@ function EditActivity() {
     .then((response) => response.json())
     .then((result) => {
       if (result.titulo_actividad){
-        navigate("/");
+        if(activity.es_privada){
+          navigate("/parches");
+        }else{
+          navigate("/");
+        }
       }else if (result.error === "You don't have access to this activity"){
         alert("No tienes permisos para eliminar esta actividad.")
       }else if (result.error === "Invalid jwt token"){
@@ -187,7 +191,7 @@ function EditActivity() {
   }
   
   return (
-    <div className="adminActivitiesCard">
+    <div className={activity.es_privada ? "adminActivitiesCard createParcheCard":"adminActivitiesCard"}>
       <div className="adminActivitiesContainer">
         <div className="twoButtonsContainer editTitleContainer">
           <button
@@ -199,12 +203,12 @@ function EditActivity() {
           </button>
           <div className="pageTitle editActivityTitle">
           <img src={editIcon} className="pageTitleIcon" />
-          <div className="pageTitleText">Editar Actividad</div>
+          <div className="pageTitleText">Editar {activity.es_privada ?"Parche":"Actividad"}</div>
           </div>
         </div>
         <form className="formContainer" onSubmit={handleSubmit}>
           <div className="column">
-            <p className="activityInputText disabledText">Nombre Actividad</p>
+            <p className="activityInputText disabledText">Nombre {activity.es_privada ?"Parche":"Actividad"}</p>
             <p className="activityIsPlanPlainText">
               {title}
             </p>
@@ -215,7 +219,7 @@ function EditActivity() {
               required
               value={location}
             ></input>
-            <p className="activityInputText">Descripción Actividad*</p>
+            <p className="activityInputText">Descripción*</p>
             <textarea
               onChange={getDescription}
               maxLength={200}
@@ -225,7 +229,7 @@ function EditActivity() {
             ></textarea>
           </div>
           <div className="column">
-            <p className="activityInputText disabledText activityTypeText">Tipo Actividad</p>
+            <p className="activityInputText disabledText activityTypeText">Tipo {activity.es_privada ?"Parche":"Actividad"}</p>
             <p className="activityIsPlanPlainText">
               {isPlan ? "Plan" : "Evento"}
             </p>
