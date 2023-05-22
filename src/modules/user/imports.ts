@@ -1,4 +1,6 @@
 import commentIcon from "../../assets/icons/commentIcon.png";
+import userIcon from "../../assets/icons/userIcon.png";
+import adminIcon from "../../assets/icons/adminIcon.png";
 import createIcon from "../../assets/icons/createIcon.png";
 import addIcon from "../../assets/icons/addIcon.png";
 import closeIcon from "../../assets/icons/closeIcon.png";
@@ -26,4 +28,4 @@ import CommentForm from "./components/CommentForm";
 import ActivityCharacteristics from "../../components/ActivityCharacteristics";
 import CreateActivityForm from "../../components/CreateActivityForm";
 
-export {commentIcon,sendIcon,cancelIcon, infoIcon, closeIcon,addParche, UNlogo,searchIcon, goBackIcon, pencilIcon, createParcheIcon, createParcheIcon2,createParcheIcon3, reviewIcon, favoriteIcon, suggestIcon, sendIcon2,minusIcon,createIcon, addIcon, ActivitySmallCard, ParcheSmallCard, MemberCircle, CommentCard, CommentForm, ActivityCharacteristics, CreateActivityForm}
+export {commentIcon,userIcon, adminIcon, sendIcon,cancelIcon, infoIcon, closeIcon,addParche, UNlogo,searchIcon, goBackIcon, pencilIcon, createParcheIcon, createParcheIcon2,createParcheIcon3, reviewIcon, favoriteIcon, suggestIcon, sendIcon2,minusIcon,createIcon, addIcon, ActivitySmallCard, ParcheSmallCard, MemberCircle, CommentCard, CommentForm, ActivityCharacteristics, CreateActivityForm}

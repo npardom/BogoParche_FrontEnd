@@ -1,4 +1,4 @@
-import userIcon from "../../../assets/icons/userIcon.png";
+import {userIcon, adminIcon} from "../imports";
 import { NavLink, useNavigate } from "react-router-dom";
 import { handleLogout, isAdmin, loggedInUser } from "../../../assets/functionsAndConstants";
 
@@ -23,7 +23,7 @@ function LoginButton() {
         <div className= "loginButtonText">
           {userName}
         </div>
-        <img src={userIcon} className="userIcon" />
+        <img src={isAdmin()? adminIcon:userIcon} className="userIcon" />
         <div className ="userOptionsContainer">
           {isAdmin()?
             <>
