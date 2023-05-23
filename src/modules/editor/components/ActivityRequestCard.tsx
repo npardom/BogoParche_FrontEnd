@@ -44,7 +44,6 @@ function ActivityRequestCard({activity}: {activity:Activity}) {
     })
     .then((response) => response.json())
     .then((result) => {
-      alert(JSON.stringify(result))
       if (result.msg === "Approve succesfully"){
         window.location.reload();
       }else if (result.error === "Invalid jwt token"){
