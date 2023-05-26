@@ -1,5 +1,5 @@
 {
     "rewrites": [
-      { "source": "/api/:path(.*)", "destination": "http://bogoparchebackend-production-5a1a.up.railway.app/api/:path" }
+      { "source": "/api/:path(.*)", "destination": "https://bogoparchebackend-production-5a1a.up.railway.app/api/:path" }
     ]
   }

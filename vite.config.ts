@@ -5,13 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
-      "/api": {
-        target: "http://bogoparchebackend-production-5a1a.up.railway.app",
-        changeOrigin: true,
-        secure: false,
-        ws: true},
-    },
+    
     port: 5000,
   },
 })

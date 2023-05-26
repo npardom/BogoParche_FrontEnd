@@ -18,12 +18,13 @@ function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {email, password}
-    fetch("/api/auth/login", {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/auth/login", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(body),
       headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Methods": "POST",
     } 
     }).then((res) => res.json())
     .then((confirmation) => {
