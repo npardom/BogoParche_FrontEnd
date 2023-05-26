@@ -12,6 +12,6 @@ export default defineConfig({
         secure: false,
         ws: true},
     },
-    port: 5000,
+    port: 3000,
   },
 })
