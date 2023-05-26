@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://bogoparchebackend-production-5a1a.up.railway.app",
+        target: "http://bogoparchebackend-production-5a1a.up.railway.app",
         changeOrigin: true,
         secure: false,
         ws: true},
