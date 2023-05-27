@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { pricesList, categoryNames, updateRefreshToken, accessToken } from "../assets/functionsAndConstants";
+import {closeIcon2} from "../imports"
 
 function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:string, text:string,classCustom: string,parcheCreation:boolean}) {
   // Gets all the categories
@@ -64,7 +65,21 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
       }
     });  
   };
-    
+
+  const imageUpload = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const files:any = e.target.files;
+    const file = files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      var base64String:any = reader.result;
+      setImage(base64String);
+      var element= document.getElementById("imageContainerFormId") as any;
+      element.style.backgroundImage = "url('" + base64String +"')";
+    }
+    reader.readAsDataURL(file);
+  }
+
+  const [image, setImage] = useState("" as any);
   const [categories, setCategories] = useState([] as any);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState(0);
@@ -127,6 +142,31 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
       setAgeRestriction(false);
     }
   };
+/*
+  useEffect(()=>{
+    if(image != ""){
+      var base64ImageWithoutPrefix = image;
+      var decodedImage = atob(base64ImageWithoutPrefix);
+      var imageArray = new Uint8Array(decodedImage.length);
+      for (var i = 0; i < decodedImage.length; i++) {
+        imageArray[i] = decodedImage.charCodeAt(i);
+      }
+      var blob = new Blob([imageArray], { type: 'image/png' }); // replace 'image/png' with the appropriate MIME type if needed
+      var imageUrl = URL.createObjectURL(blob);
+
+      // Create an <img> element
+      var imgElement = document.createElement('img');
+      // Set the src attribute of the <img> element to the object URL
+      imgElement.src = imageUrl;
+      // Append the <img> element to the document body or any other desired location
+      document.body.appendChild(imgElement);
+    }
+
+  },[image])*/
+
+  function removeImage(){
+    setImage("");
+  }
 
   return (
   <form className = "formContainer" onSubmit={handleSubmit}>
@@ -145,16 +185,23 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
             className="activityInputField descriptionInputField"
             required
           ></textarea>
+          <p className="activityInputText">Categoria*</p>
+          <select onChange={getCategory} className="activityInputField" required>
+          <option selected disabled hidden></option>
+            {Object.keys(categories).map((categoryId: string) => (
+              <option value={categoryId}>{categories[categoryId]}</option>
+            ))}
+          </select >
         </div>
         <div className="column">
-        <p className="activityInputText activityTypeText">{parcheCreation? "Tipo Parche*":"Tipo Actividad*"}</p>
+          <p className="activityInputText activityTypeText">{parcheCreation? "Tipo Parche*":"Tipo Actividad*"}</p>
           <div className ="activityTypeContainer">
             <input onClick={getTypeFromEvent} type="radio" className="activityCheckbox2" name="type" defaultChecked  title="Actividad ocasional de duración finita (ej. Festival Estereo Picnic, Concierto Coldplay, etc)."/>
             <label htmlFor="html" title="Actividad ocasional de duración finita (ej. Festival Estereo Picnic, Feria del Libro, etc).">Evento</label><br/>
             <input onClick={getTypeFromPlan} type="radio" className="activityCheckbox3"name="type"
             title="Actividad recurrente, usualmente disponible todo el año (ej. Museo del Oro, Monserrate, etc)"/>
             <label htmlFor="html" title="Actividad recurrente, usualmente disponible todo el año (ej. Museo del Oro, Monserrate, etc)">Plan</label><br/>
-          </div>
+          </div> 
           {isPlan ? (
             <>
               <p className="activityInputText">Horario*</p>
@@ -199,17 +246,10 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
               </div>
             </>
           )}
-          <p className="activityInputText">Categoria*</p>
-          <select onChange={getCategory} className="activityInputField" required>
-          <option selected disabled hidden></option>
-            {Object.keys(categories).map((categoryId: string) => (
-              <option value={categoryId}>{categories[categoryId]}</option>
-            ))}
-          </select >
-        </div>
-        <div className="column">
           <p className="activityInputText">Contacto para información*</p>
           <input onChange={getContact} className="activityInputField" required></input>
+        </div>
+        <div className="column">
           <p className="activityInputText">Precios*</p>
           <select onChange={getPrice} className="activityInputField" required >
             {pricesList.map((price: string)=> (
@@ -220,7 +260,21 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
             <p className="activityInputText endingField">Mayoria de edad</p>
             <input onChange={getAgeRestriction} className="activityCheckbox" type="checkbox"></input>
           </div>
-          <p className="textStyle1">(*) Campo Obligatorio</p>
+          {parcheCreation ? <></>:
+          <>
+           <div className="uploadContainer">
+          <p className="activityInputText">Imagen</p>
+              <div className ="uploadImageButton">
+              <input type="file" onChange={imageUpload}></input>
+           </div>
+          </div>
+          </>
+          }
+          {parcheCreation ? <></>: 
+          <div className ={image == "" ? "imageContainerForm notShow3":"imageContainerForm"} id="imageContainerFormId">
+            <img src={closeIcon2} className="closeButton3" onClick={removeImage} title="Remover Imagen"/>
+          </div>
+          }
           <button className={"genericButton " + classCustom}>
             <img src={icon} className="activityFormButtonIcon" />
             {text}

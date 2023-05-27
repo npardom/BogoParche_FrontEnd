@@ -24,5 +24,5 @@ import timeIcon from "./assets/icons/timeIcon.png";
 import priceIcon from "./assets/icons/priceIcon.png";
 import over18Icon from "./assets/icons/over18Icon.png";
 import moreInfoIcon from "./assets/icons/moreInfoIcon.png";
-
-export {Header,Footer,YouNeedToRegister, EditActivity, AddActivity,ManageSuggestions, InfoSuggestion, AboutUs, Login, SignUp, Catalogue, CreateParche, Parches, SuggestActivity, InfoActivity, locationIcon,categoryIcon,dateIcon,timeIcon,priceIcon,over18Icon,moreInfoIcon}
+import closeIcon2 from "./assets/icons/closeIcon2.png";
+export {Header,Footer,YouNeedToRegister, EditActivity, AddActivity,ManageSuggestions, InfoSuggestion, AboutUs, Login, SignUp, Catalogue, CreateParche, Parches, SuggestActivity, InfoActivity, locationIcon,categoryIcon,dateIcon,timeIcon,priceIcon,closeIcon2, over18Icon,moreInfoIcon}

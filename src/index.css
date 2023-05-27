@@ -512,7 +512,7 @@ textarea {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1em;
   text-align: left;
-  margin: 0em 0 0.938em 0em;
+  margin: 0em 0 0.6em 0em;
   color: black;
   border-radius: 0.25em;
   border: transparent;
@@ -538,12 +538,12 @@ textarea {
 }
 
 .descriptionInputField {
-  height: 9em;
-  margin-bottom:0em;
+  height: 6.75em;
+  margin-bottom:0.6em;
 }
 
 .horarioInputField {
-  height: 8.75em;
+  height: 10em;
 }
 
 .loginButton2{
@@ -752,7 +752,7 @@ textarea {
 .activityCheckbox{
   width: 1.3em;
   height:1.3em;
-  margin: 0em 0em 0em 0.7em;
+  margin: -0.7em 0em 0em 0.7em;
   opacity:50%;
   transition:0.5s;
   cursor: pointer; 
@@ -786,12 +786,12 @@ textarea {
   height: 1.5em;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1em;
-  margin: 0em 0 0.938em 0em;
+  margin: 0em 0 0.7em 0em;
   align-items: center;
 }
 
 .endingField{
-  margin: 0 0 0 0;
+  margin: 0 0 0.7em 0;
 }
 
 .activityCheckbox:checked {
@@ -1078,7 +1078,7 @@ textarea {
   width: 6.938em;
   color: #500A6D;
   background-color: rgb(255, 255, 255);
-  margin:1.9em auto 0em auto;
+  margin:1em auto 0em auto;
   transition: 0.5s;
 }
 
@@ -1776,6 +1776,15 @@ textarea {
   margin-left:0.3em;
 }
 
+.uploadContainer{
+  margin:1em 0 0.6em 0;
+  display: flex;
+  width:100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content:left ;
+}
+
 @media only screen and (max-width: 50em){  
   .websiteSlogan{
     display: none;
@@ -1970,6 +1979,10 @@ textarea {
     width: 17em;
   }
 
+  .uploadContainer{
+    justify-content:center ;
+  }
+
   .activityTypeText{
     margin-top:1em;
   }
@@ -2140,4 +2153,67 @@ textarea {
     min-width:15em;
     transition: all 1s;
   }
+}
+
+.closeButton3 {
+  position:relative;
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+  margin-top:-0.5em;
+  margin-right:-0.5em;
+}
+
+.imageContainerForm{
+  width:95%;
+  height:7em;
+  margin-bottom:0;
+  border: 0.2em solid white;
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  display:flex;
+  justify-content: right;
+}
+
+.uploadImageButton {
+  position: relative;
+  display: inline-block;
+}
+
+.uploadImageButton::before {
+  background-color: #5678EF;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.3em;
+  content: 'Seleccionar'; /* testo por defecto */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.9em;
+  margin-left:0.7em;
+  margin-top:-0.3em;
+  transition: all 0.5s;
+}
+
+.uploadImageButton:hover::before {
+  background-color: #36457a;
+  transition: all 0.5s;
+}
+
+.uploadImageButton input[type="file"] {
+  opacity: 0;
+  width:9.5em;
+  height: 1.8em;
+  display: inline-block;
+}
+
+.notShow3{
+  display:none;
 }

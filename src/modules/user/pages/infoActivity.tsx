@@ -43,11 +43,13 @@ function InfoActivity() {
       method: "GET",
       mode: "cors",
       headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + accessToken()
       } 
     })
     .then((res) => res.json())
     .then((dato) => {
+      alert(JSON.stringify(dato))
       if(dato.error){
         navigate("/");
       }else{
