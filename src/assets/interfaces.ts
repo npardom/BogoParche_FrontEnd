@@ -14,7 +14,8 @@ export interface Activity {
   hora_fin: string,
   horario_plan: string,
   es_privada: boolean,
-  image: string
+  image: string,
+  users: string[]
 }
 
 export interface Comment {

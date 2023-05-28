@@ -176,14 +176,61 @@ function InfoActivity() {
     }
   }
 
-  // Creates an instance of parche
+  // Handle the parche button
   function createParche(){
     if(loggedInUser()){
-      return
+      createParcheInstance();
     }else{
       togglePopUp("registerPopUp", false);
     }
   }
+
+  // Creates the parche
+  function createParcheInstance() {
+    if (activity.es_plan){
+      var APIname = "/api/plan"
+    } else {
+      var APIname = "/api/event"
+    }
+    const body = {
+      titulo_actividad: activity.titulo_actividad,
+      ubicacion: activity.ubicacion,
+      id_categoria: activity.id_categoria,
+      rango_precio: activity.rango_precio,
+      descripcion: activity.descripcion,
+      restriccion_edad: activity.restriccion_edad,
+      medio_contacto: activity.medio_contacto,
+      es_privada: true,
+      fecha_inicio: activity.fecha_inicio,
+      fecha_fin: activity.fecha_fin,
+      hora_inicio: activity.hora_inicio,
+      hora_fin: activity.hora_fin,
+      es_plan: activity.es_plan,
+      horario_plan: activity.horario_plan,
+      users: [],
+      image: null,
+      id_related_public_activity: activity.id
+    }
+    fetch(APIname, {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + accessToken(),
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.id){
+        alert("Parche creado exitosamente.");
+        navigate("/parches")
+      } else {
+        alert("Ocurrió un error. Intenta de nuevo.");
+        updateRefreshToken();
+      }
+    });  
+  };
 
   // It renders the comment section
   function CommentCards() {
@@ -242,7 +289,11 @@ function InfoActivity() {
        <div className = "twoColumnsFeatureContainer">
           <div className ="columnFeaturesContainer">
             {activity.es_privada ? <></>: 
-            <div className ={image == null ? "imageContainerForm notShow3":"imageContainerForm someExtraSpace2"} id="imageContainerFormId">
+            <div className="imageContainerDecor">
+              <div className ={image == null ? "imageContainerBack notShow3":"imageContainerBack"}>
+              </div>
+              <div className ={image == null ? "imageContainerForm2 notShow3":"imageContainerForm2"} id="imageContainerFormId">
+              </div>
             </div>
             }
             <ActivityCharacteristics activity = {activity}/>

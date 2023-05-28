@@ -108,7 +108,7 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
   const imageUpload = (e:React.ChangeEvent<HTMLInputElement>) => {
     const files:any = e.target.files;
     const file = files[0];
-    resizeImage(file, 400, 400, function(resizedBase64:any) {
+    resizeImage(file, 900, 900, function(resizedBase64:any) {
       setImage(resizedBase64);
       var element= document.getElementById("imageContainerFormId") as any;
       element.style.backgroundImage = "url('" + resizedBase64 +"')";

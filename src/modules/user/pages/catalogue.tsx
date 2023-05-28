@@ -90,6 +90,8 @@ function Catalogue() {
       );
     }
   }
+
+  // Set function for updating filter in real-time
   function updateFilter(id: string){
     toggleCatalogueCheckbox(id)
     setTimeout(sendFilter, 500)

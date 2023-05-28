@@ -31,7 +31,7 @@ function EditActivity() {
   const imageUpload = (e:React.ChangeEvent<HTMLInputElement>) => {
     const files:any = e.target.files;
     const file = files[0];
-    resizeImage(file, 400, 400, function(resizedBase64:any) {
+    resizeImage(file, 900, 900, function(resizedBase64:any) {
       setImage(resizedBase64);
     });
   }
@@ -174,7 +174,7 @@ function EditActivity() {
     setIsPlan(activity.es_plan);
     setImage(activity.image)
     if(activity.es_privada){
-      setSelectedUsers(["usuario1","usuario2","usuario3"])
+      setSelectedUsers(activity.users)
     }
   }, [activity, categories]);
 
@@ -215,7 +215,6 @@ function EditActivity() {
     })
     .then((response) => response.json())
     .then((result) => {
-      alert(JSON.stringify(result))
       if (result.id){
         alert(activity.es_privada ? "El parche fue editado exitosamente.":"La actividad fue editada exitosamente.");
         goBackToActivity(activity.id.toString())
@@ -460,7 +459,7 @@ function EditActivity() {
           <div className ="selectedUsersContainer">
           {selectedUsers.map((user: string) => (
               <div className ="selectedUserContainer">
-                <img src={closeIcon2} className="closeButton4" onClick={()=>removeFromSelected(user)}/>
+                <img src={closeIcon2} className="closeButton4" onClick={()=>removeFromSelected(user)} title="Quitar"/>
                 {user}
               </div>    
           ))}
