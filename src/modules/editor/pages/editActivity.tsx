@@ -25,19 +25,39 @@ function EditActivity() {
   const [startHour, setStartHour] = useState("");
   const [endHour, setEndHour] = useState("");
   const [isPlan, setIsPlan] = useState(false);
-  const [image, setImage] = useState("" as any);
+  const [image, setImage] = useState(null as any);
   const navigate = useNavigate();
 
   const imageUpload = (e:React.ChangeEvent<HTMLInputElement>) => {
     const files:any = e.target.files;
     const file = files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      var base64String:any = reader.result;
-      setImage(base64String);
-      var element= document.getElementById("imageContainerFormId") as any;
-      element.style.backgroundImage = "url('" + base64String +"')";
-    }
+    resizeImage(file, 400, 400, function(resizedBase64:any) {
+      setImage(resizedBase64);
+    });
+  }
+
+  function resizeImage(file:any, maxWidth:number, maxHeight:number, callback:any) {
+    var reader = new FileReader();
+    reader.onload = function(event:any) {
+      var image = new Image();
+      image.onload = function() {
+        var width = image.width;
+        var height = image.height;
+        if (width > maxWidth || height > maxHeight) {
+          var ratio = Math.min(maxWidth / width, maxHeight / height);
+          width *= ratio;
+          height *= ratio;
+        }
+        var canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext('2d') as any;
+        ctx.drawImage(image, 0, 0, width, height);
+        var resizedBase64 = canvas.toDataURL('image/jpeg');
+        callback(resizedBase64);
+      };
+      image.src = event.target.result;
+    };
     reader.readAsDataURL(file);
   }
   
@@ -87,20 +107,18 @@ function EditActivity() {
 
   // If parche creation, it gets list of usernames
   useEffect(() => {
-    if(activity.titulo_actividad){
-      fetch("api/user/usernames", {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json"
-        },
-      })
-      .then((response) => response.json())
-      .then((result) => {
-        setUserList(result)
-      });
-    }
-  }, [activity]);
+    fetch("/api/user/usernames", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    .then((response) => response.json())
+    .then((result) => {
+      setUserList(result)
+    });
+  }, []);
 
   // If not parche, show image
   useEffect(()=>{
@@ -155,6 +173,9 @@ function EditActivity() {
     }
     setIsPlan(activity.es_plan);
     setImage(activity.image)
+    if(activity.es_privada){
+      setSelectedUsers(["usuario1","usuario2","usuario3"])
+    }
   }, [activity, categories]);
 
   // It sends a request to update the activity
@@ -180,9 +201,9 @@ function EditActivity() {
       hora_inicio: startHour,
       hora_fin: endHour,
       horario_plan: schedule,
-      image: image
+      image: image,
+      users:selectedUsers
     };
-    alert(JSON.stringify(body))
     fetch(APIname, {
       method: "PUT",
       mode: "cors",
@@ -244,7 +265,7 @@ function EditActivity() {
   function removeImage(){
     var element = document.getElementById('upload-photo') as any;
     element.value = "";
-    setImage("")
+    setImage(null)
   }
 
   function findUsers(event: React.ChangeEvent<HTMLInputElement>){
@@ -459,7 +480,7 @@ function EditActivity() {
           </>
           }
           {activity.es_privada ? <></>: 
-          <div className ={image == "" ? "imageContainerForm notShow3":"imageContainerForm"} id="imageContainerFormId">
+          <div className ={image == null ? "imageContainerForm notShow3":"imageContainerForm"} id="imageContainerFormId">
             <img src={closeIcon2} className="closeButton3" onClick={removeImage} title="Remover Imagen"/>
           </div>
           }

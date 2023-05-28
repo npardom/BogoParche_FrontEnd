@@ -6,7 +6,7 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
   const [userList, setUserList] = useState([] as string[]);
   const [foundUserList, setFoundUserList] = useState([] as string[]);
   const [selectedUsers, setSelectedUsers] = useState([] as string[]);
-  const [image, setImage] = useState("" as any);
+  const [image, setImage] = useState(null as any);
   const [categories, setCategories] = useState([] as any);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState(0);
@@ -108,13 +108,36 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
   const imageUpload = (e:React.ChangeEvent<HTMLInputElement>) => {
     const files:any = e.target.files;
     const file = files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      var base64String:any = reader.result;
-      setImage(base64String);
+    resizeImage(file, 400, 400, function(resizedBase64:any) {
+      setImage(resizedBase64);
       var element= document.getElementById("imageContainerFormId") as any;
-      element.style.backgroundImage = "url('" + base64String +"')";
-    }
+      element.style.backgroundImage = "url('" + resizedBase64 +"')";
+    });
+  
+  }
+
+  function resizeImage(file:any, maxWidth:number, maxHeight:number, callback:any) {
+    var reader = new FileReader();
+    reader.onload = function(event:any) {
+      var image = new Image();
+      image.onload = function() {
+        var width = image.width;
+        var height = image.height;
+        if (width > maxWidth || height > maxHeight) {
+          var ratio = Math.min(maxWidth / width, maxHeight / height);
+          width *= ratio;
+          height *= ratio;
+        }
+        var canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext('2d') as any;
+        ctx.drawImage(image, 0, 0, width, height);
+        var resizedBase64 = canvas.toDataURL('image/jpeg');
+        callback(resizedBase64);
+      };
+      image.src = event.target.result;
+    };
     reader.readAsDataURL(file);
   }
 
@@ -170,7 +193,7 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
   function removeImage(){
     var element = document.getElementById('upload-photo') as any;
     element.value = "";
-    setImage("")
+    setImage(null)
   }
 
   function findUsers(event: React.ChangeEvent<HTMLInputElement>){
@@ -345,7 +368,7 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
           </>
           }
           {parcheCreation ? <></>: 
-          <div className ={image == "" ? "imageContainerForm notShow3":"imageContainerForm"} id="imageContainerFormId">
+          <div className ={image == null ? "imageContainerForm notShow3":"imageContainerForm"} id="imageContainerFormId">
             <img src={closeIcon2} className="closeButton3" onClick={removeImage} title="Quitar Imagen"/>
           </div>
           }

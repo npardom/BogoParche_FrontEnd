@@ -8,7 +8,7 @@ import { goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon, min
 function InfoActivity() {
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
-  const [image, setImage] = useState("" as any);
+  const [image, setImage] = useState(null as any);
   const [willAssist, setWillAssist] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [commentList, setCommentList] = useState([] as Comment[]);
@@ -49,8 +49,10 @@ function InfoActivity() {
 
 
   useEffect(() => {
-    var element= document.getElementById("imageContainerFormId") as any;
+    if(!activity.es_privada){
+      var element= document.getElementById("imageContainerFormId") as any;
       element.style.backgroundImage = "url('" + image +"')";
+    }
   }, [image]);
 
   // Redirects to the editing page for the current activity
@@ -240,7 +242,7 @@ function InfoActivity() {
        <div className = "twoColumnsFeatureContainer">
           <div className ="columnFeaturesContainer">
             {activity.es_privada ? <></>: 
-            <div className ={image == "" ? "imageContainerForm notShow3":"imageContainerForm someExtraSpace2"} id="imageContainerFormId">
+            <div className ={image == null ? "imageContainerForm notShow3":"imageContainerForm someExtraSpace2"} id="imageContainerFormId">
             </div>
             }
             <ActivityCharacteristics activity = {activity}/>
