@@ -5,7 +5,7 @@ import { suggestAdminIcon, ActivityRequestCard } from "../imports";
 function ManageSuggestions() {
   const [activities, setActivities] = useState([] as Activity[]);
 
-  // Receives all the public activities on the database
+  // Receives all the private activities on the database
   useEffect(() => {
     fetch("/api/activity/all-not-approved")
     .then((res) => res.json())

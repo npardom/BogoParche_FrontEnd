@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Activity } from "../../../assets/interfaces";
 import { pricesList,accessToken ,updateRefreshToken, categoryNames} from "../../../assets/functionsAndConstants";
-import { editIcon, removeIcon, updateIcon, goBackIcon } from "../imports";
+import { editIcon, removeIcon, updateIcon, goBackIcon,closeIcon2 } from "../imports";
 
 function EditActivity() {
   const { slug } = useParams();
+  const [userList, setUserList] = useState([] as string[]);
+  const [foundUserList, setFoundUserList] = useState([] as string[]);
+  const [selectedUsers, setSelectedUsers] = useState([] as string[]);
   const [activity, setActivity] = useState({} as Activity);
   const [categories, setCategories] = useState({} as any);
   const [title, setTitle] = useState("");
@@ -22,7 +25,21 @@ function EditActivity() {
   const [startHour, setStartHour] = useState("");
   const [endHour, setEndHour] = useState("");
   const [isPlan, setIsPlan] = useState(false);
+  const [image, setImage] = useState("" as any);
   const navigate = useNavigate();
+
+  const imageUpload = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const files:any = e.target.files;
+    const file = files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      var base64String:any = reader.result;
+      setImage(base64String);
+      var element= document.getElementById("imageContainerFormId") as any;
+      element.style.backgroundImage = "url('" + base64String +"')";
+    }
+    reader.readAsDataURL(file);
+  }
   
   // Getting all the modified information from the input fields
   const getLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +85,30 @@ function EditActivity() {
     setCategories(categoryNames());
   }, []);
 
+  // If parche creation, it gets list of usernames
+  useEffect(() => {
+    if(activity.titulo_actividad){
+      fetch("api/user/usernames", {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+      .then((response) => response.json())
+      .then((result) => {
+        setUserList(result)
+      });
+    }
+  }, [activity]);
+
+  // If not parche, show image
+  useEffect(()=>{
+    if(!activity.es_privada && activity.titulo_actividad){
+      var element= document.getElementById("imageContainerFormId") as any;element.style.backgroundImage = "url('" + image +"')";
+    }
+  },[image])
+
   // Gets the activity from the URL
   useEffect(() => {
     var id = slug as any;
@@ -75,12 +116,17 @@ function EditActivity() {
       method: "GET",
       mode: "cors",
       headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + accessToken()
       } 
     })
     .then((res) => res.json())
     .then((dato) => {
-      if(dato.error){
+      if(dato.error === "Invalid jwt token"){
+        alert("Ocurrió un error. Intenta de nuevo.");
+        updateRefreshToken();
+        navigate("/");
+      }else if (dato.error){
         navigate("/");
       }else{
         setActivity(dato);
@@ -108,6 +154,7 @@ function EditActivity() {
       setEndHour(activity.hora_fin.slice(0, 5));
     }
     setIsPlan(activity.es_plan);
+    setImage(activity.image)
   }, [activity, categories]);
 
   // It sends a request to update the activity
@@ -133,7 +180,9 @@ function EditActivity() {
       hora_inicio: startHour,
       hora_fin: endHour,
       horario_plan: schedule,
+      image: image
     };
+    alert(JSON.stringify(body))
     fetch(APIname, {
       method: "PUT",
       mode: "cors",
@@ -145,6 +194,7 @@ function EditActivity() {
     })
     .then((response) => response.json())
     .then((result) => {
+      alert(JSON.stringify(result))
       if (result.id){
         alert(activity.es_privada ? "El parche fue editado exitosamente.":"La actividad fue editada exitosamente.");
         goBackToActivity(activity.id.toString())
@@ -189,6 +239,42 @@ function EditActivity() {
   function goBackToActivity(id: string) {
     navigate("/actividades/" + id);
   }
+
+  // Function for removing an image file
+  function removeImage(){
+    var element = document.getElementById('upload-photo') as any;
+    element.value = "";
+    setImage("")
+  }
+
+  function findUsers(event: React.ChangeEvent<HTMLInputElement>){
+    if(event.target.value ==""){
+      setFoundUserList([]);
+    }else{
+      setFoundUserList(userList.filter(user => user.startsWith(event.target.value)).slice(0, 5));
+    }
+  }
+
+  function addToSelected(user: string){
+    if(selectedUsers.length >= 20 && !selectedUsers.includes(user)){
+      alert("Puedes añadir máximo 20 personas.")
+    }else{
+      if(!selectedUsers.includes(user)){
+        setSelectedUsers(selectedUsers.concat([user]))
+      }
+      var element = document.getElementById("userSearchFieldId") as any;
+      element.value = "";
+      setFoundUserList([]);
+    }
+    element.focus();
+  }
+
+  function removeFromSelected(user: string){
+    if(selectedUsers.includes(user)){
+      var newArray = selectedUsers.filter(item => item !== user);
+      setSelectedUsers(newArray);
+    }
+  }
   
   return (
     <div className={activity.es_privada ? "adminActivitiesCard createParcheCard":"adminActivitiesCard"}>
@@ -227,6 +313,28 @@ function EditActivity() {
               required
               value={description}
             ></textarea>
+            <p className="activityInputText">Categoria*</p>
+            <select
+              onChange={getCategory}
+              className="activityInputField"
+              required
+            >
+              {JSON.stringify(categories) != "{}" &&
+              activity.titulo_actividad ? (
+                <>
+                  {Object.keys(categories).map((categoryId: string) => (
+                    <option
+                      value={categoryId}
+                      selected={activity.id_categoria.toString() === categoryId}
+                    >
+                      {categories[categoryId]}
+                    </option>
+                  ))}
+                </>
+              ) : (
+                <></>
+              )}
+            </select>
           </div>
           <div className="column">
             <p className="activityInputText disabledText activityTypeText">Tipo {activity.es_privada ?"Parche":"Actividad"}</p>
@@ -282,30 +390,6 @@ function EditActivity() {
                 </div>
               </>
             )}
-            <p className="activityInputText">Categoria*</p>
-            <select
-              onChange={getCategory}
-              className="activityInputField"
-              required
-            >
-              {JSON.stringify(categories) != "{}" &&
-              activity.titulo_actividad ? (
-                <>
-                  {Object.keys(categories).map((categoryId: string) => (
-                    <option
-                      value={categoryId}
-                      selected={activity.id_categoria.toString() === categoryId}
-                    >
-                      {categories[categoryId]}
-                    </option>
-                  ))}
-                </>
-              ) : (
-                <></>
-              )}
-            </select>
-          </div>
-          <div className="column">
             <p className="activityInputText">Contacto para información*</p>
             <input
               onChange={getContact}
@@ -313,6 +397,8 @@ function EditActivity() {
               required
               value={contact}
             ></input>
+          </div>
+          <div className="column">
             <p className="activityInputText">Precios*</p>
             <select onChange={getPrice} className="activityInputField" required>
               {pricesList.map((price: string) => (
@@ -333,8 +419,51 @@ function EditActivity() {
                 checked={ageRestriction}
               ></input>
             </div>
-            <p className="textStyle1">(*) Campo Obligatorio</p>
-            <div className="twoButtonsContainer">
+
+            {activity.es_privada && activity.titulo_actividad ? 
+          <>
+          <p className="activityInputText">Seleccionar usuarios</p>
+          <div className="userSearchContainer">
+            <input 
+            className="userSearchField"
+            onChange={findUsers}
+            id="userSearchFieldId"
+            >
+            </input>
+            <div className ="foundUsersContainer" id = "foundUsersContainerId">
+            {foundUserList.map((user: string) => (
+                <div className ="foundUserItem" onClick={()=>addToSelected(user)}>{user}</div>
+            ))}
+            </div>
+          </div> 
+          <div className ="selectedUsersContainer">
+          {selectedUsers.map((user: string) => (
+              <div className ="selectedUserContainer">
+                <img src={closeIcon2} className="closeButton4" onClick={()=>removeFromSelected(user)}/>
+                {user}
+              </div>    
+          ))}
+          </div>
+          </>
+          :
+          <></>
+          }
+
+            {activity.es_privada ? <></>:
+          <>
+           <div className="uploadContainer">
+          <p className="activityInputText">Imagen</p>
+          <label htmlFor="upload-photo" className ="uploadImageButton">Seleccionar</label>
+            <input type="file" onChange={imageUpload} className ="notShow3" id="upload-photo" ></input>
+          </div>
+          </>
+          }
+          {activity.es_privada ? <></>: 
+          <div className ={image == "" ? "imageContainerForm notShow3":"imageContainerForm"} id="imageContainerFormId">
+            <img src={closeIcon2} className="closeButton3" onClick={removeImage} title="Remover Imagen"/>
+          </div>
+          }
+            <div className="twoButtonsContainer someExtraSpace">
               <button className="genericButton updateButton updateButton2">
                 <img src={updateIcon} className="activityFormButtonIcon" />
                 Actualizar

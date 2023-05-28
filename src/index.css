@@ -243,7 +243,7 @@ textarea {
   background-color: rgba(255, 255, 255);
   border-radius: 0.625em;
   padding: 0.563em 0.75em 0.563em 0.75em;
-  border: 0em;
+  border: 0.1em solid white;
   float: right;
   margin-bottom: 0.188em;
   transition: 0.5s;
@@ -279,20 +279,6 @@ textarea {
   width: 3.3em;
   height: 3.3em;
   z-index: 10;
-}
-
-@media only screen and (max-width: 56.25em){  
-  .loginButtonText{
-    position: absolute;
-    opacity: 0%;
-    right:2.5em;
-}
-
-  .loginButton:hover .loginButtonText {
-    opacity: 100%;
-    right: 3.438em;
-  }  
-  
 }
 
 .footer{
@@ -543,7 +529,7 @@ textarea {
 }
 
 .horarioInputField {
-  height: 10em;
+  height: 10.1em;
 }
 
 .loginButton2{
@@ -786,7 +772,7 @@ textarea {
   height: 1.5em;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1em;
-  margin: 0em 0 0.7em 0em;
+  margin: 0em 0 0.6em 0em;
   align-items: center;
 }
 
@@ -1564,7 +1550,6 @@ textarea {
   height: 12.8em;
 }
 
-
 .commentInputField {
   width:99%;
   height: 6.25em;
@@ -1783,6 +1768,306 @@ textarea {
   flex-direction: row;
   align-items: center;
   justify-content:left ;
+}
+
+.closeButton2 {
+  position:absolute;
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+  right: 0em;
+  top:0em;
+}
+
+.parcheCardsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-height:14.8em;
+  overflow-y:auto;
+  overflow-x:hidden;
+  width:100%;
+}
+
+.parcheCardsContainer::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.parcheCardsContainer::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 0.625em;
+}
+
+.parcheCardsContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 1.25em;
+}
+
+.parcheCard {
+  height:5em;
+  background-image: url("./assets/backgrounds/activityCard1.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  border-radius: 0.938em;
+  color: black;
+  line-height: 0.938em;
+  padding:1em;
+  margin: 0em 0.4em 0.4em 0em;
+  transition: all 0.7s;
+  overflow-wrap: anywhere;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.parcheCard:hover {
+  background-image: url("./assets/backgrounds/activityCard2.png");
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: bottom;
+  color: white;
+  cursor:pointer;
+  transition: all 0.7s;
+}
+
+.titleParcheSmallCard{
+  font-family: 'Mulish', sans-serif;
+  margin: 0 auto 0.6em auto;
+  font-size: 1.1em;
+  text-align: center;
+  color: #A77DDF;
+}
+
+.descriptionParcheSmallCard{
+  font-family: 'Source Sans Pro', sans-serif;
+  margin: 0;
+  font-size: 1em;
+  text-align: center;
+  color:#4e4e4e
+}
+
+.middleLine2{
+  width:30%;
+  height:0.1em;
+  background-color: #A77DDF;
+  border:none;
+}
+
+.parcheCard:hover .titleParcheSmallCard{
+  color:white;
+  transition: all 0.7s;
+}
+
+.parcheCard:hover .descriptionParcheSmallCard{
+  color:white;
+  transition: all 0.7s;
+}
+
+.parcheCard:hover .middleLine2{
+  background-color: white;
+  transition: all 0.7s;
+}
+
+.adminParchesCard {
+  width: 70%;
+  max-width: 50em;
+  min-width: 42.5em;
+  height: fit-content;
+  min-height: 18em;
+}
+
+@media only screen and (max-width: 56.25em){  
+  .loginButtonText{
+    position: absolute;
+    opacity: 0%;
+    right:2.5em;
+  }
+
+  .loginButton:hover .loginButtonText {
+    opacity: 100%;
+    right: 3.438em;
+  }  
+  
+}
+
+@media only screen and (max-width: 50em){  
+  .adminParchesCard {
+    width:35em;
+    max-width: 35em;
+    min-width:35em;
+    transition: all 1s;
+  }
+}
+
+@media only screen and (max-width: 40em){  
+  .adminParchesCard {
+    width:25em;
+    max-width: 25em;
+    min-width:25em;
+    transition: all 1s;
+  }
+  .parcheCardsContainer {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (max-width: 30em){  
+  .adminParchesCard {
+    width:15em;
+    max-width: 15em;
+    min-width:15em;
+    transition: all 1s;
+  }
+}
+
+.closeButton3 {
+  position:relative;
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+  margin-top:-0.5em;
+  margin-right:-0.5em;
+}
+
+.imageContainerForm{
+  width:95%;
+  height:7em;
+  margin-bottom:0;
+  border: 0.2em solid white;
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  display:flex;
+  justify-content: right;
+}
+
+.uploadImageButton {
+  position: relative;
+  display: inline-block;
+}
+
+.uploadImageButton {
+  cursor: pointer;
+  display:flex;
+  align-items: center;
+  justify-items: center;
+  background-color: #5678EF;
+  color: white;
+  width:fit-content;
+  padding:0.5em 0.7em 0.5em 0.7em;
+  border-radius: 0.3em;
+  font-family: "Mulish", sans-serif;
+  font-size: 0.9em;
+  transition: all 0.5s;
+  margin: -0.25em 0 0 1em;
+}
+
+.uploadImageButton:hover {
+  background-color: #36457a;
+  transition: all 0.5s;
+}
+
+.notShow3{
+  display:none;
+}
+
+.someExtraSpace{
+  margin-top:1.1em;
+}
+
+.someExtraSpace2{
+  margin-bottom:1.1em;
+}
+
+.selectedUserContainer{
+  display: flex;
+  background-color: #ffffff21;
+  margin: 0.1em 0 0.1em 0;
+  padding:0.3em 0.6em 0.3em 0.6em;
+  border-radius: 0.5em;
+  width:fit-content;
+  align-items: self-start;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.closeButton4 {
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+  margin-right:0.3em;
+}
+
+.selectedUsersContainer{
+  height:7.5em;
+  overflow-y: auto;
+  margin-top:-0.3em;
+}
+
+.selectedUsersContainer::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.selectedUsersContainer::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 0.625em;
+}
+
+.selectedUsersContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 1.25em;
+}
+
+.userSearchField {
+  border-radius: 0;
+  color:white;
+  background-color: rgba(255, 255, 255, 0.3);
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1em;
+  text-align: left;
+  margin: 0em 0 0.6em 0em;
+  border: transparent;
+  padding: 0.125em 0em 0.125em 0.313em;
+  width:13.75em;
+}
+
+.userSearchField:focus{
+  outline: none;
+}
+
+.userSearchField:focus + .foundUsersContainer{
+  display:block;
+}
+
+.userSearchContainer{
+  position: relative;
+}
+
+.foundUsersContainer{
+  width:14em;
+  max-height:8em;
+  margin-top:-0.6em;
+  position: absolute;
+  transition: all 2s;
+}
+
+.foundUserItem {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  padding:0.3em 0.6em 0.3em 0.6em;
+  align-items: self-start;
+  font-family: 'Source Sans Pro', sans-serif;
+  transition: all 0.3s;
+  color:black;
+  cursor: pointer;
+}
+
+.foundUserItem:hover{
+  background-color: rgb(146, 98, 180);
+  transition: all 0.3s;
+  color:white;
 }
 
 @media only screen and (max-width: 50em){  
@@ -2015,205 +2300,4 @@ textarea {
     margin: 0.625em auto 1em auto;
     transition: all 1s;
   }
-}
-
-.closeButton2 {
-  position:absolute;
-  width: 1em;
-  height: 1em;
-  cursor: pointer;
-  right: 0em;
-  top:0em;
-}
-
-.parcheCardsContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  max-height:14.8em;
-  overflow-y:auto;
-  overflow-x:hidden;
-  width:100%;
-}
-
-.parcheCardsContainer::-webkit-scrollbar {
-  width: 0.5em;
-}
-
-.parcheCardsContainer::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 255, 0);
-  border-radius: 0.625em;
-}
-
-.parcheCardsContainer::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.25);
-  border-radius: 1.25em;
-}
-
-.parcheCard {
-  height:5em;
-  background-image: url("./assets/backgrounds/activityCard1.png");
-  background-size:cover;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: center;
-  border-radius: 0.938em;
-  color: black;
-  line-height: 0.938em;
-  padding:1em;
-  margin: 0em 0.4em 0.4em 0em;
-  transition: all 0.7s;
-  overflow-wrap: anywhere;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.parcheCard:hover {
-  background-image: url("./assets/backgrounds/activityCard2.png");
-  background-size:cover;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: bottom;
-  color: white;
-  cursor:pointer;
-  transition: all 0.7s;
-}
-
-.titleParcheSmallCard{
-  font-family: 'Mulish', sans-serif;
-  margin: 0 auto 0.6em auto;
-  font-size: 1.1em;
-  text-align: center;
-  color: #A77DDF;
-}
-
-.descriptionParcheSmallCard{
-  font-family: 'Source Sans Pro', sans-serif;
-  margin: 0;
-  font-size: 1em;
-  text-align: center;
-  color:#4e4e4e
-}
-
-.middleLine2{
-  width:30%;
-  height:0.1em;
-  background-color: #A77DDF;
-  border:none;
-}
-
-.parcheCard:hover .titleParcheSmallCard{
-  color:white;
-  transition: all 0.7s;
-}
-
-.parcheCard:hover .descriptionParcheSmallCard{
-  color:white;
-  transition: all 0.7s;
-}
-
-.parcheCard:hover .middleLine2{
-  background-color: white;
-  transition: all 0.7s;
-}
-
-.adminParchesCard {
-  width: 70%;
-  max-width: 50em;
-  min-width: 42.5em;
-  height: fit-content;
-  min-height: 18em;
-}
-
-@media only screen and (max-width: 50em){  
-  .adminParchesCard {
-    width:35em;
-    max-width: 35em;
-    min-width:35em;
-    transition: all 1s;
-  }
-}
-
-@media only screen and (max-width: 40em){  
-  .adminParchesCard {
-    width:25em;
-    max-width: 25em;
-    min-width:25em;
-    transition: all 1s;
-  }
-  .parcheCardsContainer {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media only screen and (max-width: 30em){  
-  .adminParchesCard {
-    width:15em;
-    max-width: 15em;
-    min-width:15em;
-    transition: all 1s;
-  }
-}
-
-.closeButton3 {
-  position:relative;
-  width: 1em;
-  height: 1em;
-  cursor: pointer;
-  margin-top:-0.5em;
-  margin-right:-0.5em;
-}
-
-.imageContainerForm{
-  width:95%;
-  height:7em;
-  margin-bottom:0;
-  border: 0.2em solid white;
-  background-size:cover;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: center;
-  display:flex;
-  justify-content: right;
-}
-
-.uploadImageButton {
-  position: relative;
-  display: inline-block;
-}
-
-.uploadImageButton::before {
-  background-color: #5678EF;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0.3em;
-  content: 'Seleccionar'; /* testo por defecto */
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  font-family: "Mulish", sans-serif;
-  font-size: 0.9em;
-  margin-left:0.7em;
-  margin-top:-0.3em;
-  transition: all 0.5s;
-}
-
-.uploadImageButton:hover::before {
-  background-color: #36457a;
-  transition: all 0.5s;
-}
-
-.uploadImageButton input[type="file"] {
-  opacity: 0;
-  width:9.5em;
-  height: 1.8em;
-  display: inline-block;
-}
-
-.notShow3{
-  display:none;
 }

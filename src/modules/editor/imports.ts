@@ -8,8 +8,9 @@ import removeIcon from "../../assets/icons/removeIcon.png";
 import updateIcon from "../../assets/icons/updateIcon.png";
 import goBackIcon from "../../assets/icons/goBackIcon.png";
 import closeIcon from "../../assets/icons/closeIcon.png";
+import closeIcon2 from "../../assets/icons/closeIcon2.png";
 import ActivityCharacteristics from "../../components/ActivityCharacteristics";
 import CreateActivityForm from "../../components/CreateActivityForm";
 import ActivityRequestCard from "./components/ActivityRequestCard";
 
-export {denyIcon, acceptIcon, suggestAdminIcon, createIcon, addIcon, editIcon,removeIcon,updateIcon, goBackIcon, closeIcon, ActivityCharacteristics, CreateActivityForm, ActivityRequestCard}
+export {denyIcon, acceptIcon, suggestAdminIcon, createIcon, addIcon, editIcon,removeIcon,updateIcon, goBackIcon, closeIcon,closeIcon2, ActivityCharacteristics, CreateActivityForm, ActivityRequestCard}

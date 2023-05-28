@@ -8,33 +8,11 @@ import { goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon, min
 function InfoActivity() {
   const { slug } = useParams();
   const [activity, setActivity] = useState({} as Activity);
+  const [image, setImage] = useState("" as any);
   const [willAssist, setWillAssist] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [commentList, setCommentList] = useState([] as Comment[]);
   const navigate = useNavigate();
-
-  // Gets the comments from the activity
-  useEffect(() => {
-    var id = slug as any;
-    if(activity.titulo_actividad){
-      fetch("/api/comment/" + id, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + accessToken()
-        },
-      })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response) {
-          setCommentList(response);
-        }else {
-          updateRefreshToken();
-        }
-      });
-    }
-  }, [activity]);
 
   // Gets the activity from the URL
   useEffect(() => {
@@ -49,14 +27,31 @@ function InfoActivity() {
     })
     .then((res) => res.json())
     .then((dato) => {
-      alert(JSON.stringify(dato))
       if(dato.error){
         navigate("/");
       }else{
+        setImage(dato.image)
         setActivity(dato);
+        setCommentList(dato.comments);
+        if(dato.attendance){
+          setWillAssist(true)
+        }else{
+          setWillAssist(false)
+        }
+        if(dato.favorite){
+          setIsFavorite(true)
+        }else{
+          setIsFavorite(false)
+        }
       }
     });
   }, []);
+
+
+  useEffect(() => {
+    var element= document.getElementById("imageContainerFormId") as any;
+      element.style.backgroundImage = "url('" + image +"')";
+  }, [image]);
 
   // Redirects to the editing page for the current activity
   function goToEdit(id: string){
@@ -75,54 +70,6 @@ function InfoActivity() {
       return <></>
     }
   }
-
-  // Checking if an activity is marked as favorite
-  useEffect(()=>{
-    if (activity.titulo_actividad && loggedInUser()){
-      fetch("/api/favorite/" + activity.id, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + accessToken(),
-        } 
-      })
-      .then((res) => res.json())
-      .then((dato) => {
-        if (dato.exists === true){
-          setIsFavorite(true)
-        } else if (dato.exists === false){
-          setIsFavorite(false)
-        } else {
-          updateRefreshToken();
-        }
-      })
-    }
-  }, [activity])
-
-  // Checking if an activity is marked as willAssist
-  useEffect(()=>{
-    if (activity.titulo_actividad && loggedInUser()){
-      fetch("/api/attendance/" + activity.id, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + accessToken(),
-        } 
-      })
-      .then((res) => res.json())
-      .then((dato) => {
-        if (dato.exists === true){
-          setWillAssist(true)
-        } else if (dato.exists === false){
-          setWillAssist(false)
-        } else {
-          updateRefreshToken();
-        }
-      })
-    }
-  }, [activity])
 
   // Toggles the "Will Assist" state of an activity
   function handleWillAssist(){
@@ -292,6 +239,10 @@ function InfoActivity() {
         </div>
        <div className = "twoColumnsFeatureContainer">
           <div className ="columnFeaturesContainer">
+            {activity.es_privada ? <></>: 
+            <div className ={image == "" ? "imageContainerForm notShow3":"imageContainerForm someExtraSpace2"} id="imageContainerFormId">
+            </div>
+            }
             <ActivityCharacteristics activity = {activity}/>
           </div>
           <div className ="columnDescriptionReviewsContainer">

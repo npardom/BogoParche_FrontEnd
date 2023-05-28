@@ -17,10 +17,11 @@ function Parches() {
     })
     .then((res) => res.json())
     .then((result) => {
-      if (result){
-        setParches(result)
-      }else if (result.error === "Invalid jwt token"){
+      if (result.error === "Invalid jwt token"){
+        alert("Ocurrió un error. Intenta de nuevo.");
         updateRefreshToken();
+      }else{
+        setParches(result)
       }
     });
   }, []);

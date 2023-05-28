@@ -3,9 +3,46 @@ import { pricesList, categoryNames, updateRefreshToken, accessToken } from "../a
 import {closeIcon2} from "../imports"
 
 function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:string, text:string,classCustom: string,parcheCreation:boolean}) {
+  const [userList, setUserList] = useState([] as string[]);
+  const [foundUserList, setFoundUserList] = useState([] as string[]);
+  const [selectedUsers, setSelectedUsers] = useState([] as string[]);
+  const [image, setImage] = useState("" as any);
+  const [categories, setCategories] = useState([] as any);
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState(0);
+  const [location, setLocation] = useState("");
+  const [schedule, setSchedule] = useState("");
+  const [price, setPrice] = useState(pricesList[0]);
+  const [description, setDescription] = useState("");
+  const [ageRestriction, setAgeRestriction] = useState(false);
+  const [contact, setContact] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [startHour, setStartHour] = useState("");
+  const [endHour, setEndHour] = useState("");
+  const [isPlan, setIsPlan] = useState(false);
+
   // Gets all the categories
   useEffect(() => {
     setCategories(categoryNames());
+  }, []);
+
+
+  // If parche creation, it gets list of usernames
+  useEffect(() => {
+    if(parcheCreation){
+      fetch("api/user/usernames", {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+      .then((response) => response.json())
+      .then((result) => {
+        setUserList(result)
+      });
+    }
   }, []);
 
   // Sends the received information to the server
@@ -40,6 +77,8 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
       hora_fin: endHour,
       es_plan :isPlan,
       horario_plan: schedule,
+      users: selectedUsers,
+      image: image
     }
     fetch(APIname, {
       method: "POST",
@@ -78,22 +117,6 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
     }
     reader.readAsDataURL(file);
   }
-
-  const [image, setImage] = useState("" as any);
-  const [categories, setCategories] = useState([] as any);
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState(0);
-  const [location, setLocation] = useState("");
-  const [schedule, setSchedule] = useState("");
-  const [price, setPrice] = useState(pricesList[0]);
-  const [description, setDescription] = useState("");
-  const [ageRestriction, setAgeRestriction] = useState(false);
-  const [contact, setContact] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [startHour, setStartHour] = useState("");
-  const [endHour, setEndHour] = useState("");
-  const [isPlan, setIsPlan] = useState(false);
 
   // Updates all fields when they change
   const getTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -142,34 +165,56 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
       setAgeRestriction(false);
     }
   };
-/*
-  useEffect(()=>{
-    if(image != ""){
-      var base64ImageWithoutPrefix = image;
-      var decodedImage = atob(base64ImageWithoutPrefix);
-      var imageArray = new Uint8Array(decodedImage.length);
-      for (var i = 0; i < decodedImage.length; i++) {
-        imageArray[i] = decodedImage.charCodeAt(i);
-      }
-      var blob = new Blob([imageArray], { type: 'image/png' }); // replace 'image/png' with the appropriate MIME type if needed
-      var imageUrl = URL.createObjectURL(blob);
 
-      // Create an <img> element
-      var imgElement = document.createElement('img');
-      // Set the src attribute of the <img> element to the object URL
-      imgElement.src = imageUrl;
-      // Append the <img> element to the document body or any other desired location
-      document.body.appendChild(imgElement);
-    }
-
-  },[image])*/
-
+  // Function for removing an image file
   function removeImage(){
-    setImage("");
+    var element = document.getElementById('upload-photo') as any;
+    element.value = "";
+    setImage("")
   }
 
+  function findUsers(event: React.ChangeEvent<HTMLInputElement>){
+    if(event.target.value ==""){
+      setFoundUserList([]);
+    }else{
+      setFoundUserList(userList.filter(user => user.startsWith(event.target.value)).slice(0, 5));
+    }
+  }
+
+  function addToSelected(user: string){
+    if(selectedUsers.length >= 20 && !selectedUsers.includes(user)){
+      alert("Puedes añadir máximo 20 personas.")
+    }else{
+      if(!selectedUsers.includes(user)){
+        setSelectedUsers(selectedUsers.concat([user]))
+      }
+      var element = document.getElementById("userSearchFieldId") as any;
+      element.value = "";
+      setFoundUserList([]);
+    }
+    element.focus();
+  }
+
+  function removeFromSelected(user: string){
+    if(selectedUsers.includes(user)){
+      var newArray = selectedUsers.filter(item => item !== user);
+      setSelectedUsers(newArray);
+    }
+  }
+
+  window.addEventListener("click", function hideSearchBar(e: any){
+    var element = e.target as any;
+    var element2 = document.getElementById("foundUsersContainerId") as HTMLDivElement;
+    if(element.className != 'foundUserItem' && element.className != 'userSearchField'){
+      element2.style.display = "none";
+    }
+    if(element.className == 'userSearchField'){
+      element2.style.display = "block";
+    }
+  });
+
   return (
-  <form className = "formContainer" onSubmit={handleSubmit}>
+  <form className = "formContainer" onSubmit={handleSubmit} id ="formId">
         <div className="column">
           <p className="activityInputText">{parcheCreation? "Nombre Parche*":"Nombre Actividad*"} </p>
           <input onChange={getTitle}
@@ -260,19 +305,48 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
             <p className="activityInputText endingField">Mayoria de edad</p>
             <input onChange={getAgeRestriction} className="activityCheckbox" type="checkbox"></input>
           </div>
+
+          {parcheCreation ? 
+          <>
+          <p className="activityInputText">Seleccionar usuarios</p>
+          <div className="userSearchContainer">
+            <input 
+            className="userSearchField"
+            onChange={findUsers}
+            id="userSearchFieldId"
+            >
+            </input>
+            <div className ="foundUsersContainer" id = "foundUsersContainerId">
+            {foundUserList.map((user: string) => (
+                <div className ="foundUserItem" onClick={()=>addToSelected(user)}>{user}</div>
+            ))}
+            </div>
+          </div> 
+          <div className ="selectedUsersContainer">
+          {selectedUsers.map((user: string) => (
+              <div className ="selectedUserContainer">
+                <img src={closeIcon2} className="closeButton4" onClick={()=>removeFromSelected(user)}/>
+                {user}
+              </div>    
+          ))}
+          </div>
+          </>
+          :
+          <></>
+          }
+
           {parcheCreation ? <></>:
           <>
            <div className="uploadContainer">
           <p className="activityInputText">Imagen</p>
-              <div className ="uploadImageButton">
-              <input type="file" onChange={imageUpload}></input>
-           </div>
+          <label htmlFor="upload-photo" className ="uploadImageButton">Seleccionar</label>
+            <input type="file" onChange={imageUpload} className ="notShow3" id="upload-photo" ></input>
           </div>
           </>
           }
           {parcheCreation ? <></>: 
           <div className ={image == "" ? "imageContainerForm notShow3":"imageContainerForm"} id="imageContainerFormId">
-            <img src={closeIcon2} className="closeButton3" onClick={removeImage} title="Remover Imagen"/>
+            <img src={closeIcon2} className="closeButton3" onClick={removeImage} title="Quitar Imagen"/>
           </div>
           }
           <button className={"genericButton " + classCustom}>
