@@ -149,7 +149,11 @@ function EditActivity() {
       }else if (dato.error){
         navigate("/");
       }else{
-        setActivity(dato);
+        if(dato.owned){
+          setActivity(dato);
+        }else{
+          navigate("/");
+        }
       }
     });
   }, []);

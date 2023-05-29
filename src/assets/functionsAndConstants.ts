@@ -91,7 +91,6 @@
   // It gets new access and refresh tokens
   export function updateRefreshToken(){
     const body = {refresh: refreshToken()};
-    alert("Doing update:"+ refreshToken())
     fetch("/api/auth/refresh", {
       method: "POST",
       mode: "cors",
@@ -103,7 +102,6 @@
     })
     .then((response) => response.json())
     .then((result) => {
-      alert(JSON.stringify(result))
       localStorage.setItem('access', result.access);
       localStorage.setItem('refresh', result.refresh);
     });
