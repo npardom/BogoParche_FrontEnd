@@ -10,7 +10,7 @@ export default defineConfig({
         target: "https://bogoparchebackend-production-5a1a.up.railway.app",
         changeOrigin: true,
         secure: true,
-        ws: true},
+        ws: true}, 
     },
     
   },
