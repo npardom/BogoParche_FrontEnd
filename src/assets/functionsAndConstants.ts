@@ -45,7 +45,7 @@
     "10k - 50k",
     "50k - 100k",
     "100k - 150k",
-    "+ 150k"
+    "Más de 150k"
   ];
 
   // Function for the parallax effect
