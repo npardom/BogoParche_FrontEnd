@@ -27,5 +27,6 @@ import CommentCard from "./components/CommentCard";
 import CommentForm from "./components/CommentForm";
 import ActivityCharacteristics from "../../components/ActivityCharacteristics";
 import CreateActivityForm from "../../components/CreateActivityForm";
+import parcheOutIcon from "../../assets/icons/parcheOutIcon.png";
 
-export {commentIcon,userIcon, adminIcon, sendIcon,cancelIcon, infoIcon, closeIcon,addParche, UNlogo,searchIcon, goBackIcon, pencilIcon, createParcheIcon, createParcheIcon2,createParcheIcon3, reviewIcon, favoriteIcon, suggestIcon, sendIcon2,minusIcon,createIcon, addIcon, ActivitySmallCard, ParcheSmallCard, MemberCircle, CommentCard, CommentForm, ActivityCharacteristics, CreateActivityForm}
+export {commentIcon,parcheOutIcon, userIcon, adminIcon, sendIcon,cancelIcon, infoIcon, closeIcon,addParche, UNlogo,searchIcon, goBackIcon, pencilIcon, createParcheIcon, createParcheIcon2,createParcheIcon3, reviewIcon, favoriteIcon, suggestIcon, sendIcon2,minusIcon,createIcon, addIcon, ActivitySmallCard, ParcheSmallCard, MemberCircle, CommentCard, CommentForm, ActivityCharacteristics, CreateActivityForm}

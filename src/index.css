@@ -482,7 +482,7 @@ textarea {
 }
 
 .loginField {
-  width: 100%;
+  width: 95%;
   height: 2em;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1em;
@@ -1913,6 +1913,23 @@ textarea {
   min-width: 42.5em;
   height: fit-content;
   min-height: 18em;
+}
+
+.outOfParcheButton{
+  background-color: rgb(166, 43, 43);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9em;
+  cursor: pointer;
+  border:0.1em solid transparent;
+  transition:0.5s;
+}
+
+.outOfParcheButton:hover{
+  background-color: rgb(197, 57, 57);
+  border:0.1em solid white;
+  transition:0.5s;
 }
 
 @media only screen and (max-width: 56.25em){  

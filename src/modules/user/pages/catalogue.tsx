@@ -5,12 +5,15 @@ import { searchIcon, ActivitySmallCard} from "../imports";
 
 function Catalogue() {
   const [activities, setActivities] = useState([] as Activity[]);
-  const [categories, setCategories] = useState([] as any);
-
+  const [categories, setCategories] = useState({"":""} as any);
+  const [loadedFirstTime, setLoadedFirstTime] =useState(false);
+  
   // Gets all the categories
   useEffect(() => {
-    setCategories(categoryNames());
-  }, []);
+    if(loadedFirstTime){
+      setCategories(categoryNames());
+    }
+  }, [loadedFirstTime]);
 
   // Receives all the public activities on the database
   useEffect(() => {
@@ -18,6 +21,7 @@ function Catalogue() {
     .then((res) => res.json())
     .then((dato) =>{
       setActivities(dato)
+      setLoadedFirstTime(true)
     });
   }, []);
 

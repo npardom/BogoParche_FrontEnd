@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { Activity,  Comment } from "../../../assets/interfaces";
 import { togglePopUp, loggedInUser, isAdmin, accessToken, updateRefreshToken} from "../../../assets/functionsAndConstants";
-import { goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon, minusIcon, CommentCard, CommentForm, ActivityCharacteristics} from '../imports';
+import { goBackIcon, pencilIcon, createParcheIcon, reviewIcon, favoriteIcon, minusIcon, CommentCard, CommentForm, ActivityCharacteristics,parcheOutIcon} from '../imports';
 
 // Card that shows the full information of a public activity
 function InfoActivity() {
@@ -60,12 +60,40 @@ function InfoActivity() {
     navigate("/editarActividad/"+ id);
   }
 
+  function leaveParche(){
+    var opcion = confirm("¿Desea salir de este parche?");
+    if (opcion == false) {return};
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/visibility/"+activity.id , {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + accessToken()
+      } 
+    })
+    .then((res) => res.json())
+    .then((dato) => {
+      if(dato.msg =="Visibility succesfully deleted"){
+        navigate("/parches");
+      }else{
+        alert("Ocurrió un error. Intenta de nuevo.")
+        updateRefreshToken();
+      }
+    });
+  }
+
   // Sets the Edit Button
   function EditButton(){
     if(isAdmin() && !activity.es_privada || (loggedInUser() && activity.es_privada && activity.owned)){
       return (
         <button className='editActivityButton' onClick = {()=> goToEdit(activity.id.toString())} title ={activity.es_privada ? "Editar parche": "Editar actividad"}>
           <img src={pencilIcon} className="pageTitleIcon2" />
+        </button>
+      )
+    }else if(loggedInUser() && activity.es_privada && !activity.owned){
+      return (
+        <button className='editActivityButton outOfParcheButton' onClick = {leaveParche} title ="Salir del parche">
+          <img src={parcheOutIcon} className="pageTitleIcon2" />
         </button>
       )
     } else {
@@ -305,7 +333,7 @@ function InfoActivity() {
                 <div className="featureText">{activity.descripcion}</div>
               </div>
             </div>
-            <div className="featureTitleText specialFeatureTitle">¿Que dice la gente?</div>
+            <div className="featureTitleText specialFeatureTitle">¿Qué dice la gente?</div>
             <div className = "containerComments">
               <CommentCards/>
             </div>
