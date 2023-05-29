@@ -62,7 +62,7 @@ function InfoActivity() {
 
   // Sets the Edit Button
   function EditButton(){
-    if(isAdmin() || (loggedInUser() && activity.es_privada && activity.owned)){
+    if(isAdmin() && !activity.es_privada || (loggedInUser() && activity.es_privada && activity.owned)){
       return (
         <button className='editActivityButton' onClick = {()=> goToEdit(activity.id.toString())} title ={activity.es_privada ? "Editar parche": "Editar actividad"}>
           <img src={pencilIcon} className="pageTitleIcon2" />
