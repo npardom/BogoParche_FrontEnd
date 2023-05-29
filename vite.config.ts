@@ -12,6 +12,7 @@ export default defineConfig({
         secure: true,
         ws: true},
     },
-    port: 5000,
+    port: parseInt(process.env.PORT),
+    
   },
 })
