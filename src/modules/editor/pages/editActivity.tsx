@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Activity } from "../../../assets/interfaces";
-import { pricesList,accessToken ,updateRefreshToken, categoryNames} from "../../../assets/functionsAndConstants";
+import { pricesList,accessToken ,updateRefreshToken, categoryNames, loggedInUser} from "../../../assets/functionsAndConstants";
 import { editIcon, removeIcon, updateIcon, goBackIcon,closeIcon2 } from "../imports";
 
 function EditActivity() {
@@ -116,7 +116,9 @@ function EditActivity() {
     })
     .then((response) => response.json())
     .then((result) => {
-      setUserList(result)
+      var res = result as string[]
+      var newArray = res.filter(item => item !== loggedInUser());
+      setUserList(newArray)
     });
   }, []);
 
@@ -459,7 +461,8 @@ function EditActivity() {
           <div className ="selectedUsersContainer">
           {selectedUsers.map((user: string) => (
               <div className ="selectedUserContainer">
-                <img src={closeIcon2} className="closeButton4" onClick={()=>removeFromSelected(user)} title="Quitar"/>
+                {user != loggedInUser() ?
+                <img src={closeIcon2} className="closeButton4" onClick={()=>removeFromSelected(user)} title="Quitar"/>:<></>}
                 {user}
               </div>    
           ))}

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { pricesList, categoryNames, updateRefreshToken, accessToken } from "../assets/functionsAndConstants";
+import { pricesList, categoryNames, updateRefreshToken, accessToken, loggedInUser } from "../assets/functionsAndConstants";
 import {closeIcon2} from "../imports"
+import { useNavigate } from "react-router-dom";
 
 function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:string, text:string,classCustom: string,parcheCreation:boolean}) {
   const [userList, setUserList] = useState([] as string[]);
   const [foundUserList, setFoundUserList] = useState([] as string[]);
-  const [selectedUsers, setSelectedUsers] = useState([] as string[]);
+  const [selectedUsers, setSelectedUsers] = useState([loggedInUser()] as string[]);
   const [image, setImage] = useState(null as any);
   const [categories, setCategories] = useState([] as any);
   const [title, setTitle] = useState("");
@@ -21,6 +22,7 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
   const [startHour, setStartHour] = useState("");
   const [endHour, setEndHour] = useState("");
   const [isPlan, setIsPlan] = useState(false);
+  const navigate = useNavigate();
 
   // Gets all the categories
   useEffect(() => {
@@ -40,7 +42,9 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
       })
       .then((response) => response.json())
       .then((result) => {
-        setUserList(result)
+        var res = result as string[]
+        var newArray = res.filter(item => item !== loggedInUser());
+        setUserList(newArray)
       });
     }
   }, []);
@@ -94,10 +98,11 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
       if (result.id){
         if(parcheCreation){
           alert("Parche creado exitosamente.");
+          navigate("/parches");
         }else{
           alert("La " + type + " fue creada exitosamente.");
+          navigate("/");
         }
-        window.location.reload();
       } else {
         alert("Ocurrió un error. Intenta de nuevo.");
         updateRefreshToken();
@@ -348,7 +353,9 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
           <div className ="selectedUsersContainer">
           {selectedUsers.map((user: string) => (
               <div className ="selectedUserContainer">
-                <img src={closeIcon2} className="closeButton4" onClick={()=>removeFromSelected(user)}/>
+                {user != loggedInUser() ?
+                <img src={closeIcon2} className="closeButton4" onClick={()=>removeFromSelected(user)} title="Quitar"/>
+                :<></>}
                 {user}
               </div>    
           ))}
