@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Activity } from "../../../assets/interfaces";
-import { pricesList,accessToken ,updateRefreshToken, categoryNames, loggedInUser} from "../../../assets/functionsAndConstants";
+import { pricesList,accessToken ,updateRefreshToken, categoryNames, loggedInUser, isAdmin} from "../../../assets/functionsAndConstants";
 import { editIcon, removeIcon, updateIcon, goBackIcon,closeIcon2 } from "../imports";
 
 function EditActivity() {
@@ -149,7 +149,7 @@ function EditActivity() {
       }else if (dato.error){
         navigate("/");
       }else{
-        if(dato.owned){
+        if(dato.owned || (isAdmin() && !activity.es_privada)){
           setActivity(dato);
         }else{
           navigate("/");
