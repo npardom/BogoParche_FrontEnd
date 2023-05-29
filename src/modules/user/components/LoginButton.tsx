@@ -6,7 +6,7 @@ function LoginButton() {
   const navigate = useNavigate();
 
   const goToActivities = () => {
-    navigate("/añadirActividad");
+    navigate("/agregarActividad");
   };
   
   const goToSuggestions = () => {
