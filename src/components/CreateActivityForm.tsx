@@ -33,7 +33,7 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
   // If parche creation, it gets list of usernames
   useEffect(() => {
     if(parcheCreation){
-      fetch("api/user/usernames", {
+      fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/user/usernames", {
         method: "GET",
         mode: "cors",
         headers: {
@@ -53,9 +53,9 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isPlan){
-      var APIname = "/api/plan"
+      var APIname = "https://bogoparchebackend-production-5a1a.up.railway.app/api/plan"
     } else {
-      var APIname = "/api/event"
+      var APIname = "https://bogoparchebackend-production-5a1a.up.railway.app/api/event"
     }
     if (classCustom== "sendButton"){
       var type = "sugerencia"

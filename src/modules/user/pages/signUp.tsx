@@ -32,7 +32,7 @@ function SignUp() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const body = {username, email, password}
-    fetch("/api/user", {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/user", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(body),

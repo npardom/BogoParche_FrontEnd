@@ -12,7 +12,7 @@ function InfoSuggestion() {
   // Gets the activity from the URL
   useEffect(() => {
     var id = slug as any;
-    fetch("/api/activity/"+id , {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/activity/"+id , {
       method: "GET",
       mode: "cors",
       headers: {

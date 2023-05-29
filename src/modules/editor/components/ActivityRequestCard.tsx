@@ -11,7 +11,7 @@ function ActivityRequestCard({activity}: {activity:Activity}) {
     var id = activity.id.toString();
     var opcion = confirm("¿Desea eliminar la actividad?");
     if (opcion == false) {return};
-    fetch("/api/activity/" + id, {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/activity/" + id, {
       method: "DELETE",
       mode: "cors",
       headers: {
@@ -34,7 +34,7 @@ function ActivityRequestCard({activity}: {activity:Activity}) {
     var id = activity.id.toString();
     var opcion = confirm("¿Desea aprobar la actividad?");
     if (opcion == false) {return};
-    fetch("/api/activity/approve/" + id, {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/activity/approve/" + id, {
       method: "PUT",
       mode: "cors",
       headers: {

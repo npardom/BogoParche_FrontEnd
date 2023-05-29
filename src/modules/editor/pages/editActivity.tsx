@@ -107,7 +107,7 @@ function EditActivity() {
 
   // If parche creation, it gets list of usernames
   useEffect(() => {
-    fetch("/api/user/usernames", {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/user/usernames", {
       method: "GET",
       mode: "cors",
       headers: {
@@ -132,7 +132,7 @@ function EditActivity() {
   // Gets the activity from the URL
   useEffect(() => {
     var id = slug as any;
-    fetch("/api/activity/"+id , {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/activity/"+id , {
       method: "GET",
       mode: "cors",
       headers: {
@@ -189,9 +189,9 @@ function EditActivity() {
     e.preventDefault();
     var id = activity.id.toString();
     if (isPlan){
-      var APIname = "/api/plan/" + id;
+      var APIname = "https://bogoparchebackend-production-5a1a.up.railway.app/api/plan/" + id;
     } else {
-      var APIname = "/api/event/" + id;
+      var APIname = "https://bogoparchebackend-production-5a1a.up.railway.app/api/event/" + id;
     }
     const body = {
       titulo_actividad: title,
@@ -237,7 +237,7 @@ function EditActivity() {
     var id = activity.id.toString();
     var opcion = confirm(activity.es_privada ? "¿Desea eliminar este parche?":"¿Desea eliminar esta actividad?");
     if (opcion == false) {return};
-    fetch("/api/activity/" + id, {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/activity/" + id, {
       method: "DELETE",
       mode: "cors",
       headers: {

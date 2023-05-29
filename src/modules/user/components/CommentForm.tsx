@@ -28,7 +28,7 @@ function CommentForm({id, isPrivate}: {id: number, isPrivate: boolean}) {
       texto_comentario: comment,
       id_actividad: id
     }
-    fetch("/api/comment", {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/comment", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(body),

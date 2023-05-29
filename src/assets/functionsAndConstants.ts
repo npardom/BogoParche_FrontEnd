@@ -91,7 +91,7 @@
   // It gets new access and refresh tokens
   export function updateRefreshToken(){
     const body = {refresh: refreshToken()};
-    fetch("/api/auth/refresh", {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/auth/refresh", {
       method: "POST",
       mode: "cors",
       body: JSON.stringify(body),

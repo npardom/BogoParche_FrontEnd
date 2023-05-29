@@ -6,7 +6,7 @@ function CommentCard({comment, isPrivate} : {comment: Comment,isPrivate:boolean}
   var date: string = new Date(comment.created_at.toString().slice(0,10)).toLocaleDateString();
 
   function deleteComment(){
-    fetch("/api/comment/" + comment.id_comentario, {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/comment/" + comment.id_comentario, {
       method: "DELETE",
       mode: "cors",
       headers: {

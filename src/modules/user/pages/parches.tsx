@@ -10,7 +10,7 @@ function Parches() {
   
   // Receives all my parches on the database
   useEffect(() => {
-    fetch("api/activity/all-private", {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/activity/all-private", {
       headers: {
         "Authorization": "Bearer " + accessToken(),
       },

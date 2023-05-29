@@ -17,7 +17,7 @@ function InfoActivity() {
   // Gets the activity from the URL
   useEffect(() => {
     var id = slug as any;
-    fetch("/api/activity/"+id , {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/activity/"+id , {
       method: "GET",
       mode: "cors",
       headers: {
@@ -77,7 +77,7 @@ function InfoActivity() {
   function handleWillAssist(){
     if(loggedInUser()){
       if (willAssist){
-        fetch("/api/attendance/" + activity.id, {
+        fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/attendance/" + activity.id, {
           method: "DELETE",
           mode: "cors",
           headers: {
@@ -97,7 +97,7 @@ function InfoActivity() {
         const body = {
           id_actividad: activity.id,
         }
-        fetch("/api/attendance", {
+        fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/attendance", {
           method: "POST",
           mode: "cors",
           body: JSON.stringify(body),
@@ -124,7 +124,7 @@ function InfoActivity() {
   function switchFavorites(){
     if(loggedInUser()){
       if (isFavorite){
-        fetch("/api/favorite/" + activity.id, {
+        fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/favorite/" + activity.id, {
           method: "DELETE",
           mode: "cors",
           headers: {
@@ -144,7 +144,7 @@ function InfoActivity() {
         const body = {
           id_actividad: activity.id,
         }
-        fetch("/api/favorite", {
+        fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/favorite", {
           method: "POST",
           mode: "cors",
           body: JSON.stringify(body),
@@ -188,9 +188,9 @@ function InfoActivity() {
   // Creates the parche
   function createParcheInstance() {
     if (activity.es_plan){
-      var APIname = "/api/plan"
+      var APIname = "https://bogoparchebackend-production-5a1a.up.railway.app/api/plan"
     } else {
-      var APIname = "/api/event"
+      var APIname = "https://bogoparchebackend-production-5a1a.up.railway.app/api/event"
     }
     const body = {
       titulo_actividad: activity.titulo_actividad,

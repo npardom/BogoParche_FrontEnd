@@ -7,7 +7,7 @@ function ManageSuggestions() {
 
   // Receives all the private activities on the database
   useEffect(() => {
-    fetch("/api/activity/all-not-approved")
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/activity/all-not-approved")
     .then((res) => res.json())
     .then((dato) =>{setActivities(dato)});
   }, []);

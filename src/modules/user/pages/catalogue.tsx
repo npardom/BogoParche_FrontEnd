@@ -14,7 +14,7 @@ function Catalogue() {
 
   // Receives all the public activities on the database
   useEffect(() => {
-    fetch("/api/activity/all")
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/activity/all")
     .then((res) => res.json())
     .then((dato) =>{
       setActivities(dato)
@@ -44,7 +44,7 @@ function Catalogue() {
     var address = "categories=" + categoriesChecked.join(",") + "&";
     address += "range_prices=" + prices.join(",") + "&";
     address += "search=" + search.value;
-    var apiName = "/api/filter/noauth?";
+    var apiName = "https://bogoparchebackend-production-5a1a.up.railway.app/api/filter/noauth?";
     if(loggedInUser()){
       // Check if favorite and attendance options are checked
       var favoriteOption = "false";
@@ -58,7 +58,7 @@ function Catalogue() {
         assistOption = "true";
       }
       address += "&favorite=" + favoriteOption + "&attendance=" + assistOption;
-      apiName = "/api/filter/auth?";
+      apiName = "https://bogoparchebackend-production-5a1a.up.railway.app/api/filter/auth?";
     }
     fetch(apiName + address, {
       method: "GET",
