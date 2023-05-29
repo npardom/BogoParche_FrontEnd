@@ -30,6 +30,7 @@ function Login() {
       if (confirmation.error){
         alert("Usuario y/o contraseña inválidas. Inténtelo de nuevo.");
       } else {
+        alert("HOLAAA")
         localStorage.setItem('username', confirmation.username);
         localStorage.setItem('access', confirmation.access);
         localStorage.setItem('refresh', confirmation.refresh);
