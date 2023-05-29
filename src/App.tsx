@@ -1,5 +1,5 @@
 // Importing packages
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter  as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 // Importing components and pages
 import { Header,Footer,YouNeedToRegister, EditActivity, AddActivity,ManageSuggestions, InfoSuggestion, AboutUs, Login, SignUp, Catalogue, Parches, CreateParche, SuggestActivity, InfoActivity} from "./imports";
@@ -31,7 +31,7 @@ export function App() {
         <Route path="/parches" element={loggedInUser() ? <Parches/>:<Navigate replace to={"/"}/>} />
         <Route path="/crearParche" element={loggedInUser() ? <CreateParche/>:<Navigate replace to={"/"}/>} />
         <Route path="/sugerirActividad" element={loggedInUser() ? <SuggestActivity/>:<Navigate replace to={"/"}/>} />
-        <Route path="/añadirActividad" element={isAdmin() ? <AddActivity/> : <Navigate replace to={"/"}/>} />
+        <Route path="/agregarActividad" element={isAdmin() ? <AddActivity/> : <Navigate replace to={"/"}/>} />
         <Route path="/acercaDe" element={<AboutUs />} />
         <Route path="/login" element={!loggedInUser() ? <Login />:<Navigate replace to={"/"} />} />
         <Route path="/signUp" element={!loggedInUser() ? <SignUp />: <Navigate replace to={"/"} />} />
