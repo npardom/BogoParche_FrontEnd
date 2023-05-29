@@ -12,5 +12,6 @@ export default defineConfig({
         secure: true,
         ws: true},
     },    
+    host: "https://bogoparchefrontend-production.up.railway.app"
   },
 })
