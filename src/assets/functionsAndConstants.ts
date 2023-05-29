@@ -109,7 +109,7 @@
 
   // Gets the current categories from the database
   export function getCategoriesName(){
-    fetch("/api/category/get-categories", {
+    fetch("https://bogoparchebackend-production-5a1a.up.railway.app/api/category/get-categories", {
       method: "GET",
       mode: "cors",
       headers: {
