@@ -11,7 +11,7 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
         ws: true},
-    },    
-    host: "https://bogoparchefrontend-production.up.railway.app"
+    },
+    
   },
 })
