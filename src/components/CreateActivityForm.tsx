@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { pricesList, categoryNames, updateRefreshToken, accessToken, loggedInUser } from "../assets/functionsAndConstants";
 import {closeIcon2} from "../imports"
 import { useNavigate } from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 
 function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:string, text:string,classCustom: string,parcheCreation:boolean}) {
+  const captchaRef = useRef(null);
   const [userList, setUserList] = useState([] as string[]);
   const [foundUserList, setFoundUserList] = useState([] as string[]);
   const [selectedUsers, setSelectedUsers] = useState([loggedInUser()] as string[]);
@@ -52,6 +54,13 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
   // Sends the received information to the server
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    var token2 = captchaRef.current as any;
+    const token = token2.getValue();
+    token2.reset();
+    if (token == "") {
+      alert("Debes completar el CAPTCHA");
+      return;
+    }
     if (isPlan){
       var APIname = "https://bogoparchebackend-production-5a1a.up.railway.app/api/plan"
     } else {
@@ -82,7 +91,8 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
       es_plan :isPlan,
       horario_plan: schedule,
       users: selectedUsers,
-      image: image
+      image: image,
+      captchaToken: token
     }
     fetch(APIname, {
       method: "POST",
@@ -104,8 +114,14 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
           navigate("/");
         }
       } else {
-        alert("Ocurrió un error. Intenta de nuevo.");
-        updateRefreshToken();
+        if(result.error =="Captcha token is required"){
+          alert("Debes completar el CAPTCHA");
+        }else if(result.error =="Captcha error"){
+          alert("CAPTCHA inválido. Completalo de nuevo.");
+        }else{
+          alert("Ocurrió un error. Intenta de nuevo.");
+          updateRefreshToken();
+        }
       }
     });  
   };
@@ -383,6 +399,12 @@ function CreateActivityForm({icon, text, classCustom,parcheCreation}:{icon:strin
             <img src={icon} className="activityFormButtonIcon" />
             {text}
           </button>
+          <ReCAPTCHA
+            sitekey="6LeannMmAAAAAIieHw7KKiaFBiqOnX17Q2ARMC9T"
+            ref={captchaRef}
+            size="normal"
+            className="captchaField"
+          />
         </div>
       </form>
     )

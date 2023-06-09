@@ -220,6 +220,8 @@ function InfoActivity() {
     } else {
       var APIname = "https://bogoparchebackend-production-5a1a.up.railway.app/api/event"
     }
+    var horaInicio = activity.es_plan ? activity.hora_inicio:activity.hora_inicio.slice(0,5);
+    var horaFin = activity.es_plan ? activity.hora_fin:activity.hora_fin.slice(0,5);
     const body = {
       titulo_actividad: activity.titulo_actividad,
       ubicacion: activity.ubicacion,
@@ -231,8 +233,8 @@ function InfoActivity() {
       es_privada: true,
       fecha_inicio: activity.fecha_inicio,
       fecha_fin: activity.fecha_fin,
-      hora_inicio: activity.hora_inicio.slice(0,5),
-      hora_fin: activity.hora_fin.slice(0,5),
+      hora_inicio: horaInicio,
+      hora_fin: horaFin,
       es_plan: activity.es_plan,
       horario_plan: activity.horario_plan,
       users: [],

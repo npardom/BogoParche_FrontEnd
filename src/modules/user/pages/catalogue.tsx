@@ -10,7 +10,7 @@ function Catalogue() {
   
   // Gets all the categories
   useEffect(() => {
-    if(loadedFirstTime){
+    if(loadedFirstTime && localStorage.getItem("categoryNames")){
       setCategories(categoryNames());
     }
   }, [loadedFirstTime]);

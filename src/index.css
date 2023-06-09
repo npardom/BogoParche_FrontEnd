@@ -2392,3 +2392,9 @@ textarea {
     transition: all 1s;
   }
 }
+
+.captchaField{
+  position: absolute;
+  bottom:1em;
+  right:1em;
+}

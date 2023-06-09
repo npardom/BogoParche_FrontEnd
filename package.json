@@ -9,20 +9,29 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dotenv": "^16.1.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
+    "react-google-recaptcha": "^3.1.0",
     "react-is": "^18.2.0",
     "react-router-dom": "^6.9.0",
+    "react-scripts": "^5.0.1",
     "styled-components": "^5.3.9"
   },
   "devDependencies": {
     "@types/node": "^20.2.5",
-    "@types/react": "^18.0.29",
-    "@types/react-dom": "^18.0.10",
+    "@types/react": "^18.2.8",
+    "@types/react-dom": "^18.2.4",
+    "@types/react-google-recaptcha": "^2.1.5",
     "@types/styled-components-react-native": "^5.2.1",
     "@vitejs/plugin-react": "^3.1.0",
+    "react-error-overlay": "^6.0.9",
     "typescript": "^4.9.3",
     "vite": "^4.1.0"
+  },
+  "resolutions": {
+    "//": "See https://github.com/facebook/create-react-app/issues/11773",
+    "react-error-overlay": "6.0.9"
   }
 }

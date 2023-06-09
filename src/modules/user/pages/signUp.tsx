@@ -82,6 +82,7 @@ function SignUp() {
             type="password"
             className="loginField"
             required
+            title ="La contraseña debe tener al menos 8 caracteres"
           ></input>
           <input
             onChange={getPasswordAgain}
@@ -92,7 +93,7 @@ function SignUp() {
             className="loginField"
             required
           ></input>
-          <button disabled={(passwordAgain != password) && (passwordAgain != "")}className="genericButton loginButton2">Crear cuenta</button>
+          <button disabled={((passwordAgain != password) && (passwordAgain != "")) || (password.length < 8)} className="genericButton loginButton2" title ={(passwordAgain != password) ? "Las contraseñas no coinciden":(password.length < 8) ? "La contraseña debe tener al menos 8 caracteres": "" }>Crear cuenta</button>
         </form>
       </div>
     </div>
